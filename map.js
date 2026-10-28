@@ -9,29 +9,33 @@
   ROUTES[3] = { km: 80, h: 0, off: true, c: [[31.0990, -4.0120], [31.1050, -4.0550], [31.0333, -3.9997], [31.0990, -4.0120]] };
 
   var T = {
-    en: { all: 'All days', day: 'Day', more: 'Read more', km: 'km', h: 'h driving', off: 'off-road 4×4 loop', nophoto: '' },
-    bg: { all: 'Всички дни', day: 'Ден', more: 'Прочети още', km: 'км', h: 'ч път', off: 'обиколка с 4×4 извън пътя', nophoto: '' }
+    en: { all: 'All days', day: 'Day', more: 'Read more', km: 'km', h: 'h driving', off: 'off-road 4×4 loop',
+          locate: 'Where am I', locating: 'Finding you…', near: 'Nearest stop', away: 'away', noloc: 'Location unavailable. Allow location access for this site and try again.',
+          map: 'Map', close: 'Close map' },
+    bg: { all: 'Всички дни', day: 'Ден', more: 'Прочети още', km: 'км', h: 'ч път', off: 'обиколка с 4×4 извън пътя',
+          locate: 'Къде съм', locating: 'Търся те…', near: 'Най-близка спирка', away: 'оттук', noloc: 'Няма достъп до местоположението. Разреши го за сайта и опитай пак.',
+          map: 'Карта', close: 'Затвори картата' }
   };
 
   // [lat, lon, day, img|null, EN name, EN line, BG name, BG line]
   var STOPS = [
-    [31.6069, -8.0363, 1, null, 'Marrakech Menara airport', 'Start of the tour, and where it ends on Day 8.', 'Летище Маракеш Менара', 'Началото на обиколката и краят ѝ на ден 8.'],
+    [31.6069, -8.0363, 1, '-airport', 'Marrakech Menara airport', 'Start of the tour, and where it ends on Day 8.', 'Летище Маракеш Менара', 'Началото на обиколката и краят ѝ на ден 8.'],
     [31.2866, -7.3817, 1, 'tichka', "Tizi n'Tichka pass", 'Highest major road pass in North Africa, 2,260 m.', "Проходът Тизи н'Тишка", 'Най-високият голям автомобилен проход в Северна Африка, 2260 м.'],
     [31.0470, -7.1319, 1, 'benhaddou', 'Aït Benhaddou', 'UNESCO earthen ksar and film set for Gladiator and Game of Thrones.', 'Айт Бен Хаду', 'Глинен ксар на ЮНЕСКО, декор на „Гладиатор“ и „Игра на тронове“.'],
     [30.9335, -6.9370, 1, 'ouarzazate', 'Ouarzazate', 'Gateway to the desert, home of Atlas Studios. Night 1.', 'Уарзазат', 'Портата на пустинята, дом на Atlas Studios. Нощувка 1.'],
     [31.0570, -6.5560, 2, 'amridil', 'Kasbah Amridil, Skoura', '17th-century family kasbah from the old 50-dirham note.', 'Касба Амридил, Скура', 'Семейна касба от XVII век от старата банкнота от 50 дирхама.'],
-    [31.2400, -6.1300, 2, null, "Kelaat M'Gouna", 'Valley of Roses. Damask roses, harvested in May.', "Келаат М'Гуна", 'Долината на розите. Дамаски рози, беритба през май.'],
+    [31.2400, -6.1300, 2, '-mgouna', "Kelaat M'Gouna", 'Valley of Roses. Damask roses, harvested in May.', "Келаат М'Гуна", 'Долината на розите. Дамаски рози, беритба през май.'],
     [31.5340, -5.9250, 2, 'dades', 'Dades Valley', 'Road of a Thousand Kasbahs and the Tissadrine hairpins.', 'Долината Дадес', 'Пътят на хилядата касби и серпентините на Тисадрин.'],
     [31.5870, -5.5880, 2, 'todra', 'Todra Gorge', 'Walls ~300 m high, ~10 m apart at the narrowest.', 'Ждрелото Тодра', 'Стени ~300 м, само ~10 м една от друга в най-тясното.'],
-    [31.4340, -4.2300, 2, null, 'Erfoud', 'Fossil workshops, 350–400 million years old.', 'Ерфуд', 'Работилници за фосили на 350–400 млн. години.'],
-    [31.1450, -3.9900, 2, 'chebbi', 'Erg Chebbi desert camp', 'Camel ride at sunset (~18:20). Night 2.', 'Пустинен лагер, Ерг Шеби', 'Камили по залез (~18:20). Нощувка 2.'],
+    [31.4340, -4.2300, 2, '-erfoud', 'Erfoud', 'Fossil workshops, 350–400 million years old.', 'Ерфуд', 'Работилници за фосили на 350–400 млн. години.'],
+    [31.1450, -3.9900, 2, 'chebbi', 'Erg Chebbi desert camp', 'Camel ride at sunset (~18:30). Night 2.', 'Пустинен лагер, Ерг Шеби', 'Камили по залез (~18:30). Нощувка 2.'],
     [31.0990, -4.0120, 3, 'merzouga', 'Merzouga', 'Base for the 4×4 day. Night 3.', 'Мерзуга', 'База за деня с 4×4. Нощувка 3.'],
-    [31.1050, -4.0550, 3, null, 'Dayet Srij', 'Seasonal lake; flamingos when it holds water.', 'Даят Сриж', 'Сезонно езеро; фламинги, когато има вода.'],
+    [31.1050, -4.0550, 3, '-dayet', 'Dayet Srij', 'Seasonal lake; flamingos when it holds water.', 'Даят Сриж', 'Сезонно езеро; фламинги, когато има вода.'],
     [31.0333, -3.9997, 3, 'gnawa', 'Khamlia', 'Village of Gnawa musicians.', 'Хамлия', 'Село на музикантите гнауа.'],
     [32.1200, -4.3700, 4, 'ziz', 'Ziz gorges', 'Palm groves of the Tafilalt and the Legionnaires’ Tunnel.', 'Ждрелата на Зиз', 'Палмите на Тафилалт и Тунелът на легионерите.'],
-    [32.6850, -4.7450, 4, null, 'Midelt', 'Apple capital of Morocco. Lunch stop.', 'Мидельт', 'Столицата на ябълките. Обяд.'],
+    [32.6850, -4.7450, 4, '-midelt', 'Midelt', 'Apple capital of Morocco. Lunch stop.', 'Мидельт', 'Столицата на ябълките. Обяд.'],
     [33.4000, -5.1700, 4, 'macaque', 'Azrou cedar forest', 'Atlas cedars and Barbary macaques.', 'Кедровата гора край Азру', 'Атласки кедри и маготи.'],
-    [33.5270, -5.1100, 4, null, 'Ifrane', '"Switzerland of Morocco": −23.9 °C record in 1935.', 'Ифран', '„Швейцария на Мароко“: рекорд −23,9 °C през 1935 г.'],
+    [33.5270, -5.1100, 4, '-ifrane', 'Ifrane', '"Switzerland of Morocco": −23.9 °C record in 1935.', 'Ифран', '„Швейцария на Мароко“: рекорд −23,9 °C през 1935 г.'],
     [34.0617, -4.9838, 5, 'boujeloud', 'Bab Bou Jeloud', 'The Blue Gate into Fes el-Bali. Nights 4–5 in Fes.', 'Баб Бу Джелуд', 'Синята порта към Фес ел-Бали. Нощувки 4–5 във Фес.'],
     [34.0619, -4.9819, 5, 'bouinania', 'Bou Inania Madrasa', 'Marinid college, 1350–55, open to visitors.', 'Медресето Бу Инания', 'Меринидски колеж, 1350–55, отворен за посетители.'],
     [34.0646, -4.9733, 5, 'qarawiyyin', 'Al-Qarawiyyin', 'Oldest operating university in the world, 859.', 'Ал-Карауийн', 'Най-старият действащ университет в света, 859 г.'],
@@ -43,18 +47,19 @@
     [31.6237, -7.9936, 7, 'koutoubia', 'Koutoubia Mosque', 'The 77 m "booksellers’ mosque". Nights 6–7 in Marrakech.', 'Джамията Кутубия', '„Джамията на книжарите“, 77 м. Нощувки 6–7 в Маракеш.'],
     [31.6258, -7.9891, 7, 'jemaa', 'Jemaa el-Fnaa', 'The square of storytellers and food stalls.', 'Джемаа ел-Фна', 'Площадът на разказвачите и сергиите за храна.'],
     [31.6216, -7.9832, 7, 'bahia', 'Bahia Palace', 'Grand vizier’s palace, 8 hectares.', 'Дворецът Бахия', 'Дворецът на великия везир, 8 хектара.'],
-    [31.6417, -8.0033, 7, null, 'Jardin Majorelle', 'Optional: the blue garden saved by Yves Saint Laurent.', 'Градината Мажорел', 'По желание: синята градина на Ив Сен Лоран.']
+    [31.6417, -8.0033, 7, '-majorelle', 'Jardin Majorelle', 'Optional: the blue garden saved by Yves Saint Laurent.', 'Градината Мажорел', 'По желание: синята градина на Ив Сен Лоран.']
   ];
 
   var lang = 'en';
-  var el = document.createElement('div');
-  el.className = 'lmap';
-  var bar = document.createElement('div');
-  bar.className = 'lmap-bar';
-  var holder = document.createElement('div');
-  holder.className = 'lmap-wrap';
-  holder.appendChild(bar);
-  holder.appendChild(el);
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function img(s) { return s[3].charAt(0) === '-' ? null : s[3]; }
+  function sid(s) { return s[3].replace(/^-/, ''); }
+
+  var el = document.createElement('div'); el.className = 'lmap';
+  var bar = document.createElement('div'); bar.className = 'lmap-bar';
+  var status = document.createElement('div'); status.className = 'lmap-status'; status.hidden = true;
+  var holder = document.createElement('div'); holder.className = 'lmap-wrap';
+  holder.appendChild(bar); holder.appendChild(el); holder.appendChild(status);
 
   var map = L.map(el, { scrollWheelZoom: false, zoomSnap: 0.25 });
   function setDark(d) { el.classList.toggle('dark', d); }
@@ -65,64 +70,188 @@
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
-  var dayLayers = {};
+  var dayLayers = {}, lines = {}, markers = {}, markerDay = {};
   function layerFor(d) { return dayLayers[d] || (dayLayers[d] = L.featureGroup().addTo(map)); }
 
   Object.keys(ROUTES).forEach(function (d) {
     var r = ROUTES[d];
-    L.polyline(r.c, { color: DAY_COLORS[d], weight: 4, opacity: .85, dashArray: r.off ? '6 8' : null })
+    lines[d] = L.polyline(r.c, { color: DAY_COLORS[d], weight: 4, opacity: .85, dashArray: r.off ? '6 8' : null })
       .addTo(layerFor(d)).bindTooltip(function () {
         var t = T[lang];
         return t.day + ' ' + d + ' · ' + (r.off ? t.off : '~' + r.km + ' ' + t.km + ', ~' + r.h + ' ' + t.h);
       }, { sticky: true });
   });
 
-  var markers = STOPS.map(function (s) {
+  STOPS.forEach(function (s) {
     var icon = L.divIcon({ className: 'lpin', html: '<span style="background:' + DAY_COLORS[s[2]] + '">' + s[2] + '</span>', iconSize: [24, 24], iconAnchor: [12, 12], popupAnchor: [0, -10] });
     var m = L.marker([s[0], s[1]], { icon: icon, title: s[4] }).addTo(layerFor(s[2]));
     m.bindPopup(function () {
-      var bg = lang === 'bg', t = T[lang];
-      return (s[3] ? '<img src="img/' + s[3] + '.jpg" alt="" loading="lazy">' : '') +
+      var bg = lang === 'bg', t = T[lang], p = img(s);
+      return (p ? '<img src="img/' + p + '.jpg" alt="" loading="lazy">' : '') +
         '<div class="lp-body"><div class="lp-day">' + t.day + ' ' + s[2] + '</div>' +
         '<b>' + (bg ? s[6] : s[4]) + '</b><p>' + (bg ? s[7] : s[5]) + '</p>' +
         '<a href="#' + (bg ? 'bg-' : '') + 'day-' + s[2] + '">' + t.more + ' →</a></div>';
     }, { maxWidth: 260, minWidth: 220 });
-    return m;
+    markers[sid(s)] = m; markerDay[sid(s)] = s[2];
   });
 
-  var all = L.featureGroup(markers);
+  var all = L.featureGroup(Object.keys(markers).map(function (k) { return markers[k]; }));
   function fit(d) {
     var b = d ? dayLayers[d].getBounds() : all.getBounds();
-    map.fitBounds(b, { padding: [24, 24], maxZoom: d === 5 || d === 7 ? 15 : 10 });
-    Array.prototype.forEach.call(bar.children, function (c) { c.setAttribute('aria-pressed', String(String(d || '') === c.dataset.d)); });
+    map.fitBounds(b, { padding: [24, 24], maxZoom: d === 5 || d === 7 ? 15 : 10, animate: !reduce });
+    Array.prototype.forEach.call(bar.querySelectorAll('[data-d]'), function (c) { c.setAttribute('aria-pressed', String(String(d || '') === c.dataset.d)); });
   }
 
+  var locIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="currentColor"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
   function drawBar() {
     var t = T[lang], html = '<button type="button" data-d="">' + t.all + '</button>';
     for (var d = 1; d <= 8; d++) html += '<button type="button" data-d="' + d + '"><i style="background:' + DAY_COLORS[d] + '"></i>' + d + '</button>';
+    html += '<button type="button" class="lmap-loc" aria-pressed="' + String(watchId != null) + '">' + locIcon + t.locate + '</button>';
+    html += '<button type="button" class="lmap-close" aria-label="' + t.close + '" title="' + t.close + '">×</button>';
     bar.innerHTML = html;
   }
   bar.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
+    if (b.classList.contains('lmap-loc')) return locate();
+    if (b.classList.contains('lmap-close')) return closeDock();
     fit(b.dataset.d ? +b.dataset.d : 0);
   });
 
+  // ---------- where am I ----------
+  var watchId = null, me = null, meAcc = null, firstFix = true;
+  function km(a, b, c, d) {
+    var R = 6371, r = Math.PI / 180, x = (c - a) * r, y = (d - b) * r;
+    var h = Math.sin(x / 2) * Math.sin(x / 2) + Math.cos(a * r) * Math.cos(c * r) * Math.sin(y / 2) * Math.sin(y / 2);
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
+  function say(msg) { status.hidden = !msg; status.textContent = msg || ''; }
+  function locate() {
+    if (!navigator.geolocation) return say(T[lang].noloc);
+    if (watchId !== null) {   // second tap: just recentre
+      if (me) map.flyTo(me.getLatLng(), Math.max(map.getZoom(), 11), { animate: !reduce });
+      return;
+    }
+    say(T[lang].locating);
+    watchId = navigator.geolocation.watchPosition(function (p) {
+      var ll = [p.coords.latitude, p.coords.longitude];
+      if (!me) {
+        me = L.marker(ll, { icon: L.divIcon({ className: 'lme', html: '<span></span>', iconSize: [18, 18], iconAnchor: [9, 9] }), zIndexOffset: 1000, interactive: false }).addTo(map);
+        meAcc = L.circle(ll, { radius: p.coords.accuracy, color: '#2f7cf6', weight: 1, fillOpacity: .12, interactive: false }).addTo(map);
+      } else { me.setLatLng(ll); meAcc.setLatLng(ll).setRadius(p.coords.accuracy); }
+      var best = null, bd = 1e9;
+      STOPS.forEach(function (s) { var d = km(ll[0], ll[1], s[0], s[1]); if (d < bd) { bd = d; best = s; } });
+      var t = T[lang];
+      say(t.near + ': ' + (lang === 'bg' ? best[6] : best[4]) + ' · ' + (bd < 10 ? bd.toFixed(1) : Math.round(bd).toLocaleString()) + ' ' + t.km + ' ' + t.away);
+      if (firstFix) {
+        firstFix = false;
+        if (bd < 300) map.flyTo(ll, 11, { animate: !reduce });
+        else map.fitBounds(L.latLngBounds([ll, [best[0], best[1]]]), { padding: [30, 30], animate: !reduce });
+      }
+      drawLocState();
+    }, function () {
+      say(T[lang].noloc); navigator.geolocation.clearWatch(watchId); watchId = null; drawLocState();
+    }, { enableHighAccuracy: true, maximumAge: 30000, timeout: 20000 });
+    drawLocState();
+  }
+  function drawLocState() { var b = bar.querySelector('.lmap-loc'); if (b) b.setAttribute('aria-pressed', String(watchId !== null)); }
+
+  // ---------- follow the story ----------
+  var activeDay = 0, activeStop = null, flyTimer = null;
+  function highlight(day, stop) {
+    Object.keys(lines).forEach(function (d) {
+      var on = !day || +d === day;
+      lines[d].setStyle({ opacity: on ? .95 : .2, weight: on && day ? 6 : 4 });
+    });
+    Object.keys(markers).forEach(function (k) {
+      var e = markers[k].getElement(); if (!e) return;
+      e.classList.toggle('dim', !!day && markerDay[k] !== day);
+      e.classList.toggle('on', k === stop);
+    });
+  }
+  function follow(day, stop) {
+    if (day === activeDay && stop === activeStop) return;
+    activeDay = day; activeStop = stop;
+    highlight(day, stop);
+    if (!docked) return;
+    clearTimeout(flyTimer);
+    flyTimer = setTimeout(function () {
+      if (stop && markers[stop]) {
+        var z = markerDay[stop] === 5 || markerDay[stop] === 7 ? 15 : 10;
+        map.flyTo(markers[stop].getLatLng(), z, { animate: !reduce, duration: 1.1 });
+      } else if (day && dayLayers[day]) fit(day);
+    }, 250);
+  }
+
+  var io = null;
+  function observe() {
+    if (io) io.disconnect();
+    if (!('IntersectionObserver' in window)) return;
+    var block = document.querySelector('[data-l="' + lang + '"]');
+    io = new IntersectionObserver(function () {
+      // pick the element nearest the reading line (40% from top)
+      var line = window.innerHeight * 0.4, day = 0, stop = null;
+      block.querySelectorAll('.day').forEach(function (s) {
+        var r = s.getBoundingClientRect(); if (r.top <= line && r.bottom > line) day = +s.id.replace(/\D/g, '');
+      });
+      block.querySelectorAll('[data-stop]').forEach(function (a) {
+        var r = a.getBoundingClientRect(); if (r.top <= line && r.bottom > line) stop = a.getAttribute('data-stop');
+      });
+      follow(day, stop);
+    }, { rootMargin: '-40% 0px -59% 0px' });
+    block.querySelectorAll('.day, [data-stop]').forEach(function (n) { io.observe(n); });
+  }
+
+  // ---------- inline slot vs. floating dock ----------
+  var slot = null, docked = false;
+  var dock = document.createElement('div'); dock.className = 'mapdock'; dock.hidden = true;
+  document.body.appendChild(dock);
+  var fab = document.createElement('button'); fab.type = 'button'; fab.className = 'mapfab';
+  document.body.appendChild(fab);
+  function drawFab() {
+    fab.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg><span>' + T[lang].map + '</span>';
+  }
+  function place(target) {
+    target.appendChild(holder);
+    map.invalidateSize();
+  }
+  function openDock() {
+    docked = true; dock.hidden = false; document.body.classList.add('dock-open');
+    place(dock);
+    if (slot) slot.querySelector(':scope > svg').style.display = '';
+    var d = activeDay, s = activeStop; activeDay = -1; follow(d, s);
+    if (!d) fit(0);
+  }
+  function closeDock() {
+    docked = false; dock.hidden = true; document.body.classList.remove('dock-open');
+    if (slot) { slot.querySelector(':scope > svg').style.display = 'none'; place(slot); }
+  }
+  fab.addEventListener('click', function () { docked ? closeDock() : openDock(); });
+
+  function onScroll() {
+    if (!slot) return;
+    var r = slot.getBoundingClientRect();
+    var away = r.bottom < 0 || r.top > window.innerHeight;
+    fab.classList.toggle('show', away && !docked);
+    if (docked && !away && r.top > -40 && r.top < window.innerHeight * .6) closeDock();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
   function mount(l) {
     lang = l;
-    var slot = document.querySelector('[data-l="' + l + '"] .map');
+    if (docked) closeDock();
+    slot = document.querySelector('[data-l="' + l + '"] .map');
     if (!slot) return;
     document.querySelectorAll('.map > svg').forEach(function (s) { s.style.display = ''; });
     slot.querySelector(':scope > svg').style.display = 'none';
     slot.removeAttribute('role');
-    slot.appendChild(holder);
+    place(slot);
     map.closePopup();
-    drawBar();
-    map.invalidateSize();
+    drawBar(); drawFab(); say('');
     fit(0);
+    activeDay = -1; observe(); onScroll();
   }
 
   document.addEventListener('langchange', function (e) { mount(e.detail); });
-  // close popup links: jump to section
   map.on('popupopen', function (e) {
     var a = e.popup.getElement().querySelector('a[href^="#"]');
     if (a) a.addEventListener('click', function () { map.closePopup(); });
