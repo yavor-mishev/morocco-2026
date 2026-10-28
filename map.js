@@ -99,6 +99,9 @@
   function fit(d) {
     var b = d ? dayLayers[d].getBounds() : all.getBounds();
     map.fitBounds(b, { padding: [24, 24], maxZoom: d === 5 || d === 7 ? 15 : 10, animate: !reduce });
+    pills(d);
+  }
+  function pills(d) {
     Array.prototype.forEach.call(bar.querySelectorAll('[data-d]'), function (c) { c.setAttribute('aria-pressed', String(String(d || '') === c.dataset.d)); });
   }
 
@@ -107,13 +110,12 @@
     var t = T[lang], html = '<button type="button" data-d="">' + t.all + '</button>';
     for (var d = 1; d <= 8; d++) html += '<button type="button" data-d="' + d + '"><i style="background:' + DAY_COLORS[d] + '"></i>' + d + '</button>';
     html += '<button type="button" class="lmap-loc" aria-pressed="' + String(watchId != null) + '">' + locIcon + t.locate + '</button>';
-    html += '<button type="button" class="lmap-close" aria-label="' + t.close + '" title="' + t.close + '">×</button>';
+    closeBtn.setAttribute('aria-label', t.close); closeBtn.title = t.close;
     bar.innerHTML = html;
   }
   bar.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     if (b.classList.contains('lmap-loc')) return locate();
-    if (b.classList.contains('lmap-close')) return closeDock();
     var d = b.dataset.d ? +b.dataset.d : 0;
     activeDay = d; activeStop = null; highlight(d, null); fit(d);
   });
@@ -206,7 +208,10 @@
   // ---------- inline slot vs. floating dock ----------
   var slot = null, docked = false;
   var dock = document.createElement('div'); dock.className = 'mapdock'; dock.hidden = true;
+  var closeBtn = document.createElement('button'); closeBtn.type = 'button'; closeBtn.className = 'lmap-close'; closeBtn.textContent = '×';
+  closeBtn.addEventListener('click', function () { closeDock(); });
   dock.setAttribute('role', 'dialog'); dock.setAttribute('aria-modal', 'true');
+  dock.appendChild(closeBtn);
   document.body.appendChild(dock);
   var fab = document.createElement('button'); fab.type = 'button'; fab.className = 'mapfab';
   document.body.appendChild(fab);
@@ -217,29 +222,56 @@
     target.appendChild(holder);
     map.invalidateSize();
   }
-  var lastFocus = null;
-  function openDock() {
-    lastFocus = document.activeElement;
+  var lastFocus = null, closeTimer = null;
+  // Open: a circle grows out of the button that was tapped, the map starts on all of
+  // Morocco and then flies in to the day or stop being read.
+  function openDock(origin, day) {
+    clearTimeout(closeTimer);
+    if (!docked) lastFocus = document.activeElement;
+    var r = (origin || fab).getBoundingClientRect();
+    dock.style.setProperty('--ox', Math.round(r.left + r.width / 2) + 'px');
+    dock.style.setProperty('--oy', Math.round(r.top + r.height / 2) + 'px');
+    var d = day != null ? day : activeDay, s = day != null ? null : activeStop;
+    if (d < 0) d = 0;
+    var already = docked && !dock.hidden;
     docked = true; dock.hidden = false; document.body.classList.add('dock-open');
-    place(dock);
-    var cb = bar.querySelector('.lmap-close'); if (cb) cb.focus({ preventScroll: true });
-    if (slot) slot.querySelector(':scope > svg').style.display = '';
-    var d = activeDay, s = activeStop; activeDay = -1; follow(d, s);
-    if (!d) fit(0);
+    if (!already) {
+      place(dock);
+      if (slot) slot.querySelector(':scope > svg').style.display = '';
+      map.fitBounds(all.getBounds(), { padding: [24, 24], animate: false });
+      void dock.offsetWidth;   // commit the closed state so the reveal transitions
+    }
+    dock.classList.add('open');
+    activeDay = d; activeStop = s; highlight(d, s); pills(d);
+    closeBtn.focus({ preventScroll: true });
+    clearTimeout(flyTimer);
+    flyTimer = setTimeout(function () {
+      var opt = { animate: !reduce, duration: 1.6, easeLinearity: .2 };
+      if (s && markers[s]) {
+        map.flyTo(markers[s].getLatLng(), markerDay[s] === 5 || markerDay[s] === 7 ? 15 : 10, opt);
+      } else if (d) {
+        opt.padding = [30, 30]; opt.maxZoom = d === 5 || d === 7 ? 15 : 10;
+        map.flyToBounds(dayLayers[d].getBounds(), opt);
+      }
+    }, reduce || already ? 0 : 420);
   }
   function closeDock() {
-    docked = false; dock.hidden = true; document.body.classList.remove('dock-open');
-    if (slot) { slot.querySelector(':scope > svg').style.display = 'none'; place(slot); }
+    if (!docked) return;
+    docked = false; clearTimeout(flyTimer);
+    dock.classList.remove('open');
+    var finish = function () {
+      dock.hidden = true; document.body.classList.remove('dock-open');
+      if (slot) { slot.querySelector(':scope > svg').style.display = 'none'; place(slot); }
+      onScroll();
+    };
+    if (reduce) finish(); else closeTimer = setTimeout(finish, 480);
     if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
   }
-  fab.addEventListener('click', function () { docked ? closeDock() : openDock(); });
+  fab.addEventListener('click', function () { docked ? closeDock() : openDock(fab); });
   document.addEventListener('keydown', function (e) { if (docked && e.key === 'Escape' && !document.body.classList.contains('lb-open')) closeDock(); });
   document.addEventListener('click', function (e) {
     var b = e.target.closest('.daymap'); if (!b) return;
-    var d = +b.getAttribute('data-day');
-    if (!docked) openDock();
-    activeDay = d; activeStop = null; highlight(d, null);
-    setTimeout(function () { map.invalidateSize(); fit(d); }, 60);
+    openDock(b, +b.getAttribute('data-day'));
   });
 
   function onScroll() {
@@ -253,7 +285,7 @@
 
   function mount(l) {
     lang = l;
-    if (docked) closeDock();
+    if (docked) { closeDock(); clearTimeout(closeTimer); dock.hidden = true; document.body.classList.remove('dock-open'); }
     slot = document.querySelector('[data-l="' + l + '"] .map');
     if (!slot) return;
     document.querySelectorAll('.map > svg').forEach(function (s) { s.style.display = ''; });

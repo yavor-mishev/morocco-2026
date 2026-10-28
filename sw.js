@@ -1,5 +1,5 @@
 // Offline support: precache the booklet, cache fonts and viewed map tiles as you go.
-var V = 'morocco-v4';
+var V = 'morocco-v5';
 var LOCAL = [
 "./",
 "index.html",
