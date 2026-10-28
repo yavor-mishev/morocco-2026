@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Morocco Loop 2026</title>
+<script>try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
@@ -184,6 +185,12 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15;
 .totop.show { opacity: 1; transform: none; pointer-events: auto; }
 .totop svg { width: 20px; height: 20px; }
 @media (prefers-reduced-motion: reduce) { .totop { transition: none; } }
+.themebtn { margin-left: 4px; width: 32px; height: 30px; display: inline-grid; place-items: center; border-radius: 999px; border: 1px solid var(--rule); background: var(--paper); color: var(--saffron); cursor: pointer; padding: 0; }
+.themebtn svg { width: 17px; height: 17px; grid-area: 1 / 1; }
+.themebtn .i-sun { display: none; }
+.is-dark .themebtn .i-sun { display: block; }
+.is-dark .themebtn .i-moon { display: none; }
+.themebtn:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; }
 footer { padding-block: 40px 60px; color: var(--muted); font-size: .85rem; }
 footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
 .credits { columns: 3 220px; font-family: var(--f-mono); font-size: .72rem; }
@@ -203,7 +210,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="z" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M11 1l2.6 6.4L20 5l-2.4 6 2.4 6-6.4-2.4L11 21l-2.6-6.4L2 17l2.4-6L2 5l6.4 2.4z" fill="none" stroke="var(--zellige)" stroke-width="1.2"/></pattern></defs></svg>
-<div class="wrap langbar" role="group" aria-label="Language / Език"><button type="button" class="langbtn" data-set="en" aria-pressed="true">EN</button><button type="button" class="langbtn" data-set="bg" aria-pressed="false">БГ</button></div>
+<div class="wrap langbar" role="group" aria-label="Language / Език"><button type="button" class="langbtn" data-set="en" aria-pressed="true">EN</button><button type="button" class="langbtn" data-set="bg" aria-pressed="false">БГ</button><button type="button" class="themebtn" aria-label="Switch to dark mode" title="Switch to dark mode"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
 <div data-l="en" lang="en">
 <div class="wrap">
   <header class="hero">
@@ -1527,6 +1534,26 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
   if (!l) { try { l = localStorage.getItem('lang'); } catch (e) {} }
   if (!l) l = /^bg/i.test(navigator.language || '') ? 'bg' : 'en';
   setLang(l, false);
+
+  var root = document.documentElement, mq = window.matchMedia('(prefers-color-scheme: dark)');
+  var themeBtn = document.querySelector('.themebtn');
+  function isDark() { var t = root.getAttribute('data-theme'); return t ? t === 'dark' : mq.matches; }
+  function syncTheme() {
+    var d = isDark(), bg = root.lang === 'bg';
+    root.classList.toggle('is-dark', d);
+    var lbl = d ? (bg ? 'Светла тема' : 'Switch to light mode') : (bg ? 'Тъмна тема' : 'Switch to dark mode');
+    themeBtn.setAttribute('aria-label', lbl); themeBtn.title = lbl;
+    document.dispatchEvent(new CustomEvent('themechange', { detail: d }));
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    syncTheme();
+  });
+  if (mq.addEventListener) mq.addEventListener('change', syncTheme);
+  document.addEventListener('langchange', syncTheme);
+  syncTheme();
 
   var audio = new Audio(), playing = null;
   function stop() { if (playing) playing.classList.remove('playing'); playing = null; }

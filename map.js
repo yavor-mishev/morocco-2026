@@ -57,9 +57,9 @@
   holder.appendChild(el);
 
   var map = L.map(el, { scrollWheelZoom: false, zoomSnap: 0.25 });
-  var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches &&
-    document.documentElement.getAttribute('data-theme') !== 'light';
-  if (dark || document.documentElement.getAttribute('data-theme') === 'dark') el.classList.add('dark');
+  function setDark(d) { el.classList.toggle('dark', d); }
+  setDark(document.documentElement.classList.contains('is-dark'));
+  document.addEventListener('themechange', function (e) { setDark(e.detail); });
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
