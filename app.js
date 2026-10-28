@@ -140,7 +140,12 @@
   langbar.insertBefore(chip, langbar.firstChild);
   function drawChip() { chip.textContent = lang === 'bg' ? '✓ Работи и офлайн' : '✓ Works offline'; }
   if ('serviceWorker' in navigator && window.isSecureContext) {
-    navigator.serviceWorker.register('sw.js').then(function () { return navigator.serviceWorker.ready; })
+    // When a newer version of the site takes over, reload once so it shows right away.
+    var hadController = !!navigator.serviceWorker.controller, reloaded = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (!hadController || reloaded) return; reloaded = true; location.reload();
+    });
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(function () { return navigator.serviceWorker.ready; })
       .then(function () { chip.hidden = false; }).catch(function () {});
     navigator.serviceWorker.addEventListener('message', function (e) {
       if (e.data === 'precached') chip.hidden = false;

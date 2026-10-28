@@ -1,5 +1,5 @@
 // Offline support: precache the booklet, cache fonts and viewed map tiles as you go.
-var V = 'morocco-v3';
+var V = 'morocco-v4';
 var LOCAL = [
 "./",
 "index.html",
@@ -93,12 +93,15 @@ self.addEventListener('fetch', function (e) {
 
   if (url.origin !== self.location.origin) return;
 
-  // Same origin: serve from cache at once, refresh it in the background.
+  // Same origin: always try the network first (revalidated), fall back to the saved copy offline.
   e.respondWith(caches.open(V).then(function (c) {
-    return c.match(req, { ignoreSearch: req.mode === 'navigate' }).then(function (hit) {
-      var net = fetch(req).then(function (res) { if (res.ok) c.put(req, res.clone()); return res; })
-        .catch(function () { return hit || (req.mode === 'navigate' ? c.match('./') : undefined); });
-      return hit || net;
+    return fetch(req, { cache: 'no-cache' }).then(function (res) {
+      if (res.ok) c.put(req, res.clone());
+      return res;
+    }).catch(function () {
+      return c.match(req, { ignoreSearch: req.mode === 'navigate' }).then(function (hit) {
+        return hit || (req.mode === 'navigate' ? c.match('./') : Response.error());
+      });
     });
   }));
 });
