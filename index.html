@@ -1,0 +1,1507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Morocco Loop 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a travel notebook. Route map up top, then eight dated "pages", each a run of stops with photo + story + fact chips. Zellige star bands divide days. */
+:root {
+  --bg: #f6ede7;          /* limewash with a rose bias */
+  --paper: #fffaf6;
+  --ink: #221f2e;         /* indigo-black */
+  --muted: #6c5f6c;
+  --rule: #e2d3ca;
+  --zellige: #0d6b5e;     /* Fes tile green */
+  --indigo: #2c3a8a;      /* Fes / Majorelle blue */
+  --saffron: #b97a10;
+  --sea: #d9e3ec;
+  --land: #efe1d4;
+  --f-display: "El Messiri", "Iowan Old Style", Georgia, serif;
+  --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12142a; --paper: #1a1d38; --ink: #ede3d6; --muted: #a99fae; --rule: #2d3156;
+    --zellige: #4fc1ae; --indigo: #93a3ff; --saffron: #e7b04d; --sea: #1b2347; --land: #22264a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12142a; --paper: #1a1d38; --ink: #ede3d6; --muted: #a99fae; --rule: #2d3156;
+  --zellige: #4fc1ae; --indigo: #93a3ff; --saffron: #e7b04d; --sea: #1b2347; --land: #22264a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg); color: var(--ink);
+  font: 400 1.0625rem/1.65 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+a { color: var(--zellige); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15; text-wrap: balance; margin: 0; }
+.wrap { max-width: 1080px; margin: 0 auto; }
+.mono { font-family: var(--f-mono); font-size: .8rem; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+.label { font-family: var(--f-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); }
+
+/* ---------- hero ---------- */
+.hero { padding-block: 40px 28px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+.hero h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 700; letter-spacing: -.01em; }
+.hero h1 .ar { display: block; font-size: .5em; color: var(--zellige); font-weight: 600; margin-top: 6px; }
+.hero p.lede { font-size: 1.15rem; color: var(--muted); max-width: 34em; margin: 18px 0 22px; }
+.hero figure { margin: 0; position: relative; }
+.hero figure img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 200px 200px 6px 6px; display: block; }
+.hero figcaption { font-family: var(--f-mono); font-size: .72rem; color: var(--muted); margin-top: 8px; }
+.stats { display: grid; grid-template-columns: repeat(4, auto); gap: 10px 26px; justify-content: start; margin: 0; }
+.stats div { display: flex; flex-direction: column; }
+.stats dt { order: 2; font-family: var(--f-mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+.stats dd { order: 1; margin: 0; font-family: var(--f-display); font-size: 1.9rem; font-weight: 600; color: var(--zellige); font-variant-numeric: tabular-nums; }
+
+/* ---------- zellige band ---------- */
+.band { height: 22px; margin-block: 8px; color: var(--zellige); opacity: .55; }
+.band svg { width: 100%; height: 100%; display: block; }
+
+/* ---------- opinion + map ---------- */
+.overview { display: grid; grid-template-columns: 1fr 1.15fr; gap: 40px; padding-block: 28px; align-items: start; }
+.overview > * { min-width: 0; }
+.overview h2 { font-size: 1.9rem; margin-bottom: 12px; }
+.verdict ul { padding-left: 1.1em; margin: 10px 0 0; }
+.verdict li { margin-bottom: 8px; }
+.verdict li::marker { color: var(--saffron); }
+.verdict .good::marker { color: var(--zellige); }
+.map { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 10px; }
+.map svg { width: 100%; height: auto; display: block; }
+.map text { font-family: var(--f-mono); fill: var(--ink); }
+.map .rng { font-family: var(--f-display); fill: var(--muted); letter-spacing: .3em; font-size: 13px; }
+
+/* ---------- day nav ---------- */
+.daynav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--rule); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding: 8px max(16px, env(safe-area-inset-left, 0px)); }
+.daynav ol { list-style: none; display: flex; gap: 6px; margin: 0 auto; padding: 0; max-width: 1080px; overflow-x: auto; scrollbar-width: none; }
+.daynav a { display: block; white-space: nowrap; text-decoration: none; color: var(--ink); font-family: var(--f-mono); font-size: .78rem; padding: 6px 11px; border-radius: 999px; border: 1px solid var(--rule); background: var(--paper); }
+.daynav a b { color: var(--zellige); font-weight: 500; }
+.daynav a.on { background: var(--zellige); color: var(--bg); border-color: var(--zellige); }
+.daynav a.on b { color: var(--bg); }
+
+/* ---------- day ---------- */
+.day { padding-block: 44px 12px; scroll-margin-top: 60px; }
+.dayhead { display: grid; grid-template-columns: auto 1fr; gap: 6px 22px; align-items: end; margin-bottom: 26px; }
+.dayno { font-family: var(--f-display); font-size: 5.2rem; line-height: .8; color: var(--zellige); font-weight: 700; grid-row: span 2; }
+.dayhead .label { color: var(--saffron); }
+.dayhead h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); }
+.dayhead .meta { grid-column: 2; display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--muted); }
+.intro { max-width: 46em; margin: -8px 0 26px; color: var(--muted); font-style: italic; }
+
+.stop { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 28px; padding-block: 22px; border-top: 1px solid var(--rule); }
+.stop.flip > figure { order: 2; }
+.stop figure { margin: 0; }
+.stop img { width: 100%; aspect-ratio: 3/2; object-fit: cover; border-radius: 6px; display: block; background: var(--land); }
+.stop figcaption { font-family: var(--f-mono); font-size: .68rem; color: var(--muted); margin-top: 6px; }
+.stop h3 { font-size: 1.55rem; }
+.stop h3 .ar { font-weight: 500; color: var(--muted); font-size: .8em; margin-left: 8px; }
+.stop .sub { margin: 2px 0 10px; }
+.stop p { margin: 0 0 12px; max-width: 38em; }
+.stop.textonly { grid-template-columns: 1fr; }
+.facts { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; }
+.facts li { padding: 9px 12px 9px 34px; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; position: relative; font-size: .95rem; }
+.facts li::before { content: ""; position: absolute; left: 12px; top: 15px; width: 10px; height: 10px; background: var(--saffron); transform: rotate(45deg); }
+.facts li.hist::before { background: var(--indigo); }
+.facts li.tip::before { background: var(--zellige); border-radius: 50%; transform: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 14px; }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend i { width: 9px; height: 9px; display: inline-block; }
+
+/* ---------- timeline ---------- */
+.timeline { padding-block: 44px 20px; }
+.timeline h2 { font-size: 1.9rem; margin-bottom: 6px; }
+.tl { list-style: none; padding: 0; margin: 22px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.tl li { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; }
+.tl .yr { font-family: var(--f-mono); color: var(--indigo); font-size: .82rem; font-variant-numeric: tabular-nums; }
+.tl h3 { font-size: 1.2rem; margin: 2px 0 4px; }
+.tl p { margin: 0; font-size: .93rem; }
+.tl .see { margin-top: 8px; font-family: var(--f-mono); font-size: .72rem; color: var(--zellige); }
+
+/* ---------- practical ---------- */
+.practical { padding-block: 44px 20px; }
+.practical h2 { font-size: 1.9rem; margin-bottom: 18px; }
+.pgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.pgrid h3 { font-size: 1.2rem; margin-bottom: 8px; color: var(--zellige); }
+.pgrid p, .pgrid li { font-size: .95rem; }
+.pgrid ul { padding-left: 1.1em; margin: 0; }
+.wx { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.wx td, .wx th { padding: 5px 4px; border-bottom: 1px solid var(--rule); text-align: left; }
+.wx th { font-family: var(--f-mono); font-weight: 500; font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.wx td.n { font-family: var(--f-mono); font-variant-numeric: tabular-nums; text-align: right; }
+.phr { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 0; font-size: .95rem; }
+.phr dt { font-weight: 600; }
+.phr dd { margin: 0; color: var(--muted); }
+
+.langbar { display: flex; justify-content: flex-end; gap: 6px; padding-top: 14px; }
+.langbtn { font: 500 .78rem var(--f-mono); padding: 6px 11px; border-radius: 999px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
+.langbtn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.daynav .langbtn { border-color: var(--saffron); color: var(--saffron); }
+footer { padding-block: 40px 60px; color: var(--muted); font-size: .85rem; }
+footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
+.credits { columns: 3 220px; font-family: var(--f-mono); font-size: .72rem; }
+.credits a { color: var(--muted); display: block; margin-bottom: 3px; }
+
+@media (max-width: 820px) {
+  .hero, .overview { grid-template-columns: 1fr; gap: 24px; }
+  .hero { padding-top: 24px; }
+  .stats { grid-template-columns: repeat(2, auto); }
+  .stop, .stop.flip { grid-template-columns: 1fr; gap: 14px; }
+  .stop.flip > figure { order: 0; }
+  .pgrid { grid-template-columns: 1fr; }
+  .dayno { font-size: 3.8rem; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="z" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M11 1l2.6 6.4L20 5l-2.4 6 2.4 6-6.4-2.4L11 21l-2.6-6.4L2 17l2.4-6L2 5l6.4 2.4z" fill="none" stroke="var(--zellige)" stroke-width="1.2"/></pattern></defs></svg>
+<div class="wrap langbar" role="group" aria-label="Language / Език"><button type="button" class="langbtn" data-set="en" aria-pressed="true">EN</button><button type="button" class="langbtn" data-set="bg" aria-pressed="false">БГ</button></div>
+<div data-l="en" lang="en">
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="label">31 Oct – 7 Nov 2026 · private tour</div>
+      <h1>Atlas, Sahara &amp; the Imperial Cities<span class="ar">المغرب · ⵍⵎⵖⵔⵉⴱ</span></h1>
+      <p class="lede">A field guide to the eight days: what each stop is, why it matters, and the stories behind the mud kasbahs, the dunes and the medinas you'll be walking through.</p>
+      <dl class="stats">
+        <div><dt>Days</dt><dd>8</dd></div>
+        <div><dt>km by road</dt><dd>~1,700</dd></div>
+        <div><dt>Highest pass</dt><dd>2,260 m</dd></div>
+        <div><dt>UNESCO sites</dt><dd>6</dd></div>
+      </dl>
+    </div>
+    <figure>
+      <img src="img/benhaddou.jpg" alt="The earthen ksar of Aït Benhaddou climbing a hill above a river bed">
+      <figcaption>Aït Benhaddou, Day 1</figcaption>
+    </figure>
+  </header>
+</div>
+
+<div class="band" aria-hidden="true"><svg><rect width="100%" height="100%" fill="url(#z)"/></svg></div>
+
+<div class="wrap">
+  <section class="overview">
+    <div class="verdict">
+      <div class="label">Before you go</div>
+      <h2>Is it a good itinerary?</h2>
+      <p>Yes. It's the classic Moroccan loop done in the right direction, with a private driver, a real night in the desert and a free buffer day in Merzouga. A few things to know:</p>
+      <ul>
+        <li class="good"><b>Day 3 is the smartest part.</b> Most tours rush straight out of the desert; you get a slow day there, which also absorbs fatigue from Day 2.</li>
+        <li><b>Day 2 is long:</b> about 400 km with five stops and a sunset camel ride. Sunset in Merzouga is around 18:20, so expect an early start and short stops at Skoura and the Rose Valley.</li>
+        <li><b>Day 6 is the longest:</b> Fes → Rabat → Casablanca → Marrakech is roughly 530 km. Ask the driver to aim for an afternoon Hassan II Mosque tour slot (it's a Thursday, so the normal schedule applies).</li>
+        <li><b>The roses won't be in bloom.</b> The Rose Valley harvest is in May. In November you'll see the valley and the rose-water shops, not flowering fields.</li>
+        <li><b>Lake Dayet Srij may be dry.</b> It only fills after rain. If it has water, look for flamingos.</li>
+        <li><b>6 November is Green March Day,</b> a national holiday. Expect flags everywhere and busier streets in Marrakech; the main sights normally stay open.</li>
+      </ul>
+    </div>
+    <div class="map" role="img" aria-label="Route map: Marrakech south over the High Atlas to Ouarzazate, east through the Dades and Todra valleys to Merzouga, north through the Middle Atlas to Fes, west to Rabat and Casablanca, and back south to Marrakech.">
+      <svg viewBox="0 0 600 430">
+        <rect width="600" height="430" fill="var(--land)"/>
+        <polygon points="0,0 345,0 313,43 292,66 228,108 149,139 85,229 40,304 30,388 54,430 0,430" fill="var(--sea)"/>
+        <text x="40" y="160" font-size="11" fill="var(--muted)" style="fill:var(--muted)">ATLANTIC</text>
+        <text class="rng" transform="translate(170 400) rotate(-24)">HIGH ATLAS</text>
+        <text class="rng" transform="translate(360 210) rotate(-52)">MIDDLE ATLAS</text>
+        <text class="rng" x="470" y="410">SAHARA</text>
+        <g fill="var(--saffron)" opacity=".45"><circle cx="540" cy="358" r="3"/><circle cx="548" cy="350" r="2.5"/><circle cx="532" cy="366" r="2.5"/><circle cx="546" cy="368" r="2"/><circle cx="555" cy="360" r="2"/></g>
+        <path d="M191 293 L246 325 L267 348 L288 360 L316 347 L353 330 L365 317 L405 303 L517 312 L536 343 M536 343 L517 312 L500 264 L473 193 L432 122 L441 112 L451 65 L292 66 L228 108 L191 293"
+              fill="none" stroke="var(--zellige)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+        <g fill="var(--paper)" stroke="var(--zellige)" stroke-width="2">
+          <circle cx="191" cy="293" r="6"/><circle cx="267" cy="348" r="4"/><circle cx="288" cy="360" r="6"/><circle cx="316" cy="347" r="4"/>
+          <circle cx="353" cy="330" r="4"/><circle cx="365" cy="317" r="4"/><circle cx="405" cy="303" r="4"/><circle cx="517" cy="312" r="4"/>
+          <circle cx="536" cy="343" r="6"/><circle cx="500" cy="264" r="4"/><circle cx="473" cy="193" r="4"/><circle cx="432" cy="122" r="4"/>
+          <circle cx="441" cy="112" r="4"/><circle cx="451" cy="65" r="6"/><circle cx="292" cy="66" r="4"/><circle cx="228" cy="108" r="4"/>
+        </g>
+        <polygon points="246,318 252,328 240,328" fill="var(--saffron)"/>
+        <g font-size="11">
+          <text x="140" y="285" font-weight="500">Marrakech</text>
+          <text x="210" y="318">Tichka</text>
+          <text x="196" y="364">Aït Benhaddou</text>
+          <text x="250" y="382" font-weight="500">Ouarzazate</text>
+          <text x="306" y="372">Skoura</text>
+          <text x="320" y="320">Rose Valley</text>
+          <text x="352" y="300">Dades</text>
+          <text x="392" y="290">Todra</text>
+          <text x="524" y="306">Erfoud</text>
+          <text x="500" y="384" font-weight="500">Merzouga</text>
+          <text x="508" y="262">Ziz Valley</text>
+          <text x="482" y="196">Midelt</text>
+          <text x="378" y="132">Azrou</text>
+          <text x="452" y="114">Ifrane</text>
+          <text x="462" y="62" font-weight="500">Fes</text>
+          <text x="294" y="88">Rabat</text>
+          <text x="236" y="130">Casablanca</text>
+        </g>
+        <g font-size="10" font-weight="500" fill="var(--saffron)" style="fill:var(--saffron)">
+          <text x="226" y="306">1</text><text x="452" y="296">2</text><text x="556" y="330">3</text>
+          <text x="488" y="160">4</text><text x="470" y="80">5</text><text x="360" y="60">6</text><text x="196" y="220">6</text><text x="160" y="312">7·8</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+</div>
+
+<nav class="daynav" aria-label="Days">
+  <ol>
+    <li><a href="#day-1"><b>1</b> Sat 31 · Atlas</a></li>
+    <li><a href="#day-2"><b>2</b> Sun 1 · Valleys</a></li>
+    <li><a href="#day-3"><b>3</b> Mon 2 · Sahara</a></li>
+    <li><a href="#day-4"><b>4</b> Tue 3 · North</a></li>
+    <li><a href="#day-5"><b>5</b> Wed 4 · Fes</a></li>
+    <li><a href="#day-6"><b>6</b> Thu 5 · Coast</a></li>
+    <li><a href="#day-7"><b>7</b> Fri 6 · Marrakech</a></li>
+    <li><a href="#day-8"><b>8</b> Sat 7 · Home</a></li>
+    <li><a href="#history">History</a></li>
+    <li><a href="#practical">Practical</a></li>
+    <li><button type="button" class="langbtn" data-set="bg">БГ</button></li>
+  </ol>
+</nav>
+
+<div class="wrap">
+  <div class="legend mono" aria-hidden="true" style="margin-top:18px">
+    <span><i style="background:var(--saffron);transform:rotate(45deg)"></i>Interesting fact</span>
+    <span><i style="background:var(--indigo);transform:rotate(45deg)"></i>History</span>
+    <span><i style="background:var(--zellige);border-radius:50%"></i>Tip for the day</span>
+  </div>
+
+  <!-- ================= DAY 1 ================= -->
+  <section class="day" id="day-1">
+    <div class="dayhead">
+      <div class="dayno">1</div>
+      <div class="label">Saturday 31 October</div>
+      <h2>Over the High Atlas to the gateway of the desert</h2>
+      <div class="meta mono"><span>Marrakech → Ouarzazate</span><span>~200 km</span><span>~4.5 h driving</span><span>Night: Ouarzazate</span></div>
+    </div>
+
+    <article class="stop">
+      <figure><img src="img/tichka.jpg" alt="Hairpin road climbing the Tizi n'Tichka pass" loading="lazy"><figcaption>Tizi n'Tichka</figcaption></figure>
+      <div>
+        <h3>Tizi n'Tichka pass <span class="ar">تيزي ن تيشكا</span></h3>
+        <div class="label sub">2,260 m · the N9 road</div>
+        <p>The highest major road pass in North Africa. "Tizi" is the Amazigh (Berber) word for a mountain pass. The road was built by the French army and opened in 1936, replacing a mule track that caravans had used for centuries to carry salt, dates and gold between the Sahara and Marrakech.</p>
+        <p>On the way up you pass Amazigh villages built from the same red earth as the slopes, walnut trees along the streams, and roadside stalls selling amethyst and quartz geodes.</p>
+        <ul class="facts">
+          <li class="hist">Whoever held this pass controlled trade across the Atlas. In the early 1900s it was the Glaoui family, whose leader Thami El Glaoui became Pasha of Marrakech (1912–1956) and one of the richest men in the world. His abandoned kasbah at Telouet is just off the road.</li>
+          <li>The High Atlas runs about 800 km across Morocco. Jbel Toubkal (4,167 m), the highest peak in North Africa, is roughly 50 km west of the pass.</li>
+          <li class="tip">It can be 5–10 °C at the top even when Marrakech is warm. Keep a jacket in the car, and take motion-sickness tablets if you need them; there are a lot of hairpins.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/benhaddou.jpg" alt="Aït Benhaddou ksar at golden hour" loading="lazy"><figcaption>Ksar Aït Benhaddou</figcaption></figure>
+      <div>
+        <h3>Aït Benhaddou <span class="ar">آيت بن حدو</span></h3>
+        <div class="label sub">UNESCO World Heritage since 1987</div>
+        <p>A <i>ksar</i> is a fortified village: a cluster of houses, a mosque, a caravanserai and a communal granary, all inside one defensive wall. Aït Benhaddou climbs a hill above the Ounila river on the old caravan route, and it is the best-preserved example in Morocco.</p>
+        <p>Everything is built from rammed earth (<i>pisé</i>) and mud brick mixed with straw. Earth walls need constant re-plastering after rain, so most of what you see dates from the 17th century onward, rebuilt in the old way. Only a handful of families still live inside; most moved to the new village across the river.</p>
+        <ul class="facts">
+          <li>Film set favourite: <i>Lawrence of Arabia</i>, <i>Jesus of Nazareth</i>, <i>The Mummy</i>, <i>Gladiator</i>, <i>Kingdom of Heaven</i> and <i>Game of Thrones</i> (Yunkai and Pentos) were all shot here.</li>
+          <li>The building at the top of the hill is the <i>agadir</i>, the communal granary, which villagers retreated to under attack. The climb takes about 15 minutes and gives the best view.</li>
+          <li class="tip">You'll cross the river on stepping stones or a footbridge. Shops inside sell paintings made with saffron, tea and indigo that change colour when heated over a flame.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/ouarzazate.jpg" alt="Kasbah Taourirt in Ouarzazate" loading="lazy"><figcaption>Kasbah Taourirt, Ouarzazate</figcaption></figure>
+      <div>
+        <h3>Ouarzazate <span class="ar">ورزازات</span></h3>
+        <div class="label sub">"The door of the desert" · 1,160 m</div>
+        <p>The name is usually explained as Amazigh for "without noise". The French built the modern town in the 1920s as a garrison, around the older Kasbah Taourirt, a Glaoui family palace whose maze of rooms you can see from the road.</p>
+        <ul class="facts">
+          <li>Atlas Studios (opened 1983) is one of the largest film studios in the world by area. Its lots still hold sets from <i>Gladiator</i>, <i>Kundun</i> and <i>Asterix &amp; Obelix: Mission Cleopatra</i>.</li>
+          <li>Just outside town is Noor Ouarzazate, one of the largest concentrated solar power complexes on Earth (about 580 MW). Thousands of curved mirrors are visible from the air.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= DAY 2 ================= -->
+  <section class="day" id="day-2">
+    <div class="dayhead">
+      <div class="dayno">2</div>
+      <div class="label">Sunday 1 November</div>
+      <h2>The road of a thousand kasbahs, then the dunes</h2>
+      <div class="meta mono"><span>Ouarzazate → Merzouga</span><span>~400 km</span><span>~7 h driving + stops</span><span>Night: desert camp</span></div>
+    </div>
+    <p class="intro">The longest and most varied day: palm oasis, rose valley, two gorges, fossil country and the Sahara. Sunset at Erg Chebbi is around 18:20.</p>
+
+    <article class="stop">
+      <figure><img src="img/amridil.jpg" alt="Kasbah Amridil with four corner towers" loading="lazy"><figcaption>Kasbah Amridil, Skoura</figcaption></figure>
+      <div>
+        <h3>Skoura oasis &amp; Kasbah Amridil <span class="ar">سكورة</span></h3>
+        <div class="label sub">17th-century family kasbah</div>
+        <p>Skoura is a palm grove of about 25 km² irrigated by <i>khettaras</i>, underground channels that bring water from the mountains without losing it to evaporation. Inside it stand dozens of kasbahs. A kasbah, unlike a ksar, is the fortified home of a single powerful family.</p>
+        <p>Amridil belongs to the same family that built it more than 300 years ago, and they still run it as a museum. Look for the olive press, the old kitchen tools and the decorated ceilings of palm and tamarisk wood.</p>
+        <ul class="facts">
+          <li>Amridil was printed on the old 50-dirham banknote. Ask your guide; some shops still have one to show.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Valley of Roses · Kelaat M'Gouna <span class="ar">قلعة مكونة</span></h3>
+        <div class="label sub">Rosa damascena country</div>
+        <p>The roses here are Damask roses, which local legend says pilgrims brought back from Damascus. They're grown as hedges between fields, not in plantations. In May the town holds a rose festival and the harvest is picked at dawn, when the scent is strongest.</p>
+        <ul class="facts">
+          <li>It takes roughly 3–4 tonnes of petals to distil one litre of rose oil, which is why the pure oil is so expensive. Rose water is the affordable version and makes a good gift.</li>
+          <li class="tip">In November there are no blooms. Buy rose products at a cooperative rather than a roadside shop for the real thing.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/dades.jpg" alt="Hairpin bends of the Tissadrine road in the Dades gorge" loading="lazy"><figcaption>Tissadrine hairpins, Dades</figcaption></figure>
+      <div>
+        <h3>Dades Valley <span class="ar">وادي دادس</span></h3>
+        <div class="label sub">Boumalne Dades</div>
+        <p>The Dades river cuts between the High Atlas and the volcanic Jbel Saghro, and the valley is lined with kasbahs, which is why the route east is called the Road of a Thousand Kasbahs. Higher up the valley, the rock is eroded into rounded red shapes locals call "monkey fingers".</p>
+        <ul class="facts">
+          <li>The zig-zag road at Tissadrine (the photo) is one of the most photographed roads in Africa and regularly appears in car adverts.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/todra.jpg" alt="Shallow river between the sheer walls of the Todra gorge" loading="lazy"><figcaption>Todra Gorge</figcaption></figure>
+      <div>
+        <h3>Todra Gorge <span class="ar">مضيق تودغى</span></h3>
+        <div class="label sub">Walls ~300 m high · ~10 m wide at the narrowest</div>
+        <p>The Todgha river has cut a slot through limestone just north of Tinghir. The last few hundred metres are the dramatic part: the walls rise straight up on both sides and the road runs right beside the stream, so you can walk it in 20 minutes.</p>
+        <ul class="facts">
+          <li>The gorge is one of Morocco's main rock-climbing spots. Look up and you'll often see climbers on the walls.</li>
+          <li class="tip">The gorge floor gets sun only around midday; the rest of the time it's cool and shaded. Wade in the stream if you like; it's shallow.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Erfoud &amp; the fossil workshops <span class="ar">أرفود</span></h3>
+        <div class="label sub">Devonian seabed, ~350–400 million years old</div>
+        <p>This desert was once a shallow sea. The local black limestone is packed with fossils: straight cone-shaped <i>orthoceras</i>, spiral ammonites and trilobites. Workshops cut it into sinks, tabletops and polished slabs.</p>
+        <ul class="facts">
+          <li>Many "perfect" trilobites sold to tourists are partly carved or assembled from fragments. Orthoceras slabs are the honest buy.</li>
+          <li class="hist">Near Erfoud lie the ruins of <b>Sijilmasa</b>, founded in 757. It was the northern terminus of the trans-Saharan gold trade, where caravans from Ghana and Mali arrived. The neighbouring Tafilalt oasis is where the current royal family, the Alaouites, came from in the 1600s.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/chebbi.jpg" alt="Orange dunes of Erg Chebbi" loading="lazy"><figcaption>Erg Chebbi</figcaption></figure>
+      <div>
+        <h3>Erg Chebbi &amp; the camel ride <span class="ar">عرق الشبي</span></h3>
+        <div class="label sub">Dunes up to ~150 m · ~22 km long</div>
+        <p>An <i>erg</i> is a sea of wind-blown sand dunes. Most of the Sahara is rock and gravel (<i>hamada</i>), so ergs like this one are the exception, and Erg Chebbi is the largest in Morocco. The dunes turn orange to red at sunset because of iron oxide coating the sand grains.</p>
+        <ul class="facts">
+          <li>Local legend says the dunes were sent by God to bury a wealthy family who turned away a poor woman and her son.</li>
+          <li>Moroccan camels are dromedaries (one hump). They can drink around 100 litres in ten minutes.</li>
+          <li class="tip">Desert nights in November drop to 5–8 °C. Bring a warm layer to the camp. Wake up for sunrise around 07:40; it's often better than the sunset. Look up after dinner: with no light pollution, the Milky Way is clearly visible.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= DAY 3 ================= -->
+  <section class="day" id="day-3">
+    <div class="dayhead">
+      <div class="dayno">3</div>
+      <div class="label">Monday 2 November</div>
+      <h2>Beyond the dunes: nomads, oases and Gnawa music</h2>
+      <div class="meta mono"><span>4×4 loop around Merzouga</span><span>off-road</span><span>Night: hotel by the dunes</span></div>
+    </div>
+
+    <article class="stop">
+      <figure><img src="img/merzouga.jpg" alt="Merzouga village with palm grove, dunes in front" loading="lazy"><figcaption>Merzouga and its palm grove</figcaption></figure>
+      <div>
+        <h3>Nomad families &amp; Lake Dayet Srij</h3>
+        <div class="label sub">Amazigh herding families · seasonal lake</div>
+        <p>The families around Erg Chebbi are mostly from the Aït Khebbach, part of the Aït Atta confederation, Amazigh herders who once controlled these caravan routes. Some still live in wool or canvas tents and move with their goats and camels between water points.</p>
+        <p>Dayet Srij is a lake that only exists after rain. When it holds water, flamingos and other migrating birds stop here, which looks unreal against the dunes.</p>
+        <ul class="facts">
+          <li>Mint tea is poured from high up to aerate it and make foam. A saying often repeated in the desert: the first glass is gentle like life, the second strong like love, the third bitter like death.</li>
+          <li class="tip">Ask before photographing people. A small gift (sugar, tea) or a few dirhams for the family is appreciated; your guide will tell you what's normal.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/gnawa.jpg" alt="Gnawa musician in blue robe playing a guembri" loading="lazy"><figcaption>Gnawa musician with a guembri</figcaption></figure>
+      <div>
+        <h3>Khamlia &amp; Gnawa music <span class="ar">خملية · كناوة</span></h3>
+        <div class="label sub">UNESCO Intangible Heritage since 2019</div>
+        <p>Khamlia is a village of Gnawa people, descendants of West Africans brought north across the Sahara, many of them enslaved, in the caravan trade. Their music mixes African rhythm with Sufi spiritual practice and was traditionally used in all-night healing ceremonies.</p>
+        <ul class="facts">
+          <li>Listen for the <i>guembri</i> (a three-string bass lute covered in camel skin) and the <i>qraqeb</i>, heavy iron castanets that make the hypnotic clacking sound.</li>
+          <li class="hist">Gnawa music has crossed into rock and jazz: Jimmy Page and Robert Plant recorded with Gnawa musicians in Marrakech in 1994, jazz players like Randy Weston worked with them for decades, and Essaouira hosts a big Gnawa festival every summer.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= DAY 4 ================= -->
+  <section class="day" id="day-4">
+    <div class="dayhead">
+      <div class="dayno">4</div>
+      <div class="label">Tuesday 3 November</div>
+      <h2>Desert to cedar forest in one day</h2>
+      <div class="meta mono"><span>Merzouga → Fes</span><span>~470 km</span><span>~8 h driving</span><span>Night: Fes</span></div>
+    </div>
+    <p class="intro">You'll climb from about 750 m at the edge of the Sahara to over 2,000 m in the Middle Atlas. Watch the landscape change from dunes to palm valleys to bare plateau to cedar forest.</p>
+
+    <article class="stop">
+      <figure><img src="img/ziz.jpg" alt="The Ziz river winding through a rocky canyon" loading="lazy"><figcaption>Ziz gorges</figcaption></figure>
+      <div>
+        <h3>Ziz Valley <span class="ar">وادي زيز</span></h3>
+        <div class="label sub">Tafilalt palm groves · Errachidia</div>
+        <p>The Ziz river flows south from the Atlas to feed the Tafilalt, one of the largest date-palm oases in the world. From the viewpoints you see a green ribbon of palms in a brown canyon, with mud villages along the edge.</p>
+        <ul class="facts">
+          <li>The Medjool (<i>majhoul</i>) date, now grown in California and Israel, originated in the Tafilalt. In the 1920s a few offshoots were taken to the US to save the variety from a palm disease.</li>
+          <li class="hist">North of Errachidia the road passes through the "Legionnaires' Tunnel", cut through the rock by the French Foreign Legion in 1927–28.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Midelt <span class="ar">ميدلت</span></h3>
+        <div class="label sub">~1,500 m · lunch stop</div>
+        <p>A plateau town between the High and Middle Atlas, overlooked by Jbel Ayachi (3,737 m), often snow-capped from November. Midelt is Morocco's apple capital and holds an apple festival every autumn; you'll see orchards and stalls along the road.</p>
+        <ul class="facts"><li>The area was a major mining centre for lead and is famous among collectors for its vanadinite crystals, bright red minerals sold in roadside shops.</li></ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/macaque.jpg" alt="Barbary macaque mother holding her baby" loading="lazy"><figcaption>Barbary macaques</figcaption></figure>
+      <div>
+        <h3>Azrou cedar forest <span class="ar">أزرو</span></h3>
+        <div class="label sub">Atlas cedars · Barbary macaques</div>
+        <p>"Azrou" means "rock" in Tamazight. Around the town grows one of the largest Atlas cedar forests left. Some trees are several hundred years old, and their wood is the fragrant cedar used in the carved ceilings you'll see in Fes and Marrakech.</p>
+        <ul class="facts">
+          <li>The Barbary macaque is the only primate in Africa north of the Sahara, and the only macaque outside Asia. The famous Gibraltar monkeys are the same species. It's endangered: fewer than 10,000 remain in the wild.</li>
+          <li class="tip">Don't feed them, even if others do. Food from tourists makes them sick and aggressive.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Ifrane <span class="ar">إفران</span></h3>
+        <div class="label sub">"Switzerland of Morocco" · 1,665 m</div>
+        <p>The French built Ifrane in 1929 as a cool summer retreat, with Alpine-style houses and steep red roofs designed to shed snow. It's now one of the cleanest towns in the country and has a ski slope nearby in winter.</p>
+        <ul class="facts">
+          <li>In 1935 Ifrane recorded −23.9 °C, still the lowest temperature ever measured in Africa.</li>
+          <li>The stone lion in the town park is the obligatory photo stop. It's usually said to have been carved by an Italian prisoner of war during WWII.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= DAY 5 ================= -->
+  <section class="day" id="day-5">
+    <div class="dayhead">
+      <div class="dayno">5</div>
+      <div class="label">Wednesday 4 November</div>
+      <h2>Fes, the medieval city that is still lived in</h2>
+      <div class="meta mono"><span>Guided walk in the medina</span><span>on foot</span><span>Night: Fes</span></div>
+    </div>
+    <p class="intro">Fes el-Bali (UNESCO, 1981) is often called the largest car-free urban area in the world. Goods are still moved by donkey and handcart through about 9,000 alleys. Founded in 789, it was Morocco's capital several times and its religious and intellectual centre for a thousand years.</p>
+
+    <article class="stop">
+      <figure><img src="img/boujeloud.jpg" alt="Bab Bou Jeloud gate covered in blue tiles" loading="lazy"><figcaption>Bab Bou Jeloud, the Blue Gate</figcaption></figure>
+      <div>
+        <h3>Bab Bou Jeloud <span class="ar">باب بوجلود</span></h3>
+        <div class="label sub">Main entrance to the old medina · 1913</div>
+        <p>Most walks start at the Blue Gate. It's blue on the outside, the colour of Fes, and green on the inside, the colour of Islam. Through its arches you can already see two minarets.</p>
+        <ul class="facts">
+          <li class="hist">Fes was founded by Idris I in 789 and expanded by his son Idris II in 808. Idris II's tomb is in the medina and is one of the holiest places in Morocco.</li>
+          <li>The fez hat is named after the city, which was the centre of its trade, and the red dye originally came from local berries.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/tannery.jpg" alt="Stone vats of colourful dye at the Chouara tannery" loading="lazy"><figcaption>Chouara Tannery</figcaption></figure>
+      <div>
+        <h3>Chouara Tannery <span class="ar">دار الدباغ شوارة</span></h3>
+        <div class="label sub">In use since around the 11th century</div>
+        <p>The honeycomb of stone vats is worked the medieval way. Hides are first soaked in white vats of quicklime, salt, cow urine and pigeon droppings, whose ammonia softens the leather. Then they go into the coloured vats to be dyed by hand, often with men standing waist-deep.</p>
+        <ul class="facts">
+          <li>Traditional dyes: poppy for red, indigo for blue, henna for orange, saffron or pomegranate for yellow, and mint for green.</li>
+          <li class="tip">You view it from the terraces of the leather shops around it. They'll hand you a sprig of mint to hold under your nose. Morning light is best. Bargaining starts at about a third of the first price.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/qarawiyyin.jpg" alt="Courtyard of the al-Qarawiyyin mosque with green tiled roofs" loading="lazy"><figcaption>Al-Qarawiyyin</figcaption></figure>
+      <div>
+        <h3>Al-Qarawiyyin <span class="ar">جامعة القرويين</span></h3>
+        <div class="label sub">Founded 859</div>
+        <p>Founded by Fatima al-Fihri, the daughter of a wealthy merchant from Kairouan, Al-Qarawiyyin is recognised by UNESCO and Guinness as the oldest continuously operating university in the world. Its library, one of the oldest in the world, holds a 9th-century Quran and manuscripts by Ibn Khaldun.</p>
+        <ul class="facts">
+          <li class="hist">Scholars who studied or taught here include the philosopher Ibn Rushd (Averroes), the historian Ibn Khaldun and the Jewish thinker Maimonides. Legend also links it to Pope Sylvester II, who is said to have helped bring Arabic numerals to Europe.</li>
+          <li class="tip">Non-Muslims can't enter the mosque, but you can look into the courtyard through the open doors.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/bouinania.jpg" alt="Carved stucco courtyard and minaret of the Bou Inania madrasa" loading="lazy"><figcaption>Bou Inania Madrasa</figcaption></figure>
+      <div>
+        <h3>The madrasas: Bou Inania &amp; Al-Attarine</h3>
+        <div class="label sub">Marinid dynasty · 1323–1355</div>
+        <p>A madrasa was a boarding college where students lived in small cells around a courtyard while studying at Al-Qarawiyyin. The Marinid sultans built them as showpieces. Every surface is decorated: zellige tile at the bottom, carved stucco in the middle and carved cedar at the top. It's a three-layer formula you'll start spotting everywhere.</p>
+        <ul class="facts">
+          <li>Bou Inania (1350–55) is one of the few religious buildings in Morocco open to non-Muslims. Opposite it are the remains of a 14th-century water clock with 13 bronze bowls. Nobody fully knows how it worked.</li>
+          <li>Zellige is cut by hand from glazed tiles into hundreds of small shapes, then assembled face-down like a puzzle. A master learns several hundred shapes by heart.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/royalfes.jpg" alt="Golden brass doors of the Royal Palace in Fes" loading="lazy"><figcaption>Dar al-Makhzen, Fes</figcaption></figure>
+      <div>
+        <h3>Royal Palace gates <span class="ar">دار المخزن</span></h3>
+        <div class="label sub">Fes el-Jdid</div>
+        <p>The palace itself is closed to visitors, but its seven gilded brass doors, framed by zellige and carved cedar, are one of the best photo spots in Fes. Fes el-Jdid ("New Fes") was built by the Marinids in 1276. Next to it is the Mellah, the old Jewish quarter, recognisable by its wooden balconies facing the street.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= DAY 6 ================= -->
+  <section class="day" id="day-6">
+    <div class="dayhead">
+      <div class="dayno">6</div>
+      <div class="label">Thursday 5 November</div>
+      <h2>The Atlantic capitals</h2>
+      <div class="meta mono"><span>Fes → Rabat → Casablanca → Marrakech</span><span>~530 km</span><span>~6.5 h driving</span><span>Night: Marrakech</span></div>
+    </div>
+
+    <article class="stop">
+      <figure><img src="img/hassantower.jpg" alt="The unfinished Hassan Tower with rows of column stumps" loading="lazy"><figcaption>Hassan Tower, Rabat</figcaption></figure>
+      <div>
+        <h3>Hassan Tower <span class="ar">صومعة حسان</span></h3>
+        <div class="label sub">Begun 1195 · never finished</div>
+        <p>The Almohad caliph Yaqub al-Mansur set out to build the largest mosque in the world here. When he died in 1199, construction stopped. The minaret reached 44 m of a planned 60-plus, and the 1755 Lisbon earthquake brought down the rest. The rows of column stumps show how vast the prayer hall would have been.</p>
+        <ul class="facts">
+          <li class="hist">The same caliph built the Koutoubia in Marrakech (Day 7) and the Giralda in Seville. You'll have seen two of the three sisters by the end of the trip.</li>
+          <li>Instead of stairs, the tower has a ramp inside, so the muezzin could ride up on horseback.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/mausoleum.jpg" alt="The white Mausoleum of Mohammed V with a green tiled roof" loading="lazy"><figcaption>Mausoleum of Mohammed V</figcaption></figure>
+      <div>
+        <h3>Mausoleum of Mohammed V <span class="ar">ضريح محمد الخامس</span></h3>
+        <div class="label sub">Completed 1971</div>
+        <p>Across the esplanade from the tower lie Mohammed V, the king who led Morocco to independence from France in 1956, and his sons Hassan II and Prince Abdallah. It was designed by the Vietnamese architect Eric Vo Toan. Inside, the ceiling is carved cedar covered in gold leaf.</p>
+        <ul class="facts">
+          <li>Royal guards in red and white uniforms stand at the gates, some of them on horseback. You can photograph them; they won't move.</li>
+          <li class="hist">Rabat became the capital only in 1912, when the French protectorate moved government away from the old imperial cities of Fes and Marrakech.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/udayas.jpg" alt="Walls and gate of the Kasbah of the Udayas" loading="lazy"><figcaption>Kasbah of the Udayas</figcaption></figure>
+      <div>
+        <h3>Kasbah of the Udayas <span class="ar">قصبة الأوداية</span></h3>
+        <div class="label sub">12th century · at the mouth of the Bou Regreg river</div>
+        <p>A fortress built by the Almohads on a cliff above the ocean. Behind the monumental gate is a quiet neighbourhood of whitewashed houses with the lower half painted blue, a café with views over the river to Salé, and a walled Andalusian garden.</p>
+        <ul class="facts">
+          <li class="hist">In the 1600s Rabat and Salé formed the "Republic of Bou Regreg", a pirate state whose corsairs raided as far as Iceland and Ireland.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/hassan2.jpg" alt="Hassan II Mosque with its tall minaret by the ocean" loading="lazy"><figcaption>Hassan II Mosque, Casablanca</figcaption></figure>
+      <div>
+        <h3>Hassan II Mosque <span class="ar">مسجد الحسن الثاني</span></h3>
+        <div class="label sub">Completed 1993 · minaret 210 m</div>
+        <p>Built partly on a platform over the Atlantic, following the Quran verse that "the throne of God was upon the water". It took around 10,000 craftsmen about seven years. The prayer hall holds 25,000 people, the esplanade another 80,000, and the roof can slide open in a few minutes.</p>
+        <ul class="facts">
+          <li>Its minaret was the tallest in the world until 2019 (now second, after Algiers). At night a laser beam from the top points toward Mecca.</li>
+          <li>It's one of the very few mosques in Morocco that non-Muslims can enter, on a guided tour.</li>
+          <li class="tip">Cover shoulders and knees. You'll take your shoes off and carry them in a bag. The film <i>Casablanca</i> (1942) was shot entirely in Hollywood; the "Rick's Café" in town was only created in 2004.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= DAY 7 ================= -->
+  <section class="day" id="day-7">
+    <div class="dayhead">
+      <div class="dayno">7</div>
+      <div class="label">Friday 6 November · Green March Day</div>
+      <h2>Marrakech, the red city</h2>
+      <div class="meta mono"><span>Guided walk + free afternoon</span><span>on foot</span><span>Night: Marrakech</span></div>
+    </div>
+    <p class="intro">Founded around 1070 by the Almoravids, Marrakech gave the whole country its name in many languages: Marruecos, Maroc, Morocco. The medina walls run for about 19 km and are built of the same ochre earth that gives it its nickname.</p>
+
+    <article class="stop">
+      <figure><img src="img/koutoubia.jpg" alt="The Koutoubia minaret at sunset" loading="lazy"><figcaption>Koutoubia Mosque</figcaption></figure>
+      <div>
+        <h3>Koutoubia Mosque <span class="ar">جامع الكتبية</span></h3>
+        <div class="label sub">Minaret 77 m · 12th century</div>
+        <p>The name means "mosque of the booksellers", after the manuscript sellers who once crowded around it. Each face of the minaret is decorated differently, and by city tradition no building in the medina may be taller.</p>
+        <ul class="facts">
+          <li class="hist">The first mosque on the site turned out to be misaligned with Mecca, so the Almohads built a second one right next to it. You can see the foundations of the first beside the current one.</li>
+          <li class="tip">Friday is the main prayer day, so it's especially busy around midday. It's at its best at golden hour from the gardens.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/bahia.jpg" alt="Large marble courtyard of the Bahia Palace" loading="lazy"><figcaption>Bahia Palace, great courtyard</figcaption></figure>
+      <div>
+        <h3>Bahia Palace <span class="ar">قصر الباهية</span></h3>
+        <div class="label sub">Late 19th century · "the brilliant"</div>
+        <p>Built by two grand viziers, Si Moussa and then his son Ba Ahmed, who was effectively ruling Morocco for the boy sultan Abdelaziz. It spreads over about 8 hectares of courtyards, gardens and painted cedar ceilings. Ba Ahmed kept adding rooms as he bought up neighbouring houses.</p>
+        <ul class="facts">
+          <li>When Ba Ahmed died in 1900, the sultan's court stripped the palace of its furniture within hours, which is why the rooms are empty today.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/jemaa.jpg" alt="Jemaa el-Fnaa square crowded with stalls and people" loading="lazy"><figcaption>Jemaa el-Fnaa</figcaption></figure>
+      <div>
+        <h3>Jemaa el-Fnaa &amp; the souks <span class="ar">ساحة جامع الفنا</span></h3>
+        <div class="label sub">UNESCO Masterpiece of Oral Heritage, 2001</div>
+        <p>By day: orange-juice carts, henna artists and snake charmers. From late afternoon the food stalls set up in rows and the square fills with storytellers, Gnawa musicians and crowds. The souks to the north are organised by trade: dyers, metalworkers, leather, spices, lamps.</p>
+        <ul class="facts">
+          <li class="hist">This square inspired UNESCO's whole idea of protecting "intangible heritage". The Spanish writer Juan Goytisolo, who lived nearby, campaigned to save it from development, and it was among the first places proclaimed in 2001.</li>
+          <li class="tip">Watch the square from a rooftop café at sunset. Anyone who poses for your photo (snake charmers, monkey handlers, costumed water sellers) will ask for a tip. Agree to the price first, or skip it.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>If you have free time</h3>
+        <ul class="facts">
+          <li><b>Jardin Majorelle &amp; YSL Museum</b>: the cobalt-blue garden that Yves Saint Laurent saved. Book a timed ticket online in advance.</li>
+          <li><b>Ben Youssef Madrasa</b>: the largest madrasa in Morocco, built in the same tile-stucco-cedar style as the ones in Fes.</li>
+          <li><b>Le Jardin Secret</b>: a restored medina palace garden, a calm escape from the souks.</li>
+          <li class="tip">Taxis: insist on the meter or agree on the price before getting in. The small red <i>petits taxis</i> are the city ones.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= DAY 8 ================= -->
+  <section class="day" id="day-8">
+    <div class="dayhead">
+      <div class="dayno">8</div>
+      <div class="label">Saturday 7 November</div>
+      <h2>Bslama, Morocco</h2>
+      <div class="meta mono"><span>Transfer to Marrakech Menara airport</span><span>~15–20 min from the medina</span></div>
+    </div>
+    <p class="intro" style="margin-top:0">Leave 2–3 hours before your flight. Dirhams can't legally be taken out of Morocco, so spend or change them before security. Keep your currency exchange receipts if you want to change money back at the airport.</p>
+  </section>
+</div>
+
+<div class="band" aria-hidden="true"><svg><rect width="100%" height="100%" fill="url(#z)"/></svg></div>
+
+<div class="wrap">
+  <section class="timeline" id="history">
+    <div class="label">Context</div>
+    <h2>1,200 years of dynasties, in the order you'll meet them</h2>
+    <p style="max-width:46em;color:var(--muted)">Almost every monument on this trip was built by one of six dynasties. Knowing which one helps you read the buildings.</p>
+    <ol class="tl">
+      <li><div class="yr">789–974</div><h3>Idrisids</h3><p>First Islamic Moroccan state. Founded Fes.</p><div class="see">See: Fes el-Bali, Al-Qarawiyyin (859)</div></li>
+      <li><div class="yr">1040–1147</div><h3>Almoravids</h3><p>Amazigh warriors from the Sahara who ruled from Spain to Senegal.</p><div class="see">See: Marrakech (founded c. 1070)</div></li>
+      <li><div class="yr">1147–1269</div><h3>Almohads</h3><p>The great builders of minarets and city walls.</p><div class="see">See: Koutoubia, Hassan Tower, Udayas</div></li>
+      <li><div class="yr">1244–1465</div><h3>Marinids</h3><p>Ruled from Fes and filled it with madrasas.</p><div class="see">See: Bou Inania, Al-Attarine, Fes el-Jdid</div></li>
+      <li><div class="yr">1549–1659</div><h3>Saadians</h3><p>Grew rich on sugar and the gold of Timbuktu.</p><div class="see">Optional in Marrakech: Saadian Tombs</div></li>
+      <li><div class="yr">1631–today</div><h3>Alaouites</h3><p>The current royal family, originally from the Tafilalt oasis.</p><div class="see">See: Tafilalt (Day 2–4), Mausoleum, royal palaces</div></li>
+      <li><div class="yr">1912–1956</div><h3>French protectorate</h3><p>Built the roads, Ifrane, Ouarzazate and the new towns outside the medinas.</p><div class="see">See: Tichka road, Ifrane, Casablanca</div></li>
+      <li><div class="yr">1956 → 1993</div><h3>Independence</h3><p>Mohammed V returns from exile. Hassan II rules 1961–1999.</p><div class="see">See: Mausoleum, Hassan II Mosque</div></li>
+    </ol>
+  </section>
+
+  <section class="practical" id="practical">
+    <div class="label">Practical</div>
+    <h2>Good to know</h2>
+    <div class="pgrid">
+      <div>
+        <h3>Weather in early November</h3>
+        <table class="wx">
+          <thead><tr><th>Place</th><th style="text-align:right">Day</th><th style="text-align:right">Night</th></tr></thead>
+          <tbody>
+            <tr><td>Marrakech</td><td class="n">24 °C</td><td class="n">11 °C</td></tr>
+            <tr><td>Tichka pass</td><td class="n">10 °C</td><td class="n">0 °C</td></tr>
+            <tr><td>Ouarzazate</td><td class="n">22 °C</td><td class="n">8 °C</td></tr>
+            <tr><td>Merzouga</td><td class="n">25 °C</td><td class="n">8 °C</td></tr>
+            <tr><td>Ifrane</td><td class="n">15 °C</td><td class="n">3 °C</td></tr>
+            <tr><td>Fes</td><td class="n">22 °C</td><td class="n">10 °C</td></tr>
+          </tbody>
+        </table>
+        <p class="mono" style="color:var(--muted);margin-top:6px">Typical averages. Pack layers, a warm jacket for the desert night and sunglasses for the dunes.</p>
+      </div>
+      <div>
+        <h3>Money, time &amp; plugs</h3>
+        <ul>
+          <li><b>Currency:</b> Moroccan dirham (MAD), around 10–11 to the euro. It's a closed currency, so get it from ATMs on arrival.</li>
+          <li><b>Cash:</b> needed for tips, small shops and the desert. Cards work in hotels and bigger shops.</li>
+          <li><b>Tipping:</b> 10–20 MAD for small services, around 10 % in restaurants. Tip your driver and guides at the end.</li>
+          <li><b>Time:</b> GMT+1, one hour behind Sofia.</li>
+          <li><b>Plugs:</b> type C/E, 220 V, the same as at home.</li>
+          <li><b>Dress:</b> shoulders and knees covered in medinas and mosques.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>A few words of Darija</h3>
+        <dl class="phr">
+          <dt>Salam alaykum</dt><dd>Hello</dd>
+          <dt>Shukran</dt><dd>Thank you</dd>
+          <dt>La, shukran</dt><dd>No, thank you (you'll use this a lot)</dd>
+          <dt>Bshhal?</dt><dd>How much?</dd>
+          <dt>Ghali bzzaf</dt><dd>Too expensive</dd>
+          <dt>Mezyan</dt><dd>Good</dd>
+          <dt>Safi</dt><dd>OK / enough</dd>
+          <dt>Inshallah</dt><dd>God willing</dd>
+          <dt>Bslama</dt><dd>Goodbye</dd>
+          <dt>Azul</dt><dd>Hello in Tamazight (Berber)</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h2>Photo credits</h2>
+    <p>All photos from Wikimedia Commons / Wikipedia, by their respective authors under Creative Commons licences. Open each link for author and licence.</p>
+    <div class="credits">
+      <a href="https://commons.wikimedia.org/wiki/File:Tizi_n%27Tichka.jpg">Tizi n'Tichka</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Ksar_A%C3%AFt_Benhaddou%2C_Marocco_%28%D8%A3%D9%8A%D8%AA_%D8%A8%D9%86_%D8%AD%D8%AF%D9%88%D8%8C_%D8%A7%D9%84%D9%85%D8%BA%D8%B1%D8%A8%2C_%E2%B4%B0%E2%B5%A2%E2%B5%9C_%E2%B5%83%E2%B4%B0%E2%B4%B7%E2%B4%B7%E2%B5%93%29.jpg">Aït Benhaddou</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Kasbah_Taourirt_in_Ouarzazate_2011.jpg">Kasbah Taourirt</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Morocco%2C_Souss-Massa-Draa_Region%2C_Ouarzazate_Province%2C_Skoura%2C_Kasbah_Amerhidil_%283%29.JPG">Kasbah Amridil</a>
+      <a href="https://commons.wikimedia.org/wiki/File:%22Spektakul%C3%A4re_Haarnadelkurven%22._04.jpg">Dades hairpins</a>
+      <a href="https://commons.wikimedia.org/wiki/File:%22Ein_beeindruckendes_Naturwunder%22%2C_17.jpg">Todra Gorge</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Merzouga_Dunes_2011.jpg">Erg Chebbi</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Merzouga_2024.jpg">Merzouga</a>
+      <a href="https://commons.wikimedia.org/wiki/File:%D9%85%D8%B9%D9%84%D9%85_%D8%A7%D9%84%DA%AF%D9%86%D8%A7%D9%88%D8%A9.jpg">Gnawa musician</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Ziz_river_%28js%29.jpg">Ziz river</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Macaca_sylvanus.Mother_and_baby.jpg">Barbary macaques</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Bab_Bou_Jeloud_%28Fes%2C_Marocco%29.jpg">Bab Bou Jeloud</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Chouara_Tannery_-_154_-_Marokko_Handybilder_2018_-_Fes_%2827347707917%29.jpg">Chouara Tannery</a>
+      <a href="https://commons.wikimedia.org/wiki/File:University_of_Al_Qaraouiyine.jpg">Al-Qarawiyyin</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Courtyard_Minaret_Bou_Inania_Fes_Nov25_A7CR_09138-42_HDR3.jpg">Bou Inania</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Kings_palace_in_Fes_%285364773212%29.jpg">Royal Palace, Fes</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Hassan_Tower%2C_Rabat%2C_Marocco_%28%D8%B5%D9%88%D9%85%D8%B9%D8%A9_%D8%AD%D8%B3%D8%A7%D9%86_%29.jpg">Hassan Tower</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Morocco_-_Mausoleum_of_Mohammed_V.jpg">Mausoleum of Mohammed V</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Kasbah_Oudayas_exterior.jpg">Kasbah of the Udayas</a>
+      <a href="https://en.wikipedia.org/wiki/File:Hassan_II_mosque,_Casablanca_2.jpg">Hassan II Mosque</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Marokko0112_%28retouched%29.jpg">Koutoubia</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Bahia_Palace_large_court.jpg">Bahia Palace</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Djemaa_el_Fna.jpg">Jemaa el-Fnaa</a>
+    </div>
+  </footer>
+</div>
+
+</div>
+<div data-l="bg" lang="bg" hidden>
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="label">31 окт – 7 ное 2026 · частна обиколка</div>
+      <h1>Атлас, Сахара и имперските градове<span class="ar">المغرب · ⵍⵎⵖⵔⵉⴱ</span></h1>
+      <p class="lede">Пътеводител за осемте дни: какво е всяко място, защо е важно и историите зад глинените касби, дюните и медините, през които ще минеш.</p>
+      <dl class="stats">
+        <div><dt>Дни</dt><dd>8</dd></div>
+        <div><dt>км по пътя</dt><dd>~1700</dd></div>
+        <div><dt>Най-висок проход</dt><dd>2260 м</dd></div>
+        <div><dt>Обекти на ЮНЕСКО</dt><dd>6</dd></div>
+      </dl>
+    </div>
+    <figure>
+      <img src="img/benhaddou.jpg" alt="Глиненото укрепено село Айт Бен Хаду на хълм над речно корито">
+      <figcaption>Айт Бен Хаду, ден 1</figcaption>
+    </figure>
+  </header>
+</div>
+
+<div class="band" aria-hidden="true"><svg><rect width="100%" height="100%" fill="url(#z)"/></svg></div>
+
+<div class="wrap">
+  <section class="overview">
+    <div class="verdict">
+      <div class="label">Преди тръгване</div>
+      <h2>Добра ли е програмата?</h2>
+      <p>Да. Това е класическата мароканска обиколка в правилната посока, с личен шофьор, истинска нощ в пустинята и свободен ден в Мерзуга. Няколко неща, които е добре да знаеш:</p>
+      <ul>
+        <li class="good"><b>Ден 3 е най-умната част.</b> Повечето обиколки бързат да излязат от пустинята; при теб има спокоен ден там, който поема и умората от ден 2.</li>
+        <li><b>Ден 2 е дълъг:</b> около 400 км, пет спирки и залез с камили. Слънцето в Мерзуга залязва около 18:20, така че очаквай ранно тръгване и кратки спирки в Скура и Долината на розите.</li>
+        <li><b>Ден 6 е най-дългият:</b> Фес → Рабат → Казабланка → Маракеш е около 530 км. Помоли шофьора да цели следобеден час за обиколката на джамията Хасан II (четвъртък е, важи нормалният график).</li>
+        <li><b>Розите няма да цъфтят.</b> Беритбата в Долината на розите е през май. През ноември ще видиш долината и магазините за розова вода, но не и цъфнали полета.</li>
+        <li><b>Езерото Даят Сриж може да е сухо.</b> Пълни се само след дъжд. Ако има вода, търси фламинги.</li>
+        <li><b>6 ноември е Денят на Зеления марш,</b> национален празник. Очаквай знамена навсякъде и по-оживени улици в Маракеш; основните забележителности обикновено работят.</li>
+      </ul>
+    </div>
+    <div class="map" role="img" aria-label="Карта на маршрута: от Маракеш на юг през Висок Атлас до Уарзазат, на изток през долините Дадес и Тодра до Мерзуга, на север през Среден Атлас до Фес, на запад до Рабат и Казабланка и обратно на юг до Маракеш.">
+      <svg viewBox="0 0 600 430">
+        <rect width="600" height="430" fill="var(--land)"/>
+        <polygon points="0,0 345,0 313,43 292,66 228,108 149,139 85,229 40,304 30,388 54,430 0,430" fill="var(--sea)"/>
+        <text x="20" y="160" font-size="11" style="fill:var(--muted)">АТЛАНТИК</text>
+        <text class="rng" transform="translate(170 400) rotate(-24)">ВИСОК АТЛАС</text>
+        <text class="rng" transform="translate(360 210) rotate(-52)">СРЕДЕН АТЛАС</text>
+        <text class="rng" x="470" y="410">САХАРА</text>
+        <g fill="var(--saffron)" opacity=".45"><circle cx="540" cy="358" r="3"/><circle cx="548" cy="350" r="2.5"/><circle cx="532" cy="366" r="2.5"/><circle cx="546" cy="368" r="2"/><circle cx="555" cy="360" r="2"/></g>
+        <path d="M191 293 L246 325 L267 348 L288 360 L316 347 L353 330 L365 317 L405 303 L517 312 L536 343 M536 343 L517 312 L500 264 L473 193 L432 122 L441 112 L451 65 L292 66 L228 108 L191 293"
+              fill="none" stroke="var(--zellige)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+        <g fill="var(--paper)" stroke="var(--zellige)" stroke-width="2">
+          <circle cx="191" cy="293" r="6"/><circle cx="267" cy="348" r="4"/><circle cx="288" cy="360" r="6"/><circle cx="316" cy="347" r="4"/>
+          <circle cx="353" cy="330" r="4"/><circle cx="365" cy="317" r="4"/><circle cx="405" cy="303" r="4"/><circle cx="517" cy="312" r="4"/>
+          <circle cx="536" cy="343" r="6"/><circle cx="500" cy="264" r="4"/><circle cx="473" cy="193" r="4"/><circle cx="432" cy="122" r="4"/>
+          <circle cx="441" cy="112" r="4"/><circle cx="451" cy="65" r="6"/><circle cx="292" cy="66" r="4"/><circle cx="228" cy="108" r="4"/>
+        </g>
+        <polygon points="246,318 252,328 240,328" fill="var(--saffron)"/>
+        <g font-size="11">
+          <text x="140" y="285" font-weight="500">Маракеш</text>
+          <text x="210" y="318">Тишка</text>
+          <text x="186" y="364">Айт Бен Хаду</text>
+          <text x="250" y="382" font-weight="500">Уарзазат</text>
+          <text x="306" y="372">Скура</text>
+          <text x="316" y="320">Д. на розите</text>
+          <text x="352" y="300">Дадес</text>
+          <text x="392" y="290">Тодра</text>
+          <text x="524" y="306">Ерфуд</text>
+          <text x="500" y="384" font-weight="500">Мерзуга</text>
+          <text x="508" y="262">Зиз</text>
+          <text x="482" y="196">Мидельт</text>
+          <text x="384" y="132">Азру</text>
+          <text x="452" y="114">Ифран</text>
+          <text x="462" y="62" font-weight="500">Фес</text>
+          <text x="294" y="88">Рабат</text>
+          <text x="236" y="130">Казабланка</text>
+        </g>
+        <g font-size="10" font-weight="500" style="fill:var(--saffron)">
+          <text x="226" y="306">1</text><text x="452" y="296">2</text><text x="556" y="330">3</text>
+          <text x="488" y="160">4</text><text x="470" y="80">5</text><text x="360" y="60">6</text><text x="196" y="220">6</text><text x="160" y="312">7·8</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+</div>
+
+<nav class="daynav" aria-label="Дни">
+  <ol>
+    <li><a href="#bg-day-1"><b>1</b> Съб 31 · Атлас</a></li>
+    <li><a href="#bg-day-2"><b>2</b> Нед 1 · Долини</a></li>
+    <li><a href="#bg-day-3"><b>3</b> Пон 2 · Сахара</a></li>
+    <li><a href="#bg-day-4"><b>4</b> Вт 3 · На север</a></li>
+    <li><a href="#bg-day-5"><b>5</b> Ср 4 · Фес</a></li>
+    <li><a href="#bg-day-6"><b>6</b> Чет 5 · Брегът</a></li>
+    <li><a href="#bg-day-7"><b>7</b> Пет 6 · Маракеш</a></li>
+    <li><a href="#bg-day-8"><b>8</b> Съб 7 · Вкъщи</a></li>
+    <li><a href="#bg-history">История</a></li>
+    <li><a href="#bg-practical">Практично</a></li>
+    <li><button type="button" class="langbtn" data-set="en">EN</button></li>
+  </ol>
+</nav>
+
+<div class="wrap">
+  <div class="legend mono" aria-hidden="true" style="margin-top:18px">
+    <span><i style="background:var(--saffron);transform:rotate(45deg)"></i>Интересен факт</span>
+    <span><i style="background:var(--indigo);transform:rotate(45deg)"></i>История</span>
+    <span><i style="background:var(--zellige);border-radius:50%"></i>Съвет за деня</span>
+  </div>
+
+  <!-- ================= ДЕН 1 ================= -->
+  <section class="day" id="bg-day-1">
+    <div class="dayhead">
+      <div class="dayno">1</div>
+      <div class="label">Събота, 31 октомври</div>
+      <h2>През Висок Атлас до портата на пустинята</h2>
+      <div class="meta mono"><span>Маракеш → Уарзазат</span><span>~200 км</span><span>~4,5 ч път</span><span>Нощувка: Уарзазат</span></div>
+    </div>
+
+    <article class="stop">
+      <figure><img src="img/tichka.jpg" alt="Серпентини по прохода Тизи н'Тишка" loading="lazy"><figcaption>Тизи н'Тишка</figcaption></figure>
+      <div>
+        <h3>Проходът Тизи н'Тишка <span class="ar">تيزي ن تيشكا</span></h3>
+        <div class="label sub">2260 м · път N9</div>
+        <p>Най-високият голям автомобилен проход в Северна Африка. „Тизи“ на амазигски (берберски) означава „проход“. Пътят е построен от френската армия и открит през 1936 г. Преди това тук е минавала пътека за мулета, по която векове наред кервани са пренасяли сол, фурми и злато между Сахара и Маракеш.</p>
+        <p>По изкачването ще минеш покрай амазигски села, построени от същата червена пръст като склоновете, орехови дървета по поточетата и сергии с аметистови и кварцови жеоди.</p>
+        <ul class="facts">
+          <li class="hist">Който е държал прохода, е контролирал търговията през Атлас. В началото на XX век това е родът Глауи. Водачът му Тами ел Глауи става паша на Маракеш (1912–1956) и един от най-богатите хора в света. Изоставената му касба в Телует е съвсем близо до пътя.</li>
+          <li>Висок Атлас се простира на около 800 км през Мароко. Джебел Тубкал (4167 м), най-високият връх в Северна Африка, е на около 50 км западно от прохода.</li>
+          <li class="tip">Горе може да е 5–10 °C, дори когато в Маракеш е топло. Дръж яке в колата и вземи хапчета против прилошаване, ако ти трябват; завоите са много.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/benhaddou.jpg" alt="Айт Бен Хаду на залез" loading="lazy"><figcaption>Ксар Айт Бен Хаду</figcaption></figure>
+      <div>
+        <h3>Айт Бен Хаду <span class="ar">آيت بن حدو</span></h3>
+        <div class="label sub">Световно наследство на ЮНЕСКО от 1987 г.</div>
+        <p><i>Ксар</i> е укрепено село: къщи, джамия, керван-сарай и общ хамбар, всичко зад една отбранителна стена. Айт Бен Хаду се изкачва по хълм над река Унила, на стария керванен път, и е най-добре запазеният пример в Мароко.</p>
+        <p>Всичко е от набита пръст (<i>пизе</i>) и кирпич, смесен със слама. Глинените стени трябва постоянно да се измазват отново след дъжд, затова повечето от видимото датира от XVII век насам и е възстановявано по стария начин. Вътре живеят само няколко семейства; повечето са се преместили в новото село отвъд реката.</p>
+        <ul class="facts">
+          <li>Любим снимачен терен: тук са снимани „Лорънс Арабски“, „Исус от Назарет“, „Мумията“, „Гладиатор“, „Царството небесно“ и „Игра на тронове“ (Юнкай и Пентос).</li>
+          <li>Сградата на върха на хълма е <i>агадир</i>, общият хамбар, където селяните са се укривали при нападение. Изкачването е около 15 минути и гледката оттам е най-добрата.</li>
+          <li class="tip">Реката се пресича по камъни или по пешеходен мост. Магазинчетата вътре продават картини, рисувани с шафран, чай и индиго, които сменят цвета си, когато ги затоплят над пламък.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/ouarzazate.jpg" alt="Касба Таурирт в Уарзазат" loading="lazy"><figcaption>Касба Таурирт, Уарзазат</figcaption></figure>
+      <div>
+        <h3>Уарзазат <span class="ar">ورزازات</span></h3>
+        <div class="label sub">„Вратата на пустинята“ · 1160 м</div>
+        <p>Името обикновено се обяснява като амазигското „без шум“. Французите изграждат модерния град през 1920-те като гарнизон, около по-старата Касба Таурирт, дворец на рода Глауи, чийто лабиринт от стаи се вижда от пътя.</p>
+        <ul class="facts">
+          <li>Atlas Studios (открити 1983 г.) са едно от най-големите филмови студия в света по площ. На терена им още стоят декори от „Гладиатор“, „Кундун“ и „Астерикс и Обеликс: Мисия Клеопатра“.</li>
+          <li>Точно извън града е Noor Ouarzazate, един от най-големите комплекси за концентрирана слънчева енергия в света (около 580 MW). Хилядите извити огледала се виждат от самолета.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= ДЕН 2 ================= -->
+  <section class="day" id="bg-day-2">
+    <div class="dayhead">
+      <div class="dayno">2</div>
+      <div class="label">Неделя, 1 ноември</div>
+      <h2>Пътят на хилядата касби, после дюните</h2>
+      <div class="meta mono"><span>Уарзазат → Мерзуга</span><span>~400 км</span><span>~7 ч път + спирки</span><span>Нощувка: пустинен лагер</span></div>
+    </div>
+    <p class="intro">Най-дългият и най-разнообразен ден: палмов оазис, долината на розите, две ждрела, земята на фосилите и Сахара. Залезът над Ерг Шеби е около 18:20.</p>
+
+    <article class="stop">
+      <figure><img src="img/amridil.jpg" alt="Касба Амридил с четири ъглови кули" loading="lazy"><figcaption>Касба Амридил, Скура</figcaption></figure>
+      <div>
+        <h3>Оазисът Скура и Касба Амридил <span class="ar">سكورة</span></h3>
+        <div class="label sub">Семейна касба от XVII век</div>
+        <p>Скура е палмова горичка от около 25 км², напоявана чрез <i>кетари</i>, подземни канали, които докарват вода от планината, без тя да се изпарява. В нея има десетки касби. За разлика от ксара, касбата е укрепеният дом на един влиятелен род.</p>
+        <p>Амридил и днес принадлежи на рода, който я е построил преди повече от 300 години, и той я поддържа като музей. Обърни внимание на маслобойната, старите кухненски съдове и украсените тавани от палмово и тамариксово дърво.</p>
+        <ul class="facts">
+          <li>Амридил е изобразена на старата банкнота от 50 дирхама. Попитай гида; в някои магазини още имат такава да ти покажат.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Долината на розите · Келаат М'Гуна <span class="ar">قلعة مكونة</span></h3>
+        <div class="label sub">Земята на Rosa damascena</div>
+        <p>Розите тук са дамаски (маслодайни) – същият вид като в нашата Розова долина. Според местна легенда поклонници са ги донесли от Дамаск. Отглеждат се като живи плетове между нивите, а не в плантации. През май градът прави фестивал на розата, а беритбата е на зазоряване, когато ароматът е най-силен.</p>
+        <ul class="facts">
+          <li>За един литър розово масло са нужни около 3–4 тона цветове, затова чистото масло е толкова скъпо. Розовата вода е достъпният вариант и е хубав подарък.</li>
+          <li class="tip">През ноември няма цвят. Купувай розови продукти от кооперация, а не от крайпътен магазин, за да вземеш истински.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/dades.jpg" alt="Серпентините на Тисадрин в ждрелото Дадес" loading="lazy"><figcaption>Серпентините на Тисадрин, Дадес</figcaption></figure>
+      <div>
+        <h3>Долината Дадес <span class="ar">وادي دادس</span></h3>
+        <div class="label sub">Бумалн Дадес</div>
+        <p>Река Дадес минава между Висок Атлас и вулканичния масив Джебел Сагро, а долината е осеяна с касби. Затова пътят на изток се нарича Пътят на хилядата касби. По-нагоре в долината скалите са ерозирали в заоблени червени форми, които местните наричат „маймунски пръсти“.</p>
+        <ul class="facts">
+          <li>Зигзагообразният път при Тисадрин (на снимката) е един от най-снимваните пътища в Африка и често се появява в автомобилни реклами.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/todra.jpg" alt="Плитка река между отвесните стени на ждрелото Тодра" loading="lazy"><figcaption>Ждрелото Тодра</figcaption></figure>
+      <div>
+        <h3>Ждрелото Тодра <span class="ar">مضيق تودغى</span></h3>
+        <div class="label sub">Стени ~300 м · ~10 м ширина в най-тясното</div>
+        <p>Река Тодга е прорязала процеп във варовика точно на север от Тингир. Най-впечатляващи са последните няколкостотин метра: стените се издигат отвесно от двете страни, а пътят върви плътно до потока, така че можеш да го извървиш за 20 минути.</p>
+        <ul class="facts">
+          <li>Ждрелото е едно от основните места за скално катерене в Мароко. Погледни нагоре и често ще видиш катерачи по стените.</li>
+          <li class="tip">Дъното на ждрелото се огрява от слънце само около обяд; през останалото време е прохладно и сенчесто. Можеш да нагазиш в потока, плитък е.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Ерфуд и работилниците за фосили <span class="ar">أرفود</span></h3>
+        <div class="label sub">Девонско морско дъно, ~350–400 млн. години</div>
+        <p>Тази пустиня някога е била плитко море. Местният черен варовик е пълен с фосили: прави конусовидни <i>ортоцераси</i>, спирални амонити и трилобити. Работилниците го режат на мивки, плотове за маси и полирани плочи.</p>
+        <ul class="facts">
+          <li>Много от „съвършените“ трилобити, продавани на туристи, са частично издълбани или сглобени от парчета. Плочите с ортоцераси са честната покупка.</li>
+          <li class="hist">Край Ерфуд са руините на <b>Сиджилмаса</b>, основана през 757 г. Тя е била северният край на транссахарската търговия със злато, където са пристигали кервани от Гана и Мали. В съседния оазис Тафилалт е родът на днешната кралска династия, Алауитите, дошли на власт през 1600-те.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/chebbi.jpg" alt="Оранжевите дюни на Ерг Шеби" loading="lazy"><figcaption>Ерг Шеби</figcaption></figure>
+      <div>
+        <h3>Ерг Шеби и разходката с камили <span class="ar">عرق الشبي</span></h3>
+        <div class="label sub">Дюни до ~150 м · ~22 км дължина</div>
+        <p><i>Ерг</i> е море от пясъчни дюни, навети от вятъра. По-голямата част от Сахара е камък и чакъл (<i>хамада</i>), така че ерговете като този са изключение, а Ерг Шеби е най-големият в Мароко. При залез дюните стават оранжеви до червени заради железния оксид, покриващ песъчинките.</p>
+        <ul class="facts">
+          <li>Местна легенда разказва, че Бог изпратил дюните, за да затрупат богато семейство, което отпъдило бедна жена и сина ѝ.</li>
+          <li>Мароканските камили са дромадери (с една гърбица). Могат да изпият около 100 литра вода за десет минути.</li>
+          <li class="tip">През ноември пустинните нощи падат до 5–8 °C. Вземи топъл слой за лагера. Стани за изгрева около 07:40; често е по-хубав от залеза. След вечеря погледни нагоре: без светлинно замърсяване Млечният път се вижда ясно.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= ДЕН 3 ================= -->
+  <section class="day" id="bg-day-3">
+    <div class="dayhead">
+      <div class="dayno">3</div>
+      <div class="label">Понеделник, 2 ноември</div>
+      <h2>Отвъд дюните: номади, оазиси и музика гнауа</h2>
+      <div class="meta mono"><span>Обиколка с 4×4 около Мерзуга</span><span>офроуд</span><span>Нощувка: хотел до дюните</span></div>
+    </div>
+
+    <article class="stop">
+      <figure><img src="img/merzouga.jpg" alt="Мерзуга с палмова горичка и дюни отпред" loading="lazy"><figcaption>Мерзуга и палмите ѝ</figcaption></figure>
+      <div>
+        <h3>Номадски семейства и езерото Даят Сриж</h3>
+        <div class="label sub">Амазигски скотовъдци · сезонно езеро</div>
+        <p>Семействата около Ерг Шеби са предимно от племето Айт Хебаш, част от конфедерацията Айт Ата, амазигски скотовъдци, които някога са контролирали керванните пътища. Някои още живеят във вълнени или брезентови шатри и се местят с козите и камилите си между водоизточниците.</p>
+        <p>Даят Сриж е езеро, което съществува само след дъжд. Когато има вода, тук спират фламинги и други прелетни птици, което изглежда нереално на фона на дюните.</p>
+        <ul class="facts">
+          <li>Ментовият чай се налива отвисоко, за да се аерира и да направи пяна. В пустинята често повтарят: първата чаша е нежна като живота, втората силна като любовта, третата горчива като смъртта.</li>
+          <li class="tip">Питай, преди да снимаш хора. Малък подарък (захар, чай) или няколко дирхама за семейството се приемат с благодарност; гидът ще ти каже какво е прието.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/gnawa.jpg" alt="Музикант гнауа в синя роба, свирещ на гимбри" loading="lazy"><figcaption>Музикант гнауа с гимбри</figcaption></figure>
+      <div>
+        <h3>Хамлия и музиката гнауа <span class="ar">خملية · كناوة</span></h3>
+        <div class="label sub">Нематериално наследство на ЮНЕСКО от 2019 г.</div>
+        <p>Хамлия е село на хората гнауа, потомци на западноафриканци, доведени на север през Сахара с керванната търговия, много от тях като роби. Музиката им смесва африкански ритъм със суфийска духовна практика и традиционно се е използвала в целонощни лечебни церемонии.</p>
+        <ul class="facts">
+          <li>Заслушай се за <i>гимбри</i> (триструнна басова лютня, покрита с камилска кожа) и <i>каракеб</i>, тежки железни кастанети, които създават хипнотичното тракане.</li>
+          <li class="hist">Музиката гнауа е навлязла в рока и джаза: Джими Пейдж и Робърт Плант записват с музиканти гнауа в Маракеш през 1994 г., джазмени като Ранди Уестън работят с тях десетилетия, а Есауира всяко лято е домакин на голям фестивал гнауа.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= ДЕН 4 ================= -->
+  <section class="day" id="bg-day-4">
+    <div class="dayhead">
+      <div class="dayno">4</div>
+      <div class="label">Вторник, 3 ноември</div>
+      <h2>От пустинята до кедровата гора за един ден</h2>
+      <div class="meta mono"><span>Мерзуга → Фес</span><span>~470 км</span><span>~8 ч път</span><span>Нощувка: Фес</span></div>
+    </div>
+    <p class="intro">Ще се изкачиш от около 750 м в края на Сахара до над 2000 м в Среден Атлас. Наблюдавай как пейзажът се сменя от дюни към палмови долини, голо плато и кедрова гора.</p>
+
+    <article class="stop">
+      <figure><img src="img/ziz.jpg" alt="Река Зиз, виеща се през скалист каньон" loading="lazy"><figcaption>Ждрелата на Зиз</figcaption></figure>
+      <div>
+        <h3>Долината Зиз <span class="ar">وادي زيز</span></h3>
+        <div class="label sub">Палмите на Тафилалт · Ер Рашидия</div>
+        <p>Река Зиз тече на юг от Атлас и захранва Тафилалт, един от най-големите оазиси с финикови палми в света. От площадките за гледка се вижда зелена лента от палми в кафяв каньон, с глинени села по края.</p>
+        <ul class="facts">
+          <li>Фурмата Меджул (<i>маджхул</i>), отглеждана днес в Калифорния и Израел, произхожда от Тафилалт. През 1920-те няколко издънки са занесени в САЩ, за да спасят сорта от болест по палмите.</li>
+          <li class="hist">Северно от Ер Рашидия пътят минава през „Тунела на легионерите“, прокопан в скалата от Френския чуждестранен легион през 1927–28 г.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Мидельт <span class="ar">ميدلت</span></h3>
+        <div class="label sub">~1500 м · спирка за обяд</div>
+        <p>Град на плато между Висок и Среден Атлас, над който се извисява Джебел Аяши (3737 м), често заснежен от ноември. Мидельт е столицата на ябълките в Мароко и всяка есен прави фестивал на ябълката; по пътя ще видиш овощни градини и сергии.</p>
+        <ul class="facts"><li>Районът е бил голям миньорски център за олово и е известен сред колекционерите с кристалите ванадинит, ярко червени минерали, продавани в крайпътните магазини.</li></ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/macaque.jpg" alt="Маймуна магот с бебето си" loading="lazy"><figcaption>Маготи (берберски макаци)</figcaption></figure>
+      <div>
+        <h3>Кедровата гора край Азру <span class="ar">أزرو</span></h3>
+        <div class="label sub">Атласки кедри · маготи</div>
+        <p>„Азру“ на тамазигт означава „скала“. Около града расте една от най-големите останали гори от атласки кедър. Някои дървета са на няколкостотин години, а от тяхната ароматна дървесина са резбованите тавани, които ще видиш във Фес и Маракеш.</p>
+        <ul class="facts">
+          <li>Маготът е единственият примат в Африка северно от Сахара и единственият макак извън Азия. Известните маймуни от Гибралтар са същият вид. Застрашен е: в дивата природа са останали под 10 000.</li>
+          <li class="tip">Не ги храни, дори ако другите го правят. Храната от туристи ги разболява и ги прави агресивни.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Ифран <span class="ar">إفران</span></h3>
+        <div class="label sub">„Швейцария на Мароко“ · 1665 м</div>
+        <p>Французите построяват Ифран през 1929 г. като прохладен летен курорт, с къщи в алпийски стил и стръмни червени покриви, по които да се свлича снегът. Днес е един от най-чистите градове в страната, а наблизо има и ски писта за зимата.</p>
+        <ul class="facts">
+          <li>През 1935 г. в Ифран са измерени −23,9 °C, и до днес най-ниската температура, регистрирана в Африка.</li>
+          <li>Каменният лъв в градския парк е задължителната снимка. Обикновено се казва, че е изваян от италиански военнопленник по време на Втората световна война.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= ДЕН 5 ================= -->
+  <section class="day" id="bg-day-5">
+    <div class="dayhead">
+      <div class="dayno">5</div>
+      <div class="label">Сряда, 4 ноември</div>
+      <h2>Фес, средновековният град, в който още се живее</h2>
+      <div class="meta mono"><span>Разходка с гид в медината</span><span>пеша</span><span>Нощувка: Фес</span></div>
+    </div>
+    <p class="intro">Фес ел-Бали (ЮНЕСКО, 1981 г.) често е наричан най-голямата градска зона без коли в света. Стоките още се пренасят с магарета и ръчни колички по около 9000 улички. Основан през 789 г., градът неколкократно е бил столица на Мароко и в продължение на хиляда години е негов религиозен и интелектуален център.</p>
+
+    <article class="stop">
+      <figure><img src="img/boujeloud.jpg" alt="Портата Баб Бу Джелуд, покрита със сини плочки" loading="lazy"><figcaption>Баб Бу Джелуд, Синята порта</figcaption></figure>
+      <div>
+        <h3>Баб Бу Джелуд <span class="ar">باب بوجلود</span></h3>
+        <div class="label sub">Главният вход към старата медина · 1913 г.</div>
+        <p>Повечето разходки започват от Синята порта. Отвън е синя, цветът на Фес, а отвътре зелена, цветът на исляма. През арките ѝ вече се виждат два минарета.</p>
+        <ul class="facts">
+          <li class="hist">Фес е основан от Идрис I през 789 г. и разширен от сина му Идрис II през 808 г. Гробницата на Идрис II е в медината и е едно от най-святите места в Мароко.</li>
+          <li>Шапката фес е кръстена на града, който е бил център на търговията с нея, а червената боя първоначално е идвала от местни плодове.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/tannery.jpg" alt="Каменни вани с цветни бои в кожарната Шуара" loading="lazy"><figcaption>Кожарната Шуара</figcaption></figure>
+      <div>
+        <h3>Кожарната Шуара <span class="ar">دار الدباغ شوارة</span></h3>
+        <div class="label sub">Работи от около XI век</div>
+        <p>Пчелната пита от каменни вани работи по средновековния начин. Кожите първо се киснат в белите вани с негасена вар, сол, кравешка урина и гълъбов тор, чийто амоняк омекотява кожата. После отиват в цветните вани и се боядисват на ръка, често от мъже, нагазили до кръста.</p>
+        <ul class="facts">
+          <li>Традиционни бои: мак за червено, индиго за синьо, къна за оранжево, шафран или нар за жълто и мента за зелено.</li>
+          <li class="tip">Гледа се от терасите на магазините за кожа около нея. Ще ти дадат стрък мента да държиш под носа си. Сутрешната светлина е най-добра. Пазарлъкът започва от около една трета от първата цена.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/qarawiyyin.jpg" alt="Двор на джамията Ал-Карауийн със зелени керемидени покриви" loading="lazy"><figcaption>Ал-Карауийн</figcaption></figure>
+      <div>
+        <h3>Ал-Карауийн <span class="ar">جامعة القرويين</span></h3>
+        <div class="label sub">Основан 859 г.</div>
+        <p>Основан от Фатима ал-Фихри, дъщеря на богат търговец от Кайруан, Ал-Карауийн е признат от ЮНЕСКО и Гинес за най-стария непрекъснато действащ университет в света. Библиотеката му, една от най-старите в света, пази Коран от IX век и ръкописи на Ибн Халдун.</p>
+        <ul class="facts">
+          <li class="hist">Сред учените, учили или преподавали тук, са философът Ибн Рушд (Авероес), историкът Ибн Халдун и еврейският мислител Маймонид. Легенда го свързва и с папа Силвестър II, за когото се казва, че е помогнал арабските цифри да стигнат до Европа.</li>
+          <li class="tip">Немюсюлмани не могат да влизат в джамията, но през отворените врати може да се надникне в двора.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/bouinania.jpg" alt="Резбован гипсов двор и минаре на медресето Бу Инания" loading="lazy"><figcaption>Медресето Бу Инания</figcaption></figure>
+      <div>
+        <h3>Медресетата: Бу Инания и Ал-Атарин</h3>
+        <div class="label sub">Династия Мериниди · 1323–1355 г.</div>
+        <p>Медресето е било колеж с общежитие, където студентите живеели в малки килии около двор, докато учели в Ал-Карауийн. Меринидските султани ги строят като витрини на властта си. Всяка повърхност е украсена: зелиж (мозайка от плочки) долу, резбован гипс в средата и резбован кедър горе. Ще започнеш да забелязваш тази трипластова формула навсякъде.</p>
+        <ul class="facts">
+          <li>Бу Инания (1350–55) е една от малкото религиозни сгради в Мароко, отворени за немюсюлмани. Срещу нея са останките от воден часовник от XIV век с 13 бронзови купи. Никой не знае със сигурност как е работил.</li>
+          <li>Зелижът се реже на ръка от глазирани плочки на стотици малки форми, които после се нареждат с лицето надолу като пъзел. Майсторът знае наизуст няколкостотин форми.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/royalfes.jpg" alt="Позлатените месингови врати на Кралския дворец във Фес" loading="lazy"><figcaption>Дар ал-Махзен, Фес</figcaption></figure>
+      <div>
+        <h3>Портите на Кралския дворец <span class="ar">دار المخزن</span></h3>
+        <div class="label sub">Фес ел-Джедид</div>
+        <p>Самият дворец е затворен за посетители, но седемте му позлатени месингови врати, обрамчени със зелиж и резбован кедър, са едно от най-хубавите места за снимки във Фес. Фес ел-Джедид („Новият Фес“) е построен от Меринидите през 1276 г. До него е Мелах, старият еврейски квартал, който се познава по дървените балкони към улицата.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= ДЕН 6 ================= -->
+  <section class="day" id="bg-day-6">
+    <div class="dayhead">
+      <div class="dayno">6</div>
+      <div class="label">Четвъртък, 5 ноември</div>
+      <h2>Столиците на Атлантика</h2>
+      <div class="meta mono"><span>Фес → Рабат → Казабланка → Маракеш</span><span>~530 км</span><span>~6,5 ч път</span><span>Нощувка: Маракеш</span></div>
+    </div>
+
+    <article class="stop">
+      <figure><img src="img/hassantower.jpg" alt="Недовършената Кула на Хасан с редици от пънове на колони" loading="lazy"><figcaption>Кулата на Хасан, Рабат</figcaption></figure>
+      <div>
+        <h3>Кулата на Хасан <span class="ar">صومعة حسان</span></h3>
+        <div class="label sub">Започната 1195 г. · никога не е завършена</div>
+        <p>Алмохадският халиф Якуб ал-Мансур решава да построи тук най-голямата джамия в света. Когато умира през 1199 г., строежът спира. Минарето достига 44 м от планираните над 60, а земетресението в Лисабон от 1755 г. събаря останалото. Редиците пънове от колони показват колко огромна е щяла да бъде молитвената зала.</p>
+        <ul class="facts">
+          <li class="hist">Същият халиф строи Кутубия в Маракеш (ден 7) и Хиралда в Севиля. До края на пътуването ще си видял две от трите „сестри“.</li>
+          <li>Вместо стълби кулата има рампа, за да може мюезинът да се изкачва на кон.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/mausoleum.jpg" alt="Белият мавзолей на Мохамед V със зелен керемиден покрив" loading="lazy"><figcaption>Мавзолеят на Мохамед V</figcaption></figure>
+      <div>
+        <h3>Мавзолеят на Мохамед V <span class="ar">ضريح محمد الخامس</span></h3>
+        <div class="label sub">Завършен 1971 г.</div>
+        <p>От другата страна на площада срещу кулата почиват Мохамед V, кралят, който извежда Мароко към независимост от Франция през 1956 г., и синовете му Хасан II и принц Абдала. Проектиран е от виетнамския архитект Ерик Во Тоан. Вътре таванът е от резбован кедър, покрит със златни листа.</p>
+        <ul class="facts">
+          <li>Кралски гвардейци в червено-бели униформи пазят входовете, някои на коне. Можеш да ги снимаш; няма да помръднат.</li>
+          <li class="hist">Рабат става столица едва през 1912 г., когато френският протекторат премества управлението далеч от старите имперски градове Фес и Маракеш.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/udayas.jpg" alt="Стени и порта на Касбата Удая" loading="lazy"><figcaption>Касбата Удая</figcaption></figure>
+      <div>
+        <h3>Касбата Удая <span class="ar">قصبة الأوداية</span></h3>
+        <div class="label sub">XII век · при устието на река Бу Регрег</div>
+        <p>Крепост, построена от Алмохадите на скала над океана. Зад монументалната порта има тих квартал с варосани къщи, чиято долна половина е боядисана в синьо, кафене с изглед над реката към Сале и оградена андалуска градина.</p>
+        <ul class="facts">
+          <li class="hist">През 1600-те Рабат и Сале образуват „Републиката Бу Регрег“, пиратска държава, чиито корсари нападат чак до Исландия и Ирландия.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/hassan2.jpg" alt="Джамията Хасан II с високото си минаре край океана" loading="lazy"><figcaption>Джамията Хасан II, Казабланка</figcaption></figure>
+      <div>
+        <h3>Джамията Хасан II <span class="ar">مسجد الحسن الثاني</span></h3>
+        <div class="label sub">Завършена 1993 г. · минаре 210 м</div>
+        <p>Построена отчасти върху платформа над Атлантика, следвайки стиха от Корана, че „тронът на Бог беше над водата“. Работят около 10 000 майстори в продължение на около седем години. Молитвената зала побира 25 000 души, площадът още 80 000, а покривът може да се отвори за няколко минути.</p>
+        <ul class="facts">
+          <li>Минарето ѝ е най-високото в света до 2019 г. (сега е второ, след това в Алжир). Нощем лазерен лъч от върха сочи към Мека.</li>
+          <li>Това е една от съвсем малкото джамии в Мароко, в които немюсюлмани могат да влязат, с обиколка с гид.</li>
+          <li class="tip">Покрий раменете и коленете. Ще събуеш обувките си и ще ги носиш в торбичка. Филмът „Казабланка“ (1942) е сниман изцяло в Холивуд; „Rick's Café“ в града е създадено чак през 2004 г.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= ДЕН 7 ================= -->
+  <section class="day" id="bg-day-7">
+    <div class="dayhead">
+      <div class="dayno">7</div>
+      <div class="label">Петък, 6 ноември · Ден на Зеления марш</div>
+      <h2>Маракеш, червеният град</h2>
+      <div class="meta mono"><span>Разходка с гид + свободен следобед</span><span>пеша</span><span>Нощувка: Маракеш</span></div>
+    </div>
+    <p class="intro">Основан около 1070 г. от Алморавидите, Маракеш дава името на цялата страна на много езици: Marruecos, Maroc, Morocco, Мароко. Стените на медината са дълги около 19 км и са от същата охрена пръст, която му дава прякора.</p>
+
+    <article class="stop">
+      <figure><img src="img/koutoubia.jpg" alt="Минарето на Кутубия на залез" loading="lazy"><figcaption>Джамията Кутубия</figcaption></figure>
+      <div>
+        <h3>Джамията Кутубия <span class="ar">جامع الكتبية</span></h3>
+        <div class="label sub">Минаре 77 м · XII век</div>
+        <p>Името означава „джамията на книжарите“, по търговците на ръкописи, които някога са се тълпели около нея. Всяка страна на минарето е украсена различно, а по градска традиция никоя сграда в медината не може да е по-висока.</p>
+        <ul class="facts">
+          <li class="hist">Първата джамия на мястото се оказва неправилно ориентирана към Мека, затова Алмохадите строят втора точно до нея. До днешната се виждат основите на първата.</li>
+          <li class="tip">Петък е главният молитвен ден, така че около обяд е особено оживено. Най-красива е в златния час, гледана от градините.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop flip">
+      <figure><img src="img/bahia.jpg" alt="Големият мраморен двор на двореца Бахия" loading="lazy"><figcaption>Дворецът Бахия, големият двор</figcaption></figure>
+      <div>
+        <h3>Дворецът Бахия <span class="ar">قصر الباهية</span></h3>
+        <div class="label sub">Края на XIX век · „блестящият“</div>
+        <p>Построен от двама велики везири, Си Муса и после сина му Ба Ахмед, който на практика управлява Мароко вместо малолетния султан Абделазиз. Дворецът се простира на около 8 хектара дворове, градини и рисувани кедрови тавани. Ба Ахмед непрекъснато добавял стаи, докато изкупувал съседните къщи.</p>
+        <ul class="facts">
+          <li>Когато Ба Ахмед умира през 1900 г., дворът на султана изнася мебелите от двореца за часове, затова стаите днес са празни.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/jemaa.jpg" alt="Площад Джемаа ел-Фна, пълен със сергии и хора" loading="lazy"><figcaption>Джемаа ел-Фна</figcaption></figure>
+      <div>
+        <h3>Джемаа ел-Фна и сукът <span class="ar">ساحة جامع الفنا</span></h3>
+        <div class="label sub">Шедьовър на устното наследство на ЮНЕСКО, 2001 г.</div>
+        <p>През деня: колички с портокалов фреш, художнички с къна и заклинатели на змии. От късния следобед сергиите за храна се подреждат в редици, а площадът се изпълва с разказвачи, музиканти гнауа и тълпи. Сукът на север е подреден по занаяти: бояджии, металообработване, кожа, подправки, лампи.</p>
+        <ul class="facts">
+          <li class="hist">Този площад вдъхновява самата идея на ЮНЕСКО за опазване на „нематериално наследство“. Испанският писател Хуан Гойтисоло, живял наблизо, води кампания да го спаси от застрояване, и той е сред първите места, обявени през 2001 г.</li>
+          <li class="tip">Гледай площада от кафене на покрив по залез. Всеки, който позира за снимка (заклинатели на змии, хора с маймунки, костюмирани водоносци), ще поиска бакшиш. Договори цената предварително или пропусни.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Ако имаш свободно време</h3>
+        <ul class="facts">
+          <li><b>Градината Мажорел и музеят на YSL</b>: кобалтово синята градина, спасена от Ив Сен Лоран. Купи билет с час предварително онлайн.</li>
+          <li><b>Медресето Бен Юсуф</b>: най-голямото медресе в Мароко, в същия стил плочки-гипс-кедър като онези във Фес.</li>
+          <li><b>Le Jardin Secret</b>: реставрирана дворцова градина в медината, спокойно бягство от сука.</li>
+          <li class="tip">Таксита: настоявай за таксиметъра или договори цената, преди да се качиш. Малките червени <i>petits taxis</i> са градските.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= ДЕН 8 ================= -->
+  <section class="day" id="bg-day-8">
+    <div class="dayhead">
+      <div class="dayno">8</div>
+      <div class="label">Събота, 7 ноември</div>
+      <h2>Бслама, Мароко</h2>
+      <div class="meta mono"><span>Трансфер до летище Маракеш Менара</span><span>~15–20 мин от медината</span></div>
+    </div>
+    <p class="intro" style="margin-top:0">Тръгни 2–3 часа преди полета. Дирхами не могат законно да се изнасят от Мароко, така че ги похарчи или обмени преди проверката за сигурност. Пази бележките от обмяна, ако искаш да обмениш обратно на летището.</p>
+  </section>
+</div>
+
+<div class="band" aria-hidden="true"><svg><rect width="100%" height="100%" fill="url(#z)"/></svg></div>
+
+<div class="wrap">
+  <section class="timeline" id="bg-history">
+    <div class="label">Контекст</div>
+    <h2>1200 години династии, в реда, в който ще ги срещнеш</h2>
+    <p style="max-width:46em;color:var(--muted)">Почти всеки паметник по пътя е построен от една от шест династии. Ако знаеш коя, ще „четеш“ сградите по-лесно.</p>
+    <ol class="tl">
+      <li><div class="yr">789–974</div><h3>Идрисиди</h3><p>Първата ислямска мароканска държава. Основават Фес.</p><div class="see">Виж: Фес ел-Бали, Ал-Карауийн (859)</div></li>
+      <li><div class="yr">1040–1147</div><h3>Алморавиди</h3><p>Амазигски воини от Сахара, управлявали от Испания до Сенегал.</p><div class="see">Виж: Маракеш (основан ок. 1070)</div></li>
+      <li><div class="yr">1147–1269</div><h3>Алмохади</h3><p>Великите строители на минарета и градски стени.</p><div class="see">Виж: Кутубия, Кулата на Хасан, Удая</div></li>
+      <li><div class="yr">1244–1465</div><h3>Мериниди</h3><p>Управляват от Фес и го изпълват с медресета.</p><div class="see">Виж: Бу Инания, Ал-Атарин, Фес ел-Джедид</div></li>
+      <li><div class="yr">1549–1659</div><h3>Саадити</h3><p>Забогатяват от захар и златото на Тимбукту.</p><div class="see">По желание в Маракеш: Саадитските гробници</div></li>
+      <li><div class="yr">1631–днес</div><h3>Алауити</h3><p>Днешната кралска династия, родом от оазиса Тафилалт.</p><div class="see">Виж: Тафилалт (ден 2–4), Мавзолея, кралските дворци</div></li>
+      <li><div class="yr">1912–1956</div><h3>Френски протекторат</h3><p>Строят пътищата, Ифран, Уарзазат и новите градове извън медините.</p><div class="see">Виж: пътя през Тишка, Ифран, Казабланка</div></li>
+      <li><div class="yr">1956 → 1993</div><h3>Независимост</h3><p>Мохамед V се завръща от изгнание. Хасан II управлява 1961–1999.</p><div class="see">Виж: Мавзолея, джамията Хасан II</div></li>
+    </ol>
+  </section>
+
+  <section class="practical" id="bg-practical">
+    <div class="label">Практично</div>
+    <h2>Добре е да знаеш</h2>
+    <div class="pgrid">
+      <div>
+        <h3>Времето в началото на ноември</h3>
+        <table class="wx">
+          <thead><tr><th>Място</th><th style="text-align:right">Ден</th><th style="text-align:right">Нощ</th></tr></thead>
+          <tbody>
+            <tr><td>Маракеш</td><td class="n">24 °C</td><td class="n">11 °C</td></tr>
+            <tr><td>Проход Тишка</td><td class="n">10 °C</td><td class="n">0 °C</td></tr>
+            <tr><td>Уарзазат</td><td class="n">22 °C</td><td class="n">8 °C</td></tr>
+            <tr><td>Мерзуга</td><td class="n">25 °C</td><td class="n">8 °C</td></tr>
+            <tr><td>Ифран</td><td class="n">15 °C</td><td class="n">3 °C</td></tr>
+            <tr><td>Фес</td><td class="n">22 °C</td><td class="n">10 °C</td></tr>
+          </tbody>
+        </table>
+        <p class="mono" style="color:var(--muted);margin-top:6px">Типични средни стойности. Вземи няколко слоя дрехи, топло яке за нощта в пустинята и слънчеви очила за дюните.</p>
+      </div>
+      <div>
+        <h3>Пари, време и контакти</h3>
+        <ul>
+          <li><b>Валута:</b> марокански дирхам (MAD), около 10–11 за евро. Валутата е затворена, затова теглѝ от банкомат при пристигане.</li>
+          <li><b>В брой:</b> трябват за бакшиши, малки магазини и пустинята. Карти се приемат в хотели и по-големи магазини.</li>
+          <li><b>Бакшиш:</b> 10–20 MAD за дребни услуги, около 10 % в ресторантите. На шофьора и гидовете се дава в края.</li>
+          <li><b>Час:</b> GMT+1, един час назад спрямо София.</li>
+          <li><b>Контакти:</b> тип C/E, 220 V, същите като у нас.</li>
+          <li><b>Облекло:</b> покрити рамене и колене в медините и джамиите.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Няколко думи на дарижа</h3>
+        <dl class="phr">
+          <dt>Салам алейкум</dt><dd>Здравей</dd>
+          <dt>Шукран</dt><dd>Благодаря</dd>
+          <dt>Ла, шукран</dt><dd>Не, благодаря (ще го ползваш често)</dd>
+          <dt>Бшхал?</dt><dd>Колко струва?</dd>
+          <dt>Гали бзаф</dt><dd>Много е скъпо</dd>
+          <dt>Мезиан</dt><dd>Добре, хубаво</dd>
+          <dt>Сафи</dt><dd>Добре / стига</dd>
+          <dt>Иншаллах</dt><dd>Ако е рекъл Господ</dd>
+          <dt>Бслама</dt><dd>Довиждане</dd>
+          <dt>Азул</dt><dd>Здравей на тамазигт (берберски)</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h2>Снимки</h2>
+    <p>Всички снимки са от Wikimedia Commons / Уикипедия, от съответните им автори, под лицензи Creative Commons. Отвори всяка връзка за автор и лиценз.</p>
+    <div class="credits">
+      <a href="https://commons.wikimedia.org/wiki/File:Tizi_n%27Tichka.jpg">Tizi n'Tichka</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Ksar_A%C3%AFt_Benhaddou%2C_Marocco_%28%D8%A3%D9%8A%D8%AA_%D8%A8%D9%86_%D8%AD%D8%AF%D9%88%D8%8C_%D8%A7%D9%84%D9%85%D8%BA%D8%B1%D8%A8%2C_%E2%B4%B0%E2%B5%A2%E2%B5%9C_%E2%B5%83%E2%B4%B0%E2%B4%B7%E2%B4%B7%E2%B5%93%29.jpg">Aït Benhaddou</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Kasbah_Taourirt_in_Ouarzazate_2011.jpg">Kasbah Taourirt</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Morocco%2C_Souss-Massa-Draa_Region%2C_Ouarzazate_Province%2C_Skoura%2C_Kasbah_Amerhidil_%283%29.JPG">Kasbah Amridil</a>
+      <a href="https://commons.wikimedia.org/wiki/File:%22Spektakul%C3%A4re_Haarnadelkurven%22._04.jpg">Dades hairpins</a>
+      <a href="https://commons.wikimedia.org/wiki/File:%22Ein_beeindruckendes_Naturwunder%22%2C_17.jpg">Todra Gorge</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Merzouga_Dunes_2011.jpg">Erg Chebbi</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Merzouga_2024.jpg">Merzouga</a>
+      <a href="https://commons.wikimedia.org/wiki/File:%D9%85%D8%B9%D9%84%D9%85_%D8%A7%D9%84%DA%AF%D9%86%D8%A7%D9%88%D8%A9.jpg">Gnawa musician</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Ziz_river_%28js%29.jpg">Ziz river</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Macaca_sylvanus.Mother_and_baby.jpg">Barbary macaques</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Bab_Bou_Jeloud_%28Fes%2C_Marocco%29.jpg">Bab Bou Jeloud</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Chouara_Tannery_-_154_-_Marokko_Handybilder_2018_-_Fes_%2827347707917%29.jpg">Chouara Tannery</a>
+      <a href="https://commons.wikimedia.org/wiki/File:University_of_Al_Qaraouiyine.jpg">Al-Qarawiyyin</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Courtyard_Minaret_Bou_Inania_Fes_Nov25_A7CR_09138-42_HDR3.jpg">Bou Inania</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Kings_palace_in_Fes_%285364773212%29.jpg">Royal Palace, Fes</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Hassan_Tower%2C_Rabat%2C_Marocco_%28%D8%B5%D9%88%D9%85%D8%B9%D8%A9_%D8%AD%D8%B3%D8%A7%D9%86_%29.jpg">Hassan Tower</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Morocco_-_Mausoleum_of_Mohammed_V.jpg">Mausoleum of Mohammed V</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Kasbah_Oudayas_exterior.jpg">Kasbah of the Udayas</a>
+      <a href="https://en.wikipedia.org/wiki/File:Hassan_II_mosque,_Casablanca_2.jpg">Hassan II Mosque</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Marokko0112_%28retouched%29.jpg">Koutoubia</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Bahia_Palace_large_court.jpg">Bahia Palace</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Djemaa_el_Fna.jpg">Jemaa el-Fnaa</a>
+    </div>
+  </footer>
+</div>
+</div>
+
+<script>
+(function () {
+  var blocks = document.querySelectorAll('[data-l]');
+  var top = document.querySelectorAll('.langbar .langbtn');
+  function setLang(l, save) {
+    blocks.forEach(function (b) { b.hidden = b.getAttribute('data-l') !== l; });
+    top.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-set') === l)); });
+    document.documentElement.lang = l;
+    document.title = l === 'bg' ? 'Мароко 2026' : 'Morocco Loop 2026';
+    if (save) { try { localStorage.setItem('lang', l); } catch (e) {} }
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-set]');
+    if (b) { setLang(b.getAttribute('data-set'), true); }
+  });
+  var l = null;
+  if (/^#bg-/.test(location.hash)) l = 'bg';
+  if (!l) { try { l = localStorage.getItem('lang'); } catch (e) {} }
+  if (!l) l = /^bg/i.test(navigator.language || '') ? 'bg' : 'en';
+  setLang(l, false);
+
+  var links = Array.prototype.slice.call(document.querySelectorAll('.daynav a'));
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+  if (!('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var a = map[e.target.id]; if (!a) return;
+      var ol = a.closest('ol');
+      ol.querySelectorAll('a').forEach(function (x) { x.classList.remove('on'); });
+      a.classList.add('on'); ol.scrollLeft = a.parentNode.offsetLeft - 16;
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  Object.keys(map).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+})();
+</script>
+</body>
+</html>
