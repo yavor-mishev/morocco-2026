@@ -145,6 +145,16 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15;
 .wx td.n { font-family: var(--f-mono); font-variant-numeric: tabular-nums; text-align: right; }
 .phr { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 0; font-size: .95rem; }
 .phr dt { font-weight: 600; }
+.say { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; font-weight: 600; color: var(--ink); border-radius: 4px; }
+.say svg { width: 18px; height: 18px; flex: none; color: var(--zellige); }
+.say span { border-bottom: 1px dashed var(--zellige); }
+.say:hover span, .say.playing span { color: var(--zellige); }
+.say.playing svg { animation: pulse .6s ease-in-out infinite alternate; }
+.say:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; }
+@keyframes pulse { to { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .say.playing svg { animation: none; } }
+.arw { font-family: var(--f-display); color: var(--ink); opacity: .7; margin-left: 4px; }
+.phrnote { font-family: var(--f-mono); font-size: .72rem; color: var(--muted); margin: 10px 0 0; }
 .phr dd { margin: 0; color: var(--muted); }
 
 .langbar { display: flex; justify-content: flex-end; gap: 6px; padding-top: 14px; }
@@ -795,17 +805,18 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div>
         <h3>A few words of Darija</h3>
         <dl class="phr">
-          <dt>Salam alaykum</dt><dd>Hello</dd>
-          <dt>Shukran</dt><dd>Thank you</dd>
-          <dt>La, shukran</dt><dd>No, thank you (you'll use this a lot)</dd>
-          <dt>Bshhal?</dt><dd>How much?</dd>
-          <dt>Ghali bzzaf</dt><dd>Too expensive</dd>
-          <dt>Mezyan</dt><dd>Good</dd>
-          <dt>Safi</dt><dd>OK / enough</dd>
-          <dt>Inshallah</dt><dd>God willing</dd>
-          <dt>Bslama</dt><dd>Goodbye</dd>
-          <dt>Azul</dt><dd>Hello in Tamazight (Berber)</dd>
+          <dt><button type="button" class="say" data-say="salam"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Salam alaykum</span></button></dt><dd>Hello <span class="arw" lang="ar">السلام عليكم</span></dd>
+          <dt><button type="button" class="say" data-say="shukran"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Shukran</span></button></dt><dd>Thank you <span class="arw" lang="ar">شكرا</span></dd>
+          <dt><button type="button" class="say" data-say="lashukran"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>La, shukran</span></button></dt><dd>No, thank you (you'll use this a lot) <span class="arw" lang="ar">لا، شكرا</span></dd>
+          <dt><button type="button" class="say" data-say="bshhal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Bshhal?</span></button></dt><dd>How much? <span class="arw" lang="ar">بشحال؟</span></dd>
+          <dt><button type="button" class="say" data-say="ghali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Ghali bzzaf</span></button></dt><dd>Too expensive <span class="arw" lang="ar">غالي بزاف</span></dd>
+          <dt><button type="button" class="say" data-say="mezyan"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Mezyan</span></button></dt><dd>Good <span class="arw" lang="ar">مزيان</span></dd>
+          <dt><button type="button" class="say" data-say="safi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Safi</span></button></dt><dd>OK / enough <span class="arw" lang="ar">صافي</span></dd>
+          <dt><button type="button" class="say" data-say="inshallah"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Inshallah</span></button></dt><dd>God willing <span class="arw" lang="ar">إن شاء الله</span></dd>
+          <dt><button type="button" class="say" data-say="bslama"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Bslama</span></button></dt><dd>Goodbye <span class="arw" lang="ar">بسلامة</span></dd>
+          <dt><button type="button" class="say" data-say="azul"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Azul</span></button></dt><dd>Hello in Tamazight (Berber) <span class="arw" lang="ber">ⴰⵣⵓⵍ</span></dd>
         </dl>
+        <p class="phrnote">Tap a phrase to hear it. Synthetic Arabic voice; Moroccan Darija sounds a little different.</p>
       </div>
     </div>
   </section>
@@ -1443,17 +1454,18 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div>
         <h3>Няколко думи на дарижа</h3>
         <dl class="phr">
-          <dt>Салам алейкум</dt><dd>Здравей</dd>
-          <dt>Шукран</dt><dd>Благодаря</dd>
-          <dt>Ла, шукран</dt><dd>Не, благодаря (ще го ползваш често)</dd>
-          <dt>Бшхал?</dt><dd>Колко струва?</dd>
-          <dt>Гали бзаф</dt><dd>Много е скъпо</dd>
-          <dt>Мезиан</dt><dd>Добре, хубаво</dd>
-          <dt>Сафи</dt><dd>Добре / стига</dd>
-          <dt>Иншаллах</dt><dd>Ако е рекъл Господ</dd>
-          <dt>Бслама</dt><dd>Довиждане</dd>
-          <dt>Азул</dt><dd>Здравей на тамазигт (берберски)</dd>
+          <dt><button type="button" class="say" data-say="salam"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Салам алейкум</span></button></dt><dd>Здравей <span class="arw" lang="ar">السلام عليكم</span></dd>
+          <dt><button type="button" class="say" data-say="shukran"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Шукран</span></button></dt><dd>Благодаря <span class="arw" lang="ar">شكرا</span></dd>
+          <dt><button type="button" class="say" data-say="lashukran"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Ла, шукран</span></button></dt><dd>Не, благодаря (ще го ползваш често) <span class="arw" lang="ar">لا، شكرا</span></dd>
+          <dt><button type="button" class="say" data-say="bshhal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Бшхал?</span></button></dt><dd>Колко струва? <span class="arw" lang="ar">بشحال؟</span></dd>
+          <dt><button type="button" class="say" data-say="ghali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Гали бзаф</span></button></dt><dd>Много е скъпо <span class="arw" lang="ar">غالي بزاف</span></dd>
+          <dt><button type="button" class="say" data-say="mezyan"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Мезиан</span></button></dt><dd>Добре, хубаво <span class="arw" lang="ar">مزيان</span></dd>
+          <dt><button type="button" class="say" data-say="safi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Сафи</span></button></dt><dd>Добре / стига <span class="arw" lang="ar">صافي</span></dd>
+          <dt><button type="button" class="say" data-say="inshallah"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Иншаллах</span></button></dt><dd>Ако е рекъл Господ <span class="arw" lang="ar">إن شاء الله</span></dd>
+          <dt><button type="button" class="say" data-say="bslama"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Бслама</span></button></dt><dd>Довиждане <span class="arw" lang="ar">بسلامة</span></dd>
+          <dt><button type="button" class="say" data-say="azul"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Азул</span></button></dt><dd>Здравей на тамазигт (берберски) <span class="arw" lang="ber">ⴰⵣⵓⵍ</span></dd>
         </dl>
+        <p class="phrnote">Натисни фраза, за да я чуеш. Синтетичен арабски глас; мароканският дарижа звучи малко по-различно.</p>
       </div>
     </div>
   </section>
@@ -1516,6 +1528,16 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
   if (!l) l = /^bg/i.test(navigator.language || '') ? 'bg' : 'en';
   setLang(l, false);
 
+  var audio = new Audio(), playing = null;
+  function stop() { if (playing) playing.classList.remove('playing'); playing = null; }
+  audio.addEventListener('ended', stop); audio.addEventListener('error', stop);
+  document.querySelectorAll('.say').forEach(function (b) {
+    b.addEventListener('click', function () {
+      stop(); audio.src = 'audio/' + b.getAttribute('data-say') + '.m4a';
+      playing = b; b.classList.add('playing');
+      var p = audio.play(); if (p && p.catch) p.catch(stop);
+    });
+  });
   var totop = document.querySelector('.totop');
   function onScroll() { totop.classList.toggle('show', window.scrollY > 600); }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
