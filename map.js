@@ -9,10 +9,10 @@
   ROUTES[3] = { km: 80, h: 0, off: true, c: [[31.0990, -4.0120], [31.1050, -4.0550], [31.0333, -3.9997], [31.0990, -4.0120]] };
 
   var T = {
-    en: { all: 'All days', day: 'Day', more: 'Read more', km: 'km', h: 'h driving', off: 'off-road 4×4 loop',
+    en: { all: 'All', allDays: 'Show all days', me: 'Me', day: 'Day', more: 'Read more', km: 'km', h: 'h driving', off: 'off-road 4×4 loop',
           locate: 'Where am I', locating: 'Finding you…', near: 'Nearest stop', away: 'away', noloc: 'Location unavailable. Allow location access for this site and try again.',
           map: 'Map', close: 'Close map' },
-    bg: { all: 'Всички дни', day: 'Ден', more: 'Прочети още', km: 'км', h: 'ч път', off: 'обиколка с 4×4 извън пътя',
+    bg: { all: 'Всички', allDays: 'Покажи всички дни', me: 'Аз', day: 'Ден', more: 'Прочети още', km: 'км', h: 'ч път', off: 'обиколка с 4×4 извън пътя',
           locate: 'Къде съм', locating: 'Търся те…', near: 'Най-близка спирка', away: 'оттук', noloc: 'Няма достъп до местоположението. Разреши го за сайта и опитай пак.',
           map: 'Карта', close: 'Затвори картата' }
   };
@@ -107,9 +107,9 @@
 
   var locIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="currentColor"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
   function drawBar() {
-    var t = T[lang], html = '<button type="button" data-d="">' + t.all + '</button>';
-    for (var d = 1; d <= 8; d++) html += '<button type="button" data-d="' + d + '"><i style="background:' + DAY_COLORS[d] + '"></i>' + d + '</button>';
-    html += '<button type="button" class="lmap-loc" aria-pressed="' + String(watchId != null) + '">' + locIcon + t.locate + '</button>';
+    var t = T[lang], html = '<button type="button" class="lmap-all" data-d="" aria-label="' + t.allDays + '" title="' + t.allDays + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+    for (var d = 1; d <= 8; d++) html += '<button type="button" class="dpill" data-d="' + d + '" style="--c:' + DAY_COLORS[d] + '" aria-label="' + t.day + ' ' + d + '">' + d + '</button>';
+    html += '<button type="button" class="lmap-loc" aria-pressed="' + String(watchId != null) + '" aria-label="' + t.locate + '" title="' + t.locate + '">' + locIcon + t.me + '</button>';
     closeBtn.setAttribute('aria-label', t.close); closeBtn.title = t.close;
     bar.innerHTML = html;
   }

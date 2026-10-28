@@ -169,6 +169,11 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15;
 .lmap-bar button { font: 500 .74rem var(--f-mono); padding: 5px 9px; border-radius: 999px; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
 .lmap-bar button i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 .lmap-bar button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.lmap-bar .lmap-all { padding-inline: 8px; }
+.lmap-bar .lmap-all svg { width: 15px; height: 15px; }
+.lmap-bar .dpill { min-width: 30px; justify-content: center; padding-inline: 0; border: 2px solid var(--c); color: var(--c); font-weight: 600; }
+.lmap-bar .dpill[aria-pressed="true"] { background: var(--c); border-color: var(--c); color: #fff; }
+.is-dark .lmap-bar .dpill:not([aria-pressed="true"]) { color: var(--ink); }
 .lpin span { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; font: 600 12px/1 var(--f-mono); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.35); }
 .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--paper); color: var(--ink); }
 .leaflet-popup-content-wrapper { border-radius: 8px; padding: 0; overflow: hidden; }
@@ -208,7 +213,7 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15;
 .daymap:hover { background: var(--zellige); color: var(--bg); }
 .daymap:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; }
 /* map extras */
-.lmap-bar .lmap-loc { margin-left: auto; color: var(--zellige); }
+.lmap-bar .lmap-loc { margin-left: auto; color: var(--zellige); gap: 4px; }
 .lmap-bar .lmap-loc svg { width: 14px; height: 14px; }
 .lmap-bar .lmap-loc[aria-pressed="true"] { background: var(--zellige); color: var(--bg); border-color: var(--zellige); }
 
@@ -233,7 +238,10 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15;
 .mapdock .lmap-wrap { flex: 1; min-height: 0; min-width: 0; gap: 0; }
 .mapdock .lmap { height: auto; flex: 1; min-height: 0; border-radius: 0; }
 .mapdock .lmap-bar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; gap: 6px; background: var(--paper); border-top: 1px solid var(--rule); padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
-.mapdock .lmap-bar button { padding: 8px 13px; font-size: .8rem; }
+.mapdock .lmap-bar { justify-content: space-between; gap: 4px; padding-left: max(10px, env(safe-area-inset-left, 0px)); padding-right: max(10px, env(safe-area-inset-right, 0px)); }
+.mapdock .lmap-bar button { padding: 7px 10px; font-size: .8rem; }
+.mapdock .lmap-bar .dpill { padding-inline: 0; min-width: 28px; }
+.mapdock .lmap-bar .lmap-loc { padding-inline: 9px; }
 .mapdock .lmap-status { background: var(--paper); padding: 8px max(12px, env(safe-area-inset-left, 0px)) 0; }
 .mapdock .leaflet-top { top: env(safe-area-inset-top, 0px); }
 body.dock-open { overflow: hidden; }
