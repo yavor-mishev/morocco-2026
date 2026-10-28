@@ -203,6 +203,10 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15;
 .daynav a.is-today { box-shadow: inset 0 0 0 2px var(--saffron); }
 .offline-chip { margin-right: auto; align-self: center; font: .72rem var(--f-mono); color: var(--zellige); }
 
+.daymap { display: inline-flex; align-items: center; gap: 6px; font: 500 .78rem var(--f-mono); color: var(--zellige); background: var(--paper); border: 1px solid var(--zellige); border-radius: 999px; padding: 4px 11px 4px 9px; cursor: pointer; }
+.daymap svg { width: 15px; height: 15px; }
+.daymap:hover { background: var(--zellige); color: var(--bg); }
+.daymap:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; }
 /* map extras */
 .lmap-bar .lmap-loc { margin-left: auto; color: var(--zellige); }
 .lmap-bar .lmap-loc svg { width: 14px; height: 14px; }
@@ -221,8 +225,8 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15;
 .mapdock .lmap { height: auto; flex: 1; min-height: 0; }
 .mapdock .lmap-bar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
 .mapdock .lmap-bar button { flex: none; }
-.mapfab { position: fixed; z-index: 20; left: calc(16px + env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 13px; border-radius: 999px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); font: 500 .85rem var(--f-mono); box-shadow: 0 2px 10px rgba(0,0,0,.18); cursor: pointer; opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .2s, transform .2s; }
-.mapfab svg { width: 20px; height: 20px; color: var(--zellige); }
+.mapfab { position: fixed; z-index: 20; left: calc(16px + env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 13px; border-radius: 999px; border: 0; background: var(--zellige); color: var(--bg); font: 600 .9rem var(--f-mono); box-shadow: 0 4px 16px rgba(0,0,0,.3); cursor: pointer; opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .2s, transform .2s; }
+.mapfab svg { width: 20px; height: 20px; color: var(--bg); }
 .mapfab.show { opacity: 1; transform: none; pointer-events: auto; }
 .mapfab:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; }
 @media (max-width: 820px) {
@@ -381,7 +385,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">1</div>
       <div class="label">Saturday 31 October</div>
       <h2>Over the High Atlas to the gateway of the desert</h2>
-      <div class="meta mono"><span>Marrakech → Ouarzazate</span><span>~200 km</span><span>~4.5 h driving</span><span>Night: Ouarzazate</span></div>
+      <div class="meta mono"><span>Marrakech → Ouarzazate</span><span>~200 km</span><span>~4.5 h driving</span><span>Night: Ouarzazate</span><button type="button" class="daymap" data-day="1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Map of this day</button></div>
     </div>
 
     <article class="stop" data-stop="tichka">
@@ -434,7 +438,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">2</div>
       <div class="label">Sunday 1 November</div>
       <h2>The road of a thousand kasbahs, then the dunes</h2>
-      <div class="meta mono"><span>Ouarzazate → Merzouga</span><span>~400 km</span><span>~7 h driving + stops</span><span>Night: desert camp</span></div>
+      <div class="meta mono"><span>Ouarzazate → Merzouga</span><span>~400 km</span><span>~7 h driving + stops</span><span>Night: desert camp</span><button type="button" class="daymap" data-day="2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Map of this day</button></div>
     </div>
     <p class="intro">The longest and most varied day: palm oasis, rose valley, two gorges, fossil country and the Sahara. Sunset at Erg Chebbi is around 18:30.</p>
 
@@ -521,7 +525,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">3</div>
       <div class="label">Monday 2 November</div>
       <h2>Beyond the dunes: nomads, oases and Gnawa music</h2>
-      <div class="meta mono"><span>4×4 loop around Merzouga</span><span>off-road</span><span>Night: hotel by the dunes</span></div>
+      <div class="meta mono"><span>4×4 loop around Merzouga</span><span>off-road</span><span>Night: hotel by the dunes</span><button type="button" class="daymap" data-day="3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Map of this day</button></div>
     </div>
 
     <article class="stop" data-stop="merzouga">
@@ -558,7 +562,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">4</div>
       <div class="label">Tuesday 3 November</div>
       <h2>Desert to cedar forest in one day</h2>
-      <div class="meta mono"><span>Merzouga → Fes</span><span>~470 km</span><span>~8 h driving</span><span>Night: Fes</span></div>
+      <div class="meta mono"><span>Merzouga → Fes</span><span>~470 km</span><span>~8 h driving</span><span>Night: Fes</span><button type="button" class="daymap" data-day="4"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Map of this day</button></div>
     </div>
     <p class="intro">You'll climb from about 750 m at the edge of the Sahara to over 2,000 m in the Middle Atlas. Watch the landscape change from dunes to palm valleys to bare plateau to cedar forest.</p>
 
@@ -616,7 +620,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">5</div>
       <div class="label">Wednesday 4 November</div>
       <h2>Fes, the medieval city that is still lived in</h2>
-      <div class="meta mono"><span>Guided walk in the medina</span><span>on foot</span><span>Night: Fes</span></div>
+      <div class="meta mono"><span>Guided walk in the medina</span><span>on foot</span><span>Night: Fes</span><button type="button" class="daymap" data-day="5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Map of this day</button></div>
     </div>
     <p class="intro">Fes el-Bali (UNESCO, 1981) is often called the largest car-free urban area in the world. Goods are still moved by donkey and handcart through about 9,000 alleys. Founded in 789, it was Morocco's capital several times and its religious and intellectual centre for a thousand years.</p>
 
@@ -688,7 +692,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">6</div>
       <div class="label">Thursday 5 November</div>
       <h2>The Atlantic capitals</h2>
-      <div class="meta mono"><span>Fes → Rabat → Casablanca → Marrakech</span><span>~530 km</span><span>~6.5 h driving</span><span>Night: Marrakech</span></div>
+      <div class="meta mono"><span>Fes → Rabat → Casablanca → Marrakech</span><span>~530 km</span><span>~6.5 h driving</span><span>Night: Marrakech</span><button type="button" class="daymap" data-day="6"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Map of this day</button></div>
     </div>
 
     <article class="stop" data-stop="hassantower">
@@ -750,7 +754,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">7</div>
       <div class="label">Friday 6 November · Green March Day</div>
       <h2>Marrakech, the red city</h2>
-      <div class="meta mono"><span>Guided walk + free afternoon</span><span>on foot</span><span>Night: Marrakech</span></div>
+      <div class="meta mono"><span>Guided walk + free afternoon</span><span>on foot</span><span>Night: Marrakech</span><button type="button" class="daymap" data-day="7"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Map of this day</button></div>
     </div>
     <p class="intro">Founded around 1070 by the Almoravids, Marrakech gave the whole country its name in many languages: Marruecos, Maroc, Morocco. The medina walls run for about 19 km and are built of the same ochre earth that gives it its nickname.</p>
 
@@ -811,7 +815,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">8</div>
       <div class="label">Saturday 7 November</div>
       <h2>Bslama, Morocco</h2>
-      <div class="meta mono"><span>Transfer to Marrakech Menara airport</span><span>~15–20 min from the medina</span></div>
+      <div class="meta mono"><span>Transfer to Marrakech Menara airport</span><span>~15–20 min from the medina</span><button type="button" class="daymap" data-day="8"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Map of this day</button></div>
     </div>
     <p class="intro" style="margin-top:0">Leave 2–3 hours before your flight. Dirhams can't legally be taken out of Morocco, so spend or change them before security. Keep your currency exchange receipts if you want to change money back at the airport.</p>
   </section>
@@ -1030,7 +1034,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">1</div>
       <div class="label">Събота, 31 октомври</div>
       <h2>През Висок Атлас до портата на пустинята</h2>
-      <div class="meta mono"><span>Маракеш → Уарзазат</span><span>~200 км</span><span>~4,5 ч път</span><span>Нощувка: Уарзазат</span></div>
+      <div class="meta mono"><span>Маракеш → Уарзазат</span><span>~200 км</span><span>~4,5 ч път</span><span>Нощувка: Уарзазат</span><button type="button" class="daymap" data-day="1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Карта на деня</button></div>
     </div>
 
     <article class="stop" data-stop="tichka">
@@ -1083,7 +1087,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">2</div>
       <div class="label">Неделя, 1 ноември</div>
       <h2>Пътят на хилядата касби, после дюните</h2>
-      <div class="meta mono"><span>Уарзазат → Мерзуга</span><span>~400 км</span><span>~7 ч път + спирки</span><span>Нощувка: пустинен лагер</span></div>
+      <div class="meta mono"><span>Уарзазат → Мерзуга</span><span>~400 км</span><span>~7 ч път + спирки</span><span>Нощувка: пустинен лагер</span><button type="button" class="daymap" data-day="2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Карта на деня</button></div>
     </div>
     <p class="intro">Най-дългият и най-разнообразен ден: палмов оазис, долината на розите, две ждрела, земята на фосилите и Сахара. Залезът над Ерг Шеби е около 18:30.</p>
 
@@ -1170,7 +1174,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">3</div>
       <div class="label">Понеделник, 2 ноември</div>
       <h2>Отвъд дюните: номади, оазиси и музика гнауа</h2>
-      <div class="meta mono"><span>Обиколка с 4×4 около Мерзуга</span><span>офроуд</span><span>Нощувка: хотел до дюните</span></div>
+      <div class="meta mono"><span>Обиколка с 4×4 около Мерзуга</span><span>офроуд</span><span>Нощувка: хотел до дюните</span><button type="button" class="daymap" data-day="3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Карта на деня</button></div>
     </div>
 
     <article class="stop" data-stop="merzouga">
@@ -1207,7 +1211,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">4</div>
       <div class="label">Вторник, 3 ноември</div>
       <h2>От пустинята до кедровата гора за един ден</h2>
-      <div class="meta mono"><span>Мерзуга → Фес</span><span>~470 км</span><span>~8 ч път</span><span>Нощувка: Фес</span></div>
+      <div class="meta mono"><span>Мерзуга → Фес</span><span>~470 км</span><span>~8 ч път</span><span>Нощувка: Фес</span><button type="button" class="daymap" data-day="4"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Карта на деня</button></div>
     </div>
     <p class="intro">Ще се изкачиш от около 750 м в края на Сахара до над 2000 м в Среден Атлас. Наблюдавай как пейзажът се сменя от дюни към палмови долини, голо плато и кедрова гора.</p>
 
@@ -1265,7 +1269,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">5</div>
       <div class="label">Сряда, 4 ноември</div>
       <h2>Фес, средновековният град, в който още се живее</h2>
-      <div class="meta mono"><span>Разходка с гид в медината</span><span>пеша</span><span>Нощувка: Фес</span></div>
+      <div class="meta mono"><span>Разходка с гид в медината</span><span>пеша</span><span>Нощувка: Фес</span><button type="button" class="daymap" data-day="5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Карта на деня</button></div>
     </div>
     <p class="intro">Фес ел-Бали (ЮНЕСКО, 1981 г.) често е наричан най-голямата градска зона без коли в света. Стоките още се пренасят с магарета и ръчни колички по около 9000 улички. Основан през 789 г., градът неколкократно е бил столица на Мароко и в продължение на хиляда години е негов религиозен и интелектуален център.</p>
 
@@ -1337,7 +1341,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">6</div>
       <div class="label">Четвъртък, 5 ноември</div>
       <h2>Столиците на Атлантика</h2>
-      <div class="meta mono"><span>Фес → Рабат → Казабланка → Маракеш</span><span>~530 км</span><span>~6,5 ч път</span><span>Нощувка: Маракеш</span></div>
+      <div class="meta mono"><span>Фес → Рабат → Казабланка → Маракеш</span><span>~530 км</span><span>~6,5 ч път</span><span>Нощувка: Маракеш</span><button type="button" class="daymap" data-day="6"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Карта на деня</button></div>
     </div>
 
     <article class="stop" data-stop="hassantower">
@@ -1399,7 +1403,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">7</div>
       <div class="label">Петък, 6 ноември · Ден на Зеления марш</div>
       <h2>Маракеш, червеният град</h2>
-      <div class="meta mono"><span>Разходка с гид + свободен следобед</span><span>пеша</span><span>Нощувка: Маракеш</span></div>
+      <div class="meta mono"><span>Разходка с гид + свободен следобед</span><span>пеша</span><span>Нощувка: Маракеш</span><button type="button" class="daymap" data-day="7"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Карта на деня</button></div>
     </div>
     <p class="intro">Основан около 1070 г. от Алморавидите, Маракеш дава името на цялата страна на много езици: Marruecos, Maroc, Morocco, Мароко. Стените на медината са дълги около 19 км и са от същата охрена пръст, която му дава прякора.</p>
 
@@ -1460,7 +1464,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="dayno">8</div>
       <div class="label">Събота, 7 ноември</div>
       <h2>Бслама, Мароко</h2>
-      <div class="meta mono"><span>Трансфер до летище Маракеш Менара</span><span>~15–20 мин от медината</span></div>
+      <div class="meta mono"><span>Трансфер до летище Маракеш Менара</span><span>~15–20 мин от медината</span><button type="button" class="daymap" data-day="8"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Карта на деня</button></div>
     </div>
     <p class="intro" style="margin-top:0">Тръгни 2–3 часа преди полета. Дирхами не могат законно да се изнасят от Мароко, така че ги похарчи или обмени преди проверката за сигурност. Пази бележките от обмяна, ако искаш да обмениш обратно на летището.</p>
   </section>

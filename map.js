@@ -226,11 +226,18 @@
     if (slot) { slot.querySelector(':scope > svg').style.display = 'none'; place(slot); }
   }
   fab.addEventListener('click', function () { docked ? closeDock() : openDock(); });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.daymap'); if (!b) return;
+    var d = +b.getAttribute('data-day');
+    if (!docked) openDock();
+    activeDay = d; activeStop = null; highlight(d, null);
+    setTimeout(function () { map.invalidateSize(); fit(d); }, 60);
+  });
 
   function onScroll() {
     if (!slot) return;
     var r = slot.getBoundingClientRect();
-    var away = r.bottom < 0 || r.top > window.innerHeight;
+    var away = r.bottom < window.innerHeight * 0.3 || r.top > window.innerHeight;
     fab.classList.toggle('show', away && !docked);
     if (docked && !away && r.top > -40 && r.top < window.innerHeight * .6) closeDock();
   }
