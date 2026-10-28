@@ -59,7 +59,7 @@
   var bar = document.createElement('div'); bar.className = 'lmap-bar';
   var status = document.createElement('div'); status.className = 'lmap-status'; status.hidden = true;
   var holder = document.createElement('div'); holder.className = 'lmap-wrap';
-  holder.appendChild(bar); holder.appendChild(el); holder.appendChild(status);
+  holder.appendChild(el); holder.appendChild(status); holder.appendChild(bar);
 
   var map = L.map(el, { scrollWheelZoom: false, zoomSnap: 0.25 });
   function setDark(d) { el.classList.toggle('dark', d); }
@@ -114,7 +114,8 @@
     var b = e.target.closest('button'); if (!b) return;
     if (b.classList.contains('lmap-loc')) return locate();
     if (b.classList.contains('lmap-close')) return closeDock();
-    fit(b.dataset.d ? +b.dataset.d : 0);
+    var d = b.dataset.d ? +b.dataset.d : 0;
+    activeDay = d; activeStop = null; highlight(d, null); fit(d);
   });
 
   // ---------- where am I ----------
@@ -188,6 +189,7 @@
     if (!('IntersectionObserver' in window)) return;
     var block = document.querySelector('[data-l="' + lang + '"]');
     io = new IntersectionObserver(function () {
+      if (docked) return;   // full-screen map: page isn't being read
       // pick the element nearest the reading line (40% from top)
       var line = window.innerHeight * 0.4, day = 0, stop = null;
       block.querySelectorAll('.day').forEach(function (s) {
@@ -204,6 +206,7 @@
   // ---------- inline slot vs. floating dock ----------
   var slot = null, docked = false;
   var dock = document.createElement('div'); dock.className = 'mapdock'; dock.hidden = true;
+  dock.setAttribute('role', 'dialog'); dock.setAttribute('aria-modal', 'true');
   document.body.appendChild(dock);
   var fab = document.createElement('button'); fab.type = 'button'; fab.className = 'mapfab';
   document.body.appendChild(fab);
@@ -214,9 +217,12 @@
     target.appendChild(holder);
     map.invalidateSize();
   }
+  var lastFocus = null;
   function openDock() {
+    lastFocus = document.activeElement;
     docked = true; dock.hidden = false; document.body.classList.add('dock-open');
     place(dock);
+    var cb = bar.querySelector('.lmap-close'); if (cb) cb.focus({ preventScroll: true });
     if (slot) slot.querySelector(':scope > svg').style.display = '';
     var d = activeDay, s = activeStop; activeDay = -1; follow(d, s);
     if (!d) fit(0);
@@ -224,8 +230,10 @@
   function closeDock() {
     docked = false; dock.hidden = true; document.body.classList.remove('dock-open');
     if (slot) { slot.querySelector(':scope > svg').style.display = 'none'; place(slot); }
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
   }
   fab.addEventListener('click', function () { docked ? closeDock() : openDock(); });
+  document.addEventListener('keydown', function (e) { if (docked && e.key === 'Escape' && !document.body.classList.contains('lb-open')) closeDock(); });
   document.addEventListener('click', function (e) {
     var b = e.target.closest('.daymap'); if (!b) return;
     var d = +b.getAttribute('data-day');

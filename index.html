@@ -212,7 +212,7 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15;
 .lmap-bar .lmap-loc svg { width: 14px; height: 14px; }
 .lmap-bar .lmap-loc[aria-pressed="true"] { background: var(--zellige); color: var(--bg); border-color: var(--zellige); }
 .lmap-bar .lmap-close { display: none; font-size: 1.1rem; line-height: 1; padding: 3px 10px; }
-.mapdock .lmap-close { display: grid; place-items: center; position: absolute; top: -16px; right: 14px; width: 34px; height: 34px; padding: 0; background: var(--paper); box-shadow: 0 2px 8px rgba(0,0,0,.25); font-size: 1.3rem; z-index: 2; }
+.mapdock .lmap-bar .lmap-close { display: grid; place-items: center; position: absolute; z-index: 1000; top: calc(12px + env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); width: 44px; height: 44px; padding: 0; background: var(--paper); color: var(--ink); border: 1px solid var(--rule); box-shadow: 0 2px 10px rgba(0,0,0,.3); font-size: 1.7rem; line-height: 1; }
 .lmap-status { font: .78rem var(--f-mono); color: var(--muted); }
 .lpin { transition: opacity .3s; }
 .lpin.dim { opacity: .35; }
@@ -220,19 +220,21 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15;
 .lpin span { transition: transform .25s; }
 .lme span { display: block; width: 18px; height: 18px; border-radius: 50%; background: #2f7cf6; border: 3px solid #fff; box-shadow: 0 0 0 0 rgba(47,124,246,.6); animation: me 1.8s infinite; }
 @keyframes me { to { box-shadow: 0 0 0 16px rgba(47,124,246,0); } }
-.mapdock { position: fixed; z-index: 30; left: calc(16px + env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: min(400px, calc(100vw - 32px)); height: 360px; background: var(--paper); border: 1px solid var(--rule); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,.28); padding: 10px; display: flex; }
-.mapdock .lmap-wrap { flex: 1; min-height: 0; min-width: 0; }
-.mapdock .lmap { height: auto; flex: 1; min-height: 0; }
-.mapdock .lmap-bar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.mapdock { position: fixed; inset: 0; z-index: 60; background: var(--bg); display: flex; }
+.mapdock .lmap-wrap { flex: 1; min-height: 0; min-width: 0; gap: 0; }
+.mapdock .lmap { height: auto; flex: 1; min-height: 0; border-radius: 0; }
+.mapdock .lmap-bar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; gap: 6px; background: var(--paper); border-top: 1px solid var(--rule); padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
+.mapdock .lmap-bar button { padding: 8px 13px; font-size: .8rem; }
+.mapdock .lmap-status { background: var(--paper); padding: 8px max(12px, env(safe-area-inset-left, 0px)) 0; }
+.mapdock .leaflet-top { top: env(safe-area-inset-top, 0px); }
+body.dock-open { overflow: hidden; }
+body.dock-open .totop, body.dock-open .mapfab { display: none; }
 .mapdock .lmap-bar button { flex: none; }
 .mapfab { position: fixed; z-index: 20; left: calc(16px + env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 13px; border-radius: 999px; border: 0; background: var(--zellige); color: var(--bg); font: 600 .9rem var(--f-mono); box-shadow: 0 4px 16px rgba(0,0,0,.3); cursor: pointer; opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .2s, transform .2s; }
 .mapfab svg { width: 20px; height: 20px; color: var(--bg); }
 .mapfab.show { opacity: 1; transform: none; pointer-events: auto; }
 .mapfab:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; }
 @media (max-width: 820px) {
-  .mapdock { left: 0; right: 0; bottom: 0; width: auto; height: 44vh; border-radius: 14px 14px 0 0; padding: 10px max(10px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(10px, env(safe-area-inset-left, 0px)); }
-  body.dock-open { padding-bottom: 44vh; }
-  body.dock-open .totop { bottom: calc(44vh + 12px); }
 }
 @media (prefers-reduced-motion: reduce) { .lme span, .mapfab { animation: none; transition: none; } }
 
