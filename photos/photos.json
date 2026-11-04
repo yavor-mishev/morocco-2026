@@ -108,5 +108,93 @@
   "taken": "2026:11:04 23:30:29",
   "en": "",
   "bg": ""
+ },
+ {
+  "src": "photos/full/s-tichka-20261031123611-honu.jpg",
+  "thumb": "photos/thumb/s-tichka-20261031123611-honu.jpg",
+  "day": 1,
+  "stop": "tichka",
+  "w": 2000,
+  "h": 1125,
+  "taken": "2026:10:31 12:36:11",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-tichka-20261031130046-tqz6.jpg",
+  "thumb": "photos/thumb/s-tichka-20261031130046-tqz6.jpg",
+  "day": 1,
+  "stop": "tichka",
+  "w": 1125,
+  "h": 2000,
+  "taken": "2026:10:31 13:00:46",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-tichka-20261031130118-pixp.jpg",
+  "thumb": "photos/thumb/s-tichka-20261031130118-pixp.jpg",
+  "day": 1,
+  "stop": "tichka",
+  "w": 1125,
+  "h": 2000,
+  "taken": "2026:10:31 13:01:18",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-tichka-20261031130029-qjt9.jpg",
+  "thumb": "photos/thumb/s-tichka-20261031130029-qjt9.jpg",
+  "day": 1,
+  "stop": "tichka",
+  "w": 2000,
+  "h": 1125,
+  "taken": "2026:10:31 13:00:29",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-tichka-20261031130201-ht8u.jpg",
+  "thumb": "photos/thumb/s-tichka-20261031130201-ht8u.jpg",
+  "day": 1,
+  "stop": "tichka",
+  "w": 1125,
+  "h": 2000,
+  "taken": "2026:10:31 13:02:01",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-tichka-20261031130240-0ycu.jpg",
+  "thumb": "photos/thumb/s-tichka-20261031130240-0ycu.jpg",
+  "day": 1,
+  "stop": "tichka",
+  "w": 1125,
+  "h": 2000,
+  "taken": "2026:10:31 13:02:40",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-tichka-20261031131216-o2pb.jpg",
+  "thumb": "photos/thumb/s-tichka-20261031131216-o2pb.jpg",
+  "day": 1,
+  "stop": "tichka",
+  "w": 1500,
+  "h": 2000,
+  "taken": "2026:10:31 13:12:16",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-tichka-20261031131247-7gbv.jpg",
+  "thumb": "photos/thumb/s-tichka-20261031131247-7gbv.jpg",
+  "day": 1,
+  "stop": "tichka",
+  "w": 1125,
+  "h": 2000,
+  "taken": "2026:10:31 13:12:47",
+  "en": "",
+  "bg": ""
  }
 ]
