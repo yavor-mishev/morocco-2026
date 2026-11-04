@@ -91,7 +91,7 @@
     var im = list[idx], fig = im.closest('figure'), day = im.closest('.day');
     lbImg.src = im.getAttribute('data-full') || im.src; lbImg.alt = im.alt;
     var lbl = day ? day.querySelector('.dayhead .label').textContent + ' · ' : '';
-    lbCap.textContent = lbl + ((fig.querySelector('figcaption') || {}).textContent || im.alt);
+    lbCap.textContent = lbl + (im.hasAttribute('data-cap') ? (im.getAttribute('data-cap') || im.alt) : ((fig.querySelector('figcaption') || {}).textContent || im.alt));
     lbN.textContent = (idx + 1) + ' / ' + list.length;
     [idx - 1, idx + 1].forEach(function (j) { var n = list[(j + list.length) % list.length]; if (n) (new Image()).src = n.getAttribute('data-full') || n.src; });
   }

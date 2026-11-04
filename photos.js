@@ -49,6 +49,7 @@
   document.addEventListener('error', function (e) {
     var im = e.target;
     if (im.tagName !== 'IMG' || !im.hasAttribute('data-ph') || im.src.indexOf(RAW) === 0) return;
+    if (im.srcset) im.srcset = im.srcset.split(', ').map(function (c) { return c.indexOf('blob:') === 0 ? c : RAW + c; }).join(', ');
     im.src = RAW + im.getAttribute('src');
   }, true);
 
@@ -65,15 +66,15 @@
     ['en', 'bg'].forEach(function (l) {
       var root = document.querySelector('[data-l="' + l + '"]'); if (!root) return;
       root.querySelectorAll('.stopgal, .mygal').forEach(function (g) { g.remove(); });
-      // per location
+      // per location: your photos replace the stop's photo with a carousel
       root.querySelectorAll('.day article.stop[data-stop]').forEach(function (art) {
         var k = key(art), ps = data.filter(function (p) { return p.stop === k; }).sort(byTime);
-        var canAdd = token || wantSetup;
-        if (!ps.length && !canAdd) return;
-        var where = title(art), box = document.createElement('div');
-        box.className = 'stopgal';
-        box.innerHTML = (ps.length ? '<div class="stopgrid">' + ps.map(function (p) { return fig(p, l, where); }).join('') + '</div>' : '') +
-          (canAdd ? '<button type="button" class="addph" data-add="' + esc(k) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' + T[l].add + '</button>' : '');
+        var canAdd = token || wantSetup, where = title(art);
+        restore(art);
+        if (ps.length) carousel(art, ps, l, where);
+        if (!canAdd) return;
+        var box = document.createElement('div'); box.className = 'stopgal';
+        box.innerHTML = '<button type="button" class="addph" data-add="' + esc(k) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' + T[l].add + '</button>';
         (art.querySelector(':scope > div') || art).appendChild(box);
       });
       // per day (photos added from the inbox folder, without a location)
@@ -88,6 +89,49 @@
       }
     });
     if (window.lbCollect) window.lbCollect();
+  }
+
+  // ---------- carousel ----------
+  var orig = new WeakMap();   // article -> its original figure (or null) and layout, to restore when photos are removed
+  function restore(art) {
+    var o = orig.get(art); if (!o) return;
+    var car = art.querySelector(':scope > figure.car'); if (car) car.remove();
+    if (o.fig) art.insertBefore(o.fig, art.firstChild);
+    art.classList.toggle('textonly', o.textonly);
+    orig.delete(art);
+  }
+  function carousel(art, ps, l, where) {
+    var f = art.querySelector(':scope > figure');
+    orig.set(art, { fig: f, textonly: art.classList.contains('textonly') });
+    if (f) f.remove();
+    art.classList.remove('textonly');
+    var fig = document.createElement('figure'); fig.className = 'car';
+    fig.innerHTML = '<div class="car-track">' + ps.map(function (p, i) {
+        var cap = p[l] || p.en || p.bg || '';
+        return '<div class="car-slide"><img data-ph src="' + esc(url(p, 'thumb')) + '" srcset="' + esc(url(p, 'thumb')) + ' 640w, ' + esc(url(p, 'src')) + ' 2000w" sizes="(max-width: 820px) 100vw, 46vw"' +
+          ' data-full="' + esc(url(p, 'src')) + '" data-cap="' + esc(cap) + '" alt="' + esc(cap || T[l].alt + where) + '"' + (i ? ' loading="lazy"' : '') + ' decoding="async">' +
+          (token ? '<button type="button" class="ph-del" data-del="' + esc(p.src) + '" aria-label="' + T[l].remove + '" title="' + T[l].remove + '">×</button>' : '') + '</div>';
+      }).join('') + '</div>' +
+      (ps.length > 1 ? '<button type="button" class="car-nav car-prev" aria-label="' + (l === 'bg' ? 'Предишна' : 'Previous') + '">‹</button><button type="button" class="car-nav car-next" aria-label="' + (l === 'bg' ? 'Следваща' : 'Next') + '">›</button>' +
+        '<div class="car-dots" aria-hidden="true">' + ps.map(function () { return '<i></i>'; }).join('') + '</div>' : '') +
+      '<figcaption></figcaption>';
+    art.insertBefore(fig, art.firstChild);
+    var track = fig.querySelector('.car-track'), dots = fig.querySelectorAll('.car-dots i'), cap = fig.querySelector('figcaption');
+    function at() { return Math.round(track.scrollLeft / Math.max(1, track.clientWidth)); }
+    function draw() {
+      var i = Math.min(ps.length - 1, Math.max(0, at())), im = track.children[i].querySelector('img');
+      dots.forEach(function (d, j) { d.classList.toggle('on', j === i); });
+      cap.textContent = (im.getAttribute('data-cap') || where) + (ps.length > 1 ? '  ·  ' + (i + 1) + ' / ' + ps.length : '');
+    }
+    var raf = 0; track.addEventListener('scroll', function () { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); }, { passive: true });
+    fig.querySelectorAll('.car-nav').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var n = at() + (b.classList.contains('car-next') ? 1 : -1);
+        n = (n + ps.length) % ps.length;
+        track.scrollTo({ left: n * track.clientWidth, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      });
+    });
+    draw();
   }
 
   // ---------- GitHub ----------
