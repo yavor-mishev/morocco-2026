@@ -148,6 +148,15 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15;
 .src a { color: var(--muted); }
 .deep table.wx { margin: 4px 0 12px; }
 .tblwrap { overflow-x: auto; max-width: 100%; }
+/* ---------- my photos ---------- */
+.mygal { border-top: 1px solid var(--rule); padding-top: 22px; margin-top: 8px; }
+.mygal h3 { font-size: 1.55rem; margin-bottom: 12px; }
+.mygal h3 .mono { color: var(--muted); font-weight: 400; margin-left: 8px; }
+.mygrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
+.mygrid figure { margin: 0; }
+.mygrid img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 6px; display: block; background: var(--land); }
+.mygrid figcaption { font: .68rem/1.4 var(--f-mono); color: var(--muted); margin-top: 4px; }
+@media (max-width: 600px) { .mygrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; } .mygrid img { border-radius: 3px; } .mygrid figcaption { display: none; } }
 .stop > div, .stop > figure { min-width: 0; }
 
 /* ---------- notes section ---------- */

@@ -5,7 +5,7 @@
   // ---------- today ----------
   var START = Date.UTC(2026, 9, 31);
   var DAYS = {
-    1: { en: 'Marrakech → Ouarzazate', bg: 'Маракеш → Уарзазат', rise: '07:50', set: '18:41', nen: 'Ouarzazate', nbg: 'Уарзазат' },
+    1: { en: 'Marrakech → Ouarzazate', bg: 'Маракеш → Уарзазат', rise: '07:50', set: '18:41', nen: 'Tabounte, Ouarzazate', nbg: 'Табунт, Уарзазат' },
     2: { en: 'Ouarzazate → Merzouga', bg: 'Уарзазат → Мерзуга', rise: '07:42', set: '18:28', nen: 'desert camp', nbg: 'пустинен лагер' },
     3: { en: '4×4 around Merzouga', bg: '4×4 около Мерзуга', rise: '07:32', set: '18:28', nen: 'Merzouga', nbg: 'Мерзуга' },
     4: { en: 'Merzouga → Fes', bg: 'Мерзуга → Фес', rise: '07:32', set: '18:27', nen: 'Fes', nbg: 'Фес' },
@@ -83,17 +83,17 @@
   var list = [], idx = 0, lastFocus = null;
 
   function collect() {
-    list = Array.prototype.slice.call(document.querySelectorAll('[data-l="' + lang + '"] .stop figure img, [data-l="' + lang + '"] .hero figure img'));
+    list = Array.prototype.slice.call(document.querySelectorAll('[data-l="' + lang + '"] .hero figure img, [data-l="' + lang + '"] .stop figure img, [data-l="' + lang + '"] .mygal figure img'));
     list.forEach(function (im) { im.classList.add('zoomable'); im.tabIndex = 0; im.setAttribute('role', 'button'); });
   }
   function show(i) {
     idx = (i + list.length) % list.length;
     var im = list[idx], fig = im.closest('figure'), day = im.closest('.day');
-    lbImg.src = im.src; lbImg.alt = im.alt;
+    lbImg.src = im.getAttribute('data-full') || im.src; lbImg.alt = im.alt;
     var lbl = day ? day.querySelector('.dayhead .label').textContent + ' · ' : '';
-    lbCap.textContent = lbl + (fig.querySelector('figcaption') || {}).textContent;
+    lbCap.textContent = lbl + ((fig.querySelector('figcaption') || {}).textContent || im.alt);
     lbN.textContent = (idx + 1) + ' / ' + list.length;
-    [idx - 1, idx + 1].forEach(function (j) { var n = list[(j + list.length) % list.length]; if (n) (new Image()).src = n.src; });
+    [idx - 1, idx + 1].forEach(function (j) { var n = list[(j + list.length) % list.length]; if (n) (new Image()).src = n.getAttribute('data-full') || n.src; });
   }
   function open(i) {
     lastFocus = document.activeElement;
@@ -151,6 +151,33 @@
       if (e.data === 'precached') chip.hidden = false;
     });
   }
+
+
+  // ---------- my photos (from photos/photos.json, filled by tools/add-photos.py) ----------
+  var GT = { en: { h: 'My photos', alt: 'My photo from day ', one: 'photo', many: 'photos' }, bg: { h: 'Моите снимки', alt: 'Моя снимка от ден ', one: 'снимка', many: 'снимки' } };
+  function esc(t) { return String(t || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function renderPhotos(all) {
+    ['en', 'bg'].forEach(function (l) {
+      for (var d = 1; d <= 8; d++) {
+        var sec = document.getElementById((l === 'bg' ? 'bg-day-' : 'day-') + d);
+        if (!sec) continue;
+        var old = sec.querySelector('.mygal'); if (old) old.remove();
+        var ps = all.filter(function (p) { return p.day === d; });
+        if (!ps.length) continue;
+        var g = document.createElement('div'); g.className = 'mygal';
+        g.innerHTML = '<h3>' + GT[l].h + ' <span class="mono">' + ps.length + ' ' + (ps.length === 1 ? GT[l].one : GT[l].many) + '</span></h3><div class="mygrid">' +
+          ps.map(function (p) {
+            var cap = p[l] || p.en || '';
+            return '<figure><img src="' + esc(p.thumb) + '" data-full="' + esc(p.src) + '" alt="' + esc(cap || GT[l].alt + d) + '" loading="lazy" decoding="async" width="640" height="' + Math.round(640 * p.h / p.w) + '">' +
+              '<figcaption' + (cap ? '' : ' hidden') + '>' + esc(cap) + '</figcaption></figure>';
+          }).join('') + '</div>';
+        sec.appendChild(g);
+      }
+    });
+    collect();
+  }
+  fetch('photos/photos.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : []; })
+    .then(function (all) { if (Array.isArray(all) && all.length) renderPhotos(all); }).catch(function () {});
 
   document.addEventListener('langchange', function (e) {
     lang = e.detail;
