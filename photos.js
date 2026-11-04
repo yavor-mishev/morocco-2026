@@ -132,7 +132,7 @@
       });
       fit();
     }
-    function fit() { if (!hs.length) return; var i = Math.min(ps.length - 1, Math.max(0, at())); track.style.height = hs[i] + 'px'; }
+    function fit() { if (hs.length) track.style.height = Math.max.apply(null, hs) + 'px'; }   // fixed: room for the tallest photo
     function draw() {
       var i = Math.min(ps.length - 1, Math.max(0, at())), im = track.children[i].querySelector('img');
       fit();
