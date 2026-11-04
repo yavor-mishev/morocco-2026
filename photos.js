@@ -68,11 +68,12 @@
       // per location
       root.querySelectorAll('.day article.stop[data-stop]').forEach(function (art) {
         var k = key(art), ps = data.filter(function (p) { return p.stop === k; }).sort(byTime);
-        if (!ps.length && !token) return;
+        var canAdd = token || wantSetup;
+        if (!ps.length && !canAdd) return;
         var where = title(art), box = document.createElement('div');
         box.className = 'stopgal';
         box.innerHTML = (ps.length ? '<div class="stopgrid">' + ps.map(function (p) { return fig(p, l, where); }).join('') + '</div>' : '') +
-          (token ? '<button type="button" class="addph" data-add="' + esc(k) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' + T[l].add + '</button>' : '');
+          (canAdd ? '<button type="button" class="addph" data-add="' + esc(k) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' + T[l].add + '</button>' : '');
         (art.querySelector(':scope > div') || art).appendChild(box);
       });
       // per day (photos added from the inbox folder, without a location)
@@ -208,7 +209,11 @@
 
   document.addEventListener('click', function (e) {
     var a = e.target.closest('[data-add]');
-    if (a) { e.preventDefault(); pick(a.getAttribute('data-add'), a.closest('article')); return; }
+    if (a) {
+      e.preventDefault();
+      if (!token) { var t = bar.querySelector('.ph-tok'); bar.scrollIntoView({ block: 'center' }); bar.classList.add('ph-flash'); setTimeout(function () { bar.classList.remove('ph-flash'); }, 1200); if (t) t.focus({ preventScroll: true }); return; }
+      pick(a.getAttribute('data-add'), a.closest('article')); return;
+    }
     var d = e.target.closest('[data-del]');
     if (d) { e.preventDefault(); e.stopPropagation(); remove(d.getAttribute('data-del')); }
   }, true);
