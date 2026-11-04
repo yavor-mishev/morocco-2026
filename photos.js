@@ -5,7 +5,7 @@
   var OWNER = 'yavor-mishev', REPO = 'morocco-2026', BRANCH = 'main';
   var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO;
   var RAW = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/';
-  var FULL_PX = 2000, THUMB_PX = 640;
+  var FULL_PX = 1600, THUMB_PX = 640, PARALLEL = 4;
 
   var T = {
     en: {
@@ -106,20 +106,24 @@
     if (f) f.remove();
     art.classList.remove('textonly');
     var fig = document.createElement('figure'); fig.className = 'car';
-    fig.innerHTML = '<div class="car-track">' + ps.map(function (p, i) {
+    var nav = l === 'bg' ? ['Предишна', 'Следваща'] : ['Previous', 'Next'];
+    fig.innerHTML = '<div class="car-stage"><div class="car-track">' + ps.map(function (p, i) {
         var cap = p[l] || p.en || p.bg || '';
-        return '<div class="car-slide"><img data-ph src="' + esc(url(p, 'thumb')) + '" srcset="' + esc(url(p, 'thumb')) + ' 640w, ' + esc(url(p, 'src')) + ' 2000w" sizes="(max-width: 820px) 100vw, 46vw"' +
+        return '<div class="car-slide"><img data-ph src="' + esc(url(p, 'thumb')) + '" srcset="' + esc(url(p, 'thumb')) + ' ' + Math.round(THUMB_PX * Math.min(1, p.w / p.h)) + 'w, ' + esc(url(p, 'src')) + ' ' + p.w + 'w" sizes="(max-width: 820px) 100vw, 46vw"' +
+          ' width="' + p.w + '" height="' + p.h + '" style="aspect-ratio:' + p.w + ' / ' + p.h + '"' +
           ' data-full="' + esc(url(p, 'src')) + '" data-cap="' + esc(cap) + '" alt="' + esc(cap || T[l].alt + where) + '"' + (i ? ' loading="lazy"' : '') + ' decoding="async">' +
           (token ? '<button type="button" class="ph-del" data-del="' + esc(p.src) + '" aria-label="' + T[l].remove + '" title="' + T[l].remove + '">×</button>' : '') + '</div>';
       }).join('') + '</div>' +
-      (ps.length > 1 ? '<button type="button" class="car-nav car-prev" aria-label="' + (l === 'bg' ? 'Предишна' : 'Previous') + '">‹</button><button type="button" class="car-nav car-next" aria-label="' + (l === 'bg' ? 'Следваща' : 'Next') + '">›</button>' +
-        '<div class="car-dots" aria-hidden="true">' + ps.map(function () { return '<i></i>'; }).join('') + '</div>' : '') +
+      (ps.length > 1 ? '<button type="button" class="car-nav car-prev" aria-label="' + nav[0] + '">‹</button><button type="button" class="car-nav car-next" aria-label="' + nav[1] + '">›</button>' : '') + '</div>' +
+      (ps.length > 1 && ps.length <= 15 ? '<div class="car-dots" aria-hidden="true">' + ps.map(function () { return '<i></i>'; }).join('') + '</div>' : '') +
       '<figcaption></figcaption>';
     art.insertBefore(fig, art.firstChild);
     var track = fig.querySelector('.car-track'), dots = fig.querySelectorAll('.car-dots i'), cap = fig.querySelector('figcaption');
     function at() { return Math.round(track.scrollLeft / Math.max(1, track.clientWidth)); }
+    function fit() { var i = Math.min(ps.length - 1, Math.max(0, at())); track.style.height = track.children[i].querySelector('img').offsetHeight + 'px'; }
     function draw() {
       var i = Math.min(ps.length - 1, Math.max(0, at())), im = track.children[i].querySelector('img');
+      fit();
       dots.forEach(function (d, j) { d.classList.toggle('on', j === i); });
       cap.textContent = (im.getAttribute('data-cap') || where) + (ps.length > 1 ? '  ·  ' + (i + 1) + ' / ' + ps.length : '');
     }
@@ -131,6 +135,7 @@
         track.scrollTo({ left: n * track.clientWidth, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
       });
     });
+    if (window.ResizeObserver) new ResizeObserver(function () { fit(); }).observe(fig);
     draw();
   }
 
@@ -158,7 +163,6 @@
     var tree = [];
     for (var i = 0; i < adds.length; i++) {
       if (!adds[i].sha) adds[i].sha = (await gh('/git/blobs', { method: 'POST', body: { content: adds[i].b64, encoding: 'base64' } })).sha;
-      if (adds[i].progress) adds[i].progress();
       tree.push({ path: adds[i].path, mode: '100644', type: 'blob', sha: adds[i].sha });
     }
     removes.forEach(function (p) { tree.push({ path: p, mode: '100644', type: 'blob', sha: null }); });
@@ -218,9 +222,25 @@
       });
     };
   }
+  function limiter(n) {
+    var act = 0, q = [];
+    function next() {
+      if (act >= n || !q.length) return;
+      act++; var t = q.shift();
+      t.fn().then(t.ok, t.no).then(function () { act--; next(); });
+    }
+    return function (fn) { return new Promise(function (ok, no) { q.push({ fn: fn, ok: ok, no: no }); next(); }); };
+  }
   async function upload(files, k, day, cap, st) {
     var l = lang; st.textContent = T[l].preparing;
-    var adds = [], items = [], bad = [];
+    var adds = [], items = [], bad = [], sent = [], run = limiter(PARALLEL), done = 0, total = 0;
+    function tick() { st.textContent = done < total ? T[l].sending(Math.min(files.length, Math.floor(done / 2) + 1), files.length) : T[l].saving; }
+    function send(a) {
+      total++;
+      sent.push(run(function () {
+        return gh('/git/blobs', { method: 'POST', body: { content: a.b64, encoding: 'base64' } }).then(function (r) { a.sha = r.sha; a.b64 = null; done++; tick(); });
+      }));
+    }
     for (var i = 0; i < files.length; i++) {
       var im;
       try { im = await loadImg(files[i]); } catch (e) { bad.push(files[i].name); continue; }
@@ -230,13 +250,13 @@
       var item = { src: 'photos/full/' + name, thumb: 'photos/thumb/' + name, day: day, stop: k, w: full.w, h: full.h, taken: stamp(files[i].lastModified || Date.now()), en: cap, bg: cap };
       local[item.src] = URL.createObjectURL(full.blob); local[item.thumb] = URL.createObjectURL(th.blob);
       items.push(item);
-      adds.push({ path: item.src, b64: await toB64(full.blob) }, { path: item.thumb, b64: await toB64(th.blob) });
+      var a1 = { path: item.src, b64: await toB64(full.blob) }, a2 = { path: item.thumb, b64: await toB64(th.blob) };
+      adds.push(a1, a2); send(a1); send(a2); tick();
     }
     if (bad.length) st.textContent = T[l].cant + bad.join(', ');
     if (!items.length) throw new Error(T[l].cant + bad.join(', '));
-    var done = 0;
-    adds.forEach(function (a) { a.progress = function () { done++; st.textContent = done < adds.length ? T[l].sending(Math.ceil(done / 2), items.length) : T[l].saving; }; });
-    st.textContent = T[l].sending(1, items.length);
+    await Promise.all(sent);
+    st.textContent = T[l].saving;
     data = await commit('Add ' + items.length + ' photo(s) to ' + k + ' (Day ' + day + ')', adds, [], function (m) { return m.concat(items); });
     render();
     return items.length;
