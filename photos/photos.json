@@ -1065,5 +1065,71 @@
   "taken": "2026:11:01 19:29:48",
   "en": "",
   "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102061753-1mdm.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102061753-1mdm.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 1600,
+  "h": 900,
+  "taken": "2026:11:02 06:17:53",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102061828-tmg8.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102061828-tmg8.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 06:18:28",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102063405-34c3.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102063405-34c3.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 06:34:05",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102063544-btrz.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102063544-btrz.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 06:35:44",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102063800-pcfc.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102063800-pcfc.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 06:38:00",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102071151-3elp.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102071151-3elp.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 07:11:51",
+  "en": "",
+  "bg": ""
  }
 ]
