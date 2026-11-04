@@ -1131,5 +1131,31 @@
   "taken": "2026:11:02 07:11:51",
   "en": "",
   "bg": ""
+ },
+ {
+  "type": "video",
+  "src": "photos/video/s-macaque-20261103150941-mxdi.mp4",
+  "thumb": "photos/thumb/s-macaque-20261103150941-mxdi.jpg",
+  "day": 4,
+  "stop": "macaque",
+  "w": 720,
+  "h": 1280,
+  "dur": 51,
+  "taken": "2026:11:03 15:09:41",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "type": "video",
+  "src": "photos/video/s-macaque-20261103151711-q14z.mp4",
+  "thumb": "photos/thumb/s-macaque-20261103151711-q14z.jpg",
+  "day": 4,
+  "stop": "macaque",
+  "w": 720,
+  "h": 1280,
+  "dur": 2,
+  "taken": "2026:11:03 15:17:11",
+  "en": "",
+  "bg": ""
  }
 ]
