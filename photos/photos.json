@@ -482,5 +482,60 @@
   "taken": "2026:10:31 17:30:05",
   "en": "",
   "bg": ""
+ },
+ {
+  "src": "photos/full/s-ouarzazate-20261031163329-22sp.jpg",
+  "thumb": "photos/thumb/s-ouarzazate-20261031163329-22sp.jpg",
+  "day": 1,
+  "stop": "ouarzazate",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:10:31 16:33:29",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-ouarzazate-20261031163444-jw13.jpg",
+  "thumb": "photos/thumb/s-ouarzazate-20261031163444-jw13.jpg",
+  "day": 1,
+  "stop": "ouarzazate",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:10:31 16:34:44",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-ouarzazate-20261031184549-87fe.jpg",
+  "thumb": "photos/thumb/s-ouarzazate-20261031184549-87fe.jpg",
+  "day": 1,
+  "stop": "ouarzazate",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:10:31 18:45:49",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-ouarzazate-20261031184548-lw8u.jpg",
+  "thumb": "photos/thumb/s-ouarzazate-20261031184548-lw8u.jpg",
+  "day": 1,
+  "stop": "ouarzazate",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:10:31 18:45:48",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-ouarzazate-20261031192715-0p5x.jpg",
+  "thumb": "photos/thumb/s-ouarzazate-20261031192715-0p5x.jpg",
+  "day": 1,
+  "stop": "ouarzazate",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:10:31 19:27:15",
+  "en": "",
+  "bg": ""
  }
 ]
