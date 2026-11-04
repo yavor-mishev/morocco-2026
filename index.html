@@ -148,6 +148,35 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15;
 .src a { color: var(--muted); }
 .deep table.wx { margin: 4px 0 12px; }
 .tblwrap { overflow-x: auto; max-width: 100%; }
+/* ---------- photos per location + upload mode ---------- */
+.stopgal { margin-top: 14px; }
+.stopgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; margin-bottom: 10px; }
+.stopgrid figure, .mygrid figure { margin: 0; position: relative; }
+.stop .stopgrid img { aspect-ratio: 1; border-radius: 5px; }
+.stopgrid figcaption { display: none; }
+.addph { display: inline-flex; align-items: center; gap: 6px; font: 500 .78rem var(--f-mono); color: var(--saffron); background: var(--paper); border: 1px dashed var(--saffron); border-radius: 999px; padding: 6px 13px 6px 10px; cursor: pointer; }
+.addph svg { width: 15px; height: 15px; }
+.addph:hover { background: var(--saffron); color: var(--paper); border-style: solid; }
+.ph-del { position: absolute; top: 4px; right: 4px; width: 28px; height: 28px; border-radius: 50%; border: 0; background: rgba(0,0,0,.62); color: #fff; font-size: 1.1rem; line-height: 1; cursor: pointer; display: grid; place-items: center; }
+.ph-bar { margin-top: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 10px 14px; border: 1px dashed var(--saffron); border-radius: 10px; background: var(--paper); font-size: .9rem; }
+.ph-bar > span:first-child { flex: 1 1 260px; }
+.ph-bar b { flex-basis: 100%; font-family: var(--f-display); font-size: 1.1rem; }
+.ph-bar .ph-row { display: flex; gap: 8px; flex: 1 1 100%; }
+.ph-bar input { flex: 1; min-width: 0; font: .85rem var(--f-mono); padding: 8px 10px; border: 1px solid var(--rule); border-radius: 8px; background: var(--bg); color: var(--ink); }
+.ph-bar button, .ph-btns button { font: 500 .8rem var(--f-mono); padding: 8px 14px; border-radius: 999px; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); cursor: pointer; }
+.ph-bar .ph-save, .ph-btns .ph-go { background: var(--zellige); border-color: var(--zellige); color: var(--paper); }
+.ph-msg { flex-basis: 100%; color: var(--muted); }
+.ph-dlg { position: fixed; inset: 0; z-index: 110; background: rgba(10,10,20,.6); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) 16px max(16px, env(safe-area-inset-bottom, 0px)); }
+.ph-card { background: var(--paper); color: var(--ink); border-radius: 12px; padding: 18px; width: 100%; max-width: 520px; max-height: 88vh; overflow: auto; }
+.ph-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+.ph-prev { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 6px; }
+.ph-prev img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 5px; display: block; background: var(--land); }
+.ph-lab { display: grid; gap: 4px; margin-top: 14px; font: .78rem var(--f-mono); color: var(--muted); }
+.ph-lab input { font: 1rem var(--f-body); padding: 9px 10px; border: 1px solid var(--rule); border-radius: 8px; background: var(--bg); color: var(--ink); }
+.ph-status { min-height: 1.2em; color: var(--muted); margin: 12px 0 0; }
+.ph-btns { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+.ph-btns button:disabled { opacity: .5; cursor: default; }
+.ph-toast { position: fixed; z-index: 120; left: 50%; bottom: calc(76px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); font: .82rem var(--f-mono); padding: 9px 16px; border-radius: 999px; }
 /* ---------- my photos ---------- */
 .mygal { border-top: 1px solid var(--rule); padding-top: 22px; margin-top: 8px; }
 .mygal h3 { font-size: 1.55rem; margin-bottom: 12px; }
@@ -458,7 +487,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="meta mono"><span>Marrakech → Ouarzazate</span><span>~200 km</span><span>~4.5 h driving</span><span>Night: Tabounte, Ouarzazate</span><button type="button" class="daymap" data-day="1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Map of this day</button></div>
     </div>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="restaurant">
       <div>
         <h3>A first stop in the Atlas foothills</h3>
         <div class="label sub">Small restaurant · before the climb</div>
@@ -542,7 +571,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="oasis">
       <div>
         <h3>A small oasis</h3>
         <div class="label sub">After Aït Benhaddou</div>
@@ -742,7 +771,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="melaab">
       <div>
         <h3>Melaab: scarves for the desert</h3>
         <div class="label sub">A small village on the road east</div>
@@ -791,7 +820,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="guestlunch">
       <div>
         <h3>Lunch with our guide's family</h3>
         <div class="label sub">Desert hospitality</div>
@@ -799,7 +828,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="spices">
       <div>
         <h3>The spice shop</h3>
         <div class="label sub">Ras el hanout and friends</div>
@@ -809,7 +838,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="dunewalk">
       <div>
         <h3>A last walk on the dunes</h3>
         <div class="label sub">Back at the hotel</div>
@@ -1024,7 +1053,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="mellah">
       <div>
         <h3>The Mellah <span class="ar">الملاح</span></h3>
         <div class="label sub">The Jewish quarter of Fes el-Jdid</div>
@@ -1046,7 +1075,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="funduq">
       <div>
         <h3>Funduqs and Funduq al-Najjarin <span class="ar">فندق النجارين</span></h3>
         <div class="label sub">A merchants' inn of 1711, now a museum of wood</div>
@@ -1055,7 +1084,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="metal">
       <div>
         <h3>The metalworkers <span class="ar">النحّاسين</span></h3>
         <div class="label sub">Brass, copper and the sound of hammers</div>
@@ -1071,7 +1100,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="weavers">
       <div>
         <h3>Weavers and the textile souk</h3>
         <div class="label sub">Scarves, curtains, pillow covers</div>
@@ -1082,7 +1111,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="sardines">
       <div>
         <h3>Fried sardines <span class="ar">سردين</span></h3>
         <div class="label sub">Something I tasted</div>
@@ -1115,7 +1144,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop flip" data-stop="hassantower">
+    <article class="stop flip" data-stop="hassantower" data-pkey="mausoleum">
       <figure><img src="img/mausoleum.jpg" alt="The white Mausoleum of Mohammed V with a green tiled roof" loading="lazy"><figcaption>Mausoleum of Mohammed V</figcaption></figure>
       <div>
         <h3>Mausoleum of Mohammed V <span class="ar">ضريح محمد الخامس</span></h3>
@@ -1536,7 +1565,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div class="meta mono"><span>Маракеш → Уарзазат</span><span>~200 км</span><span>~4,5 ч път</span><span>Нощувка: Табунт, Уарзазат</span><button type="button" class="daymap" data-day="1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>Карта на деня</button></div>
     </div>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="restaurant">
       <div>
         <h3>Първа спирка в подножието на Атлас</h3>
         <div class="label sub">Малък ресторант · преди изкачването</div>
@@ -1620,7 +1649,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="oasis">
       <div>
         <h3>Малък оазис</h3>
         <div class="label sub">След Айт Бен Хаду</div>
@@ -1820,7 +1849,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="melaab">
       <div>
         <h3>Мелааб: шалове за пустинята</h3>
         <div class="label sub">Малко село по пътя на изток</div>
@@ -1869,7 +1898,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="guestlunch">
       <div>
         <h3>Обяд при семейството на гида</h3>
         <div class="label sub">Пустинно гостоприемство</div>
@@ -1877,7 +1906,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="spices">
       <div>
         <h3>Магазинът за подправки</h3>
         <div class="label sub">Рас ел-ханут и компания</div>
@@ -1887,7 +1916,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="dunewalk">
       <div>
         <h3>Последна разходка по дюните</h3>
         <div class="label sub">Обратно в хотела</div>
@@ -2102,7 +2131,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="mellah">
       <div>
         <h3>Мелах <span class="ar">الملاح</span></h3>
         <div class="label sub">Еврейският квартал на Фес ел-Джедид</div>
@@ -2124,7 +2153,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="funduq">
       <div>
         <h3>Фундуците и Фундук ан-Наджарин <span class="ar">فندق النجارين</span></h3>
         <div class="label sub">Търговски хан от 1711 г., днес музей на дървото</div>
@@ -2133,7 +2162,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="metal">
       <div>
         <h3>Майсторите на метал <span class="ar">النحّاسين</span></h3>
         <div class="label sub">Месинг, мед и звукът на чуковете</div>
@@ -2149,7 +2178,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="weavers">
       <div>
         <h3>Тъкачите и текстилният пазар</h3>
         <div class="label sub">Шалове, завеси, калъфки за възглавници</div>
@@ -2160,7 +2189,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop textonly">
+    <article class="stop textonly" data-stop="sardines">
       <div>
         <h3>Пържени сардини <span class="ar">سردين</span></h3>
         <div class="label sub">Нещо, което опитах</div>
@@ -2193,7 +2222,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       </div>
     </article>
 
-    <article class="stop flip" data-stop="hassantower">
+    <article class="stop flip" data-stop="hassantower" data-pkey="mausoleum">
       <figure><img src="img/mausoleum.jpg" alt="Белият мавзолей на Мохамед V със зелен керемиден покрив" loading="lazy"><figcaption>Мавзолеят на Мохамед V</figcaption></figure>
       <div>
         <h3>Мавзолеят на Мохамед V <span class="ar">ضريح محمد الخامس</span></h3>
@@ -2498,6 +2527,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="map.js"></script>
 <script src="app.js"></script>
+<script src="photos.js"></script>
 <script>
 (function () {
   var blocks = document.querySelectorAll('[data-l]');

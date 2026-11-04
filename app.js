@@ -153,31 +153,7 @@
   }
 
 
-  // ---------- my photos (from photos/photos.json, filled by tools/add-photos.py) ----------
-  var GT = { en: { h: 'My photos', alt: 'My photo from day ', one: 'photo', many: 'photos' }, bg: { h: 'Моите снимки', alt: 'Моя снимка от ден ', one: 'снимка', many: 'снимки' } };
-  function esc(t) { return String(t || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-  function renderPhotos(all) {
-    ['en', 'bg'].forEach(function (l) {
-      for (var d = 1; d <= 8; d++) {
-        var sec = document.getElementById((l === 'bg' ? 'bg-day-' : 'day-') + d);
-        if (!sec) continue;
-        var old = sec.querySelector('.mygal'); if (old) old.remove();
-        var ps = all.filter(function (p) { return p.day === d; });
-        if (!ps.length) continue;
-        var g = document.createElement('div'); g.className = 'mygal';
-        g.innerHTML = '<h3>' + GT[l].h + ' <span class="mono">' + ps.length + ' ' + (ps.length === 1 ? GT[l].one : GT[l].many) + '</span></h3><div class="mygrid">' +
-          ps.map(function (p) {
-            var cap = p[l] || p.en || '';
-            return '<figure><img src="' + esc(p.thumb) + '" data-full="' + esc(p.src) + '" alt="' + esc(cap || GT[l].alt + d) + '" loading="lazy" decoding="async" width="640" height="' + Math.round(640 * p.h / p.w) + '">' +
-              '<figcaption' + (cap ? '' : ' hidden') + '>' + esc(cap) + '</figcaption></figure>';
-          }).join('') + '</div>';
-        sec.appendChild(g);
-      }
-    });
-    collect();
-  }
-  fetch('photos/photos.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : []; })
-    .then(function (all) { if (Array.isArray(all) && all.length) renderPhotos(all); }).catch(function () {});
+  window.lbCollect = collect;   // photos.js re-collects after adding galleries
 
   document.addEventListener('langchange', function (e) {
     lang = e.detail;

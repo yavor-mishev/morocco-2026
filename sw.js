@@ -5,6 +5,8 @@ var LOCAL = [
 "index.html",
 "map.js",
 "app.js",
+"photos.js",
+"photos/photos.json",
 "img/amridil.jpg",
 "img/bahia.jpg",
 "img/benhaddou.jpg",
