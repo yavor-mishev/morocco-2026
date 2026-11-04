@@ -658,5 +658,93 @@
   "taken": "2026:11:01 09:50:29",
   "en": "",
   "bg": ""
+ },
+ {
+  "src": "photos/full/s-todra-20261101120212-sk6z.jpg",
+  "thumb": "photos/thumb/s-todra-20261101120212-sk6z.jpg",
+  "day": 2,
+  "stop": "todra",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:01 12:02:12",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-todra-20261101120227-ry7c.jpg",
+  "thumb": "photos/thumb/s-todra-20261101120227-ry7c.jpg",
+  "day": 2,
+  "stop": "todra",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:01 12:02:27",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-todra-20261101120312-67ev.jpg",
+  "thumb": "photos/thumb/s-todra-20261101120312-67ev.jpg",
+  "day": 2,
+  "stop": "todra",
+  "w": 1200,
+  "h": 1600,
+  "taken": "2026:11:01 12:03:12",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-todra-20261101120315-e0s7.jpg",
+  "thumb": "photos/thumb/s-todra-20261101120315-e0s7.jpg",
+  "day": 2,
+  "stop": "todra",
+  "w": 1200,
+  "h": 1600,
+  "taken": "2026:11:01 12:03:15",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-todra-20261101120328-eckw.jpg",
+  "thumb": "photos/thumb/s-todra-20261101120328-eckw.jpg",
+  "day": 2,
+  "stop": "todra",
+  "w": 1200,
+  "h": 1600,
+  "taken": "2026:11:01 12:03:28",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-todra-20261101120412-3koa.jpg",
+  "thumb": "photos/thumb/s-todra-20261101120412-3koa.jpg",
+  "day": 2,
+  "stop": "todra",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:01 12:04:12",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-todra-20261101120612-k8hx.jpg",
+  "thumb": "photos/thumb/s-todra-20261101120612-k8hx.jpg",
+  "day": 2,
+  "stop": "todra",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:01 12:06:12",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-todra-20261101120622-7f93.jpg",
+  "thumb": "photos/thumb/s-todra-20261101120622-7f93.jpg",
+  "day": 2,
+  "stop": "todra",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:01 12:06:22",
+  "en": "",
+  "bg": ""
  }
 ]
