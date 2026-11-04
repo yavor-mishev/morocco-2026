@@ -5,7 +5,7 @@
   var OWNER = 'yavor-mishev', REPO = 'morocco-2026', BRANCH = 'main';
   var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO;
   var RAW = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/';
-  var FULL_PX = 1600, THUMB_PX = 640, PARALLEL = 4;
+  var FULL_PX = 1600, THUMB_PX = 640, PARALLEL = 3, CHUNK = 10, PREVIEWS = 6;
 
   var T = {
     en: {
@@ -15,7 +15,7 @@
       save: 'Save', cancel: 'Cancel', create: 'Create a token', checking: 'Checking…', bad: 'That token can’t write to the repository.',
       dlgH: function (n, where) { return n + ' ' + (n === 1 ? 'photo' : 'photos') + ' for ' + where; },
       cap: 'Caption (optional)', upload: 'Upload', preparing: 'Preparing photos…',
-      sending: function (i, n) { return 'Uploading ' + i + ' of ' + n + '…'; }, saving: 'Saving…',
+      sending: function (i, n) { return 'Uploading ' + i + ' of ' + n + '…'; }, saving: 'Saving…', wait: function (s) { return 'GitHub asked us to slow down. Retrying in ' + s + ' s…'; }, more: function (n) { return '+' + n + ' more'; },
       done: function (n) { return n + (n === 1 ? ' photo' : ' photos') + ' uploaded. Everyone will see ' + (n === 1 ? 'it' : 'them') + ' in about a minute.'; },
       cant: 'Couldn’t read this file (try JPEG): ', fail: 'Upload failed: ', del: 'Delete this photo from the site?', deleted: 'Photo removed.', remove: 'Delete photo'
     },
@@ -26,7 +26,7 @@
       save: 'Запази', cancel: 'Отказ', create: 'Създай токен', checking: 'Проверка…', bad: 'Този токен не може да пише в хранилището.',
       dlgH: function (n, where) { return n + ' ' + (n === 1 ? 'снимка' : 'снимки') + ' за ' + where; },
       cap: 'Надпис (по желание)', upload: 'Качи', preparing: 'Подготвям снимките…',
-      sending: function (i, n) { return 'Качване ' + i + ' от ' + n + '…'; }, saving: 'Записване…',
+      sending: function (i, n) { return 'Качване ' + i + ' от ' + n + '…'; }, saving: 'Записване…', wait: function (s) { return 'GitHub поиска да забавим. Нов опит след ' + s + ' с…'; }, more: function (n) { return '+ още ' + n; },
       done: function (n) { return n + ' ' + (n === 1 ? 'снимка е качена' : 'снимки са качени') + '. Всички ще ги видят след около минута.'; },
       cant: 'Не мога да прочета този файл (опитай JPEG): ', fail: 'Качването не успя: ', del: 'Да изтрия ли тази снимка от сайта?', deleted: 'Снимката е изтрита.', remove: 'Изтрий снимката'
     }
@@ -155,14 +155,27 @@
   }
 
   // ---------- GitHub ----------
-  function gh(path, opt) {
+  var onWait = null;   // set during an upload to show "retrying in N s"
+  function sleep(ms) { return new Promise(function (ok) { setTimeout(ok, ms); }); }
+  function gh(path, opt, attempt) {
+    attempt = attempt || 0;
+    return gh1(path, opt).catch(function (e) {
+      var limited = e.status === 429 || (e.status === 403 && /rate limit|abuse/i.test(e.message)), flaky = !e.status || e.status >= 500;
+      if ((!limited && !flaky) || attempt >= 5) throw e;
+      var s = e.retry || (limited ? 20 * (attempt + 1) : 3 * (attempt + 1));
+      if (onWait && limited) onWait(s);
+      return sleep(s * 1000).then(function () { return gh(path, opt, attempt + 1); });
+    });
+  }
+  function gh1(path, opt) {
     opt = opt || {};
     var h = { Authorization: 'Bearer ' + (opt.token || token), Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
     if (opt.body) h['Content-Type'] = 'application/json';
     return fetch(API + path, { method: opt.method || 'GET', headers: h, body: opt.body ? JSON.stringify(opt.body) : undefined, cache: 'no-store' })
       .then(function (r) {
         if (r.ok) return r.status === 204 ? null : r.json();
-        return r.json().catch(function () { return {}; }).then(function (j) { var e = new Error(j.message || ('GitHub ' + r.status)); e.status = r.status; throw e; });
+        var ra = +r.headers.get('retry-after') || 0;
+        return r.json().catch(function () { return {}; }).then(function (j) { var e = new Error(j.message || ('GitHub ' + r.status)); e.status = r.status; e.retry = ra; throw e; });
       });
   }
   function b64utf8(s) { return decodeURIComponent(escape(atob(s.replace(/\s/g, '')))); }
@@ -201,7 +214,13 @@
     var w = im.naturalWidth, h = im.naturalHeight, s = Math.min(1, max / Math.max(w, h));
     var cv = document.createElement('canvas'); cv.width = Math.round(w * s); cv.height = Math.round(h * s);
     var cx = cv.getContext('2d'); cx.imageSmoothingQuality = 'high'; cx.drawImage(im, 0, 0, cv.width, cv.height);
-    return new Promise(function (ok) { cv.toBlob(function (b) { ok({ blob: b, w: cv.width, h: cv.height }); }, 'image/jpeg', q); });
+    var W = cv.width, H = cv.height;
+    return new Promise(function (ok, no) {
+      cv.toBlob(function (b) {
+        cv.width = cv.height = 0;   // release canvas memory right away (iOS Safari has a hard total limit)
+        b ? ok({ blob: b, w: W, h: H }) : no(new Error('out of memory'));
+      }, 'image/jpeg', q);
+    });
   }
   function toB64(blob) { return new Promise(function (ok) { var r = new FileReader(); r.onload = function () { ok(String(r.result).split(',')[1]); }; r.readAsDataURL(blob); }); }
   function stamp(ms) { var d = new Date(ms), z = function (n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + ':' + z(d.getMonth() + 1) + ':' + z(d.getDate()) + ' ' + z(d.getHours()) + ':' + z(d.getMinutes()) + ':' + z(d.getSeconds()); }
@@ -214,13 +233,16 @@
   function openDlg(html) { dlg.innerHTML = '<div class="ph-card">' + html + '</div>'; dlg.hidden = false; document.body.classList.add('lb-open'); }
 
   function pick(k, art) {
-    var inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*'; inp.multiple = true;
-    inp.onchange = function () { if (inp.files.length) prepare(Array.prototype.slice.call(inp.files), k, art); };
+    var old = document.getElementById('ph-input'); if (old) old.remove();
+    var inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*'; inp.multiple = true; inp.id = 'ph-input'; inp.hidden = true;
+    document.body.appendChild(inp);   // iOS Safari is more reliable with an input that is in the page
+    inp.onchange = function () { var f = Array.prototype.slice.call(inp.files || []); inp.remove(); if (f.length) prepare(f, k, art); };
     inp.click();
   }
   function prepare(files, k, art) {
-    var l = lang, where = title(art), urls = files.map(function (f) { return URL.createObjectURL(f); });
-    openDlg('<h3>' + esc(T[l].dlgH(files.length, where)) + '</h3><div class="ph-prev">' + urls.map(function (u) { return '<img src="' + u + '" alt="">'; }).join('') + '</div>' +
+    var l = lang, where = title(art), urls = files.slice(0, PREVIEWS).map(function (f) { return URL.createObjectURL(f); });
+    openDlg('<h3>' + esc(T[l].dlgH(files.length, where)) + '</h3><div class="ph-prev">' + urls.map(function (u) { return '<img src="' + u + '" alt="" decoding="async">'; }).join('') +
+      (files.length > PREVIEWS ? '<span class="ph-more">' + T[l].more(files.length - PREVIEWS) + '</span>' : '') + '</div>' +
       '<label class="ph-lab">' + T[l].cap + '<input type="text" class="ph-cap" maxlength="200"></label>' +
       '<p class="ph-status mono" aria-live="polite"></p><div class="ph-btns"><button type="button" class="ph-cancel">' + T[l].cancel + '</button><button type="button" class="ph-go">' + T[l].upload + '</button></div>');
     var st = dlg.querySelector('.ph-status');
@@ -228,6 +250,8 @@
     dlg.querySelector('.ph-go').onclick = function () {
       var cap = dlg.querySelector('.ph-cap').value.trim();
       dlg.querySelectorAll('button, input').forEach(function (b) { b.disabled = true; });
+      dlg.querySelectorAll('.ph-prev img').forEach(function (im) { im.removeAttribute('src'); });   // free the big previews before processing
+      urls.forEach(URL.revokeObjectURL); urls = [];
       upload(files, k, dayOf(art), cap, st).then(function (n) {
         st.textContent = T[l].done(n);
         setTimeout(function () { urls.forEach(URL.revokeObjectURL); closeDlg(); }, 1800);
@@ -247,34 +271,41 @@
     return function (fn) { return new Promise(function (ok, no) { q.push({ fn: fn, ok: ok, no: no }); next(); }); };
   }
   async function upload(files, k, day, cap, st) {
-    var l = lang; st.textContent = T[l].preparing;
-    var adds = [], items = [], bad = [], sent = [], run = limiter(PARALLEL), done = 0, total = 0;
-    function tick() { st.textContent = done < total ? T[l].sending(Math.min(files.length, Math.floor(done / 2) + 1), files.length) : T[l].saving; }
-    function send(a) {
-      total++;
-      sent.push(run(function () {
-        return gh('/git/blobs', { method: 'POST', body: { content: a.b64, encoding: 'base64' } }).then(function (r) { a.sha = r.sha; a.b64 = null; done++; tick(); });
-      }));
-    }
-    for (var i = 0; i < files.length; i++) {
-      var im;
-      try { im = await loadImg(files[i]); } catch (e) { bad.push(files[i].name); continue; }
-      var full = await scaled(im, FULL_PX, 0.8), th = await scaled(im, THUMB_PX, 0.72);
-      URL.revokeObjectURL(im.src);
-      var name = 's-' + k + '-' + stamp(files[i].lastModified || Date.now()).replace(/\D/g, '') + '-' + Math.random().toString(36).slice(2, 6) + '.jpg';
-      var item = { src: 'photos/full/' + name, thumb: 'photos/thumb/' + name, day: day, stop: k, w: full.w, h: full.h, taken: stamp(files[i].lastModified || Date.now()), en: cap, bg: cap };
-      local[item.src] = URL.createObjectURL(full.blob); local[item.thumb] = URL.createObjectURL(th.blob);
-      items.push(item);
-      var a1 = { path: item.src, b64: await toB64(full.blob) }, a2 = { path: item.thumb, b64: await toB64(th.blob) };
-      adds.push(a1, a2); send(a1); send(a2); tick();
-    }
+    var l = lang, bad = [], ok = 0;
+    onWait = function (sec) { st.textContent = T[l].wait(sec); };
+    try {
+      for (var c = 0; c < files.length; c += CHUNK) {
+        var part = files.slice(c, c + CHUNK), adds = [], items = [], sent = [], run = limiter(PARALLEL);
+        for (var i = 0; i < part.length; i++) {
+          st.textContent = T[l].sending(c + i + 1, files.length);
+          var im, full, th;
+          try {
+            im = await loadImg(part[i]);
+            full = await scaled(im, FULL_PX, 0.8); th = await scaled(im, THUMB_PX, 0.72);
+          } catch (e) { bad.push(part[i].name); continue; }
+          finally { if (im) { URL.revokeObjectURL(im.src); im.removeAttribute('src'); } }
+          var when = part[i].lastModified || Date.now();
+          var name = 's-' + k + '-' + stamp(when).replace(/\D/g, '') + '-' + Math.random().toString(36).slice(2, 6) + '.jpg';
+          var item = { src: 'photos/full/' + name, thumb: 'photos/thumb/' + name, day: day, stop: k, w: full.w, h: full.h, taken: stamp(when), en: cap, bg: cap };
+          local[item.thumb] = URL.createObjectURL(th.blob);   // shown until GitHub Pages has the file; full size loads from the repo
+          var a1 = { path: item.src, b64: await toB64(full.blob) }, a2 = { path: item.thumb, b64: await toB64(th.blob) };
+          full = th = null;
+          items.push(item); adds.push(a1, a2);
+          [a1, a2].forEach(function (a) {
+            sent.push(run(function () { return gh('/git/blobs', { method: 'POST', body: { content: a.b64, encoding: 'base64' } }).then(function (r) { a.sha = r.sha; a.b64 = null; }); }));
+          });
+        }
+        if (!items.length) continue;
+        await Promise.all(sent);
+        st.textContent = T[l].saving;
+        data = await commit('Add ' + items.length + ' photo(s) to ' + k + ' (Day ' + day + ')', adds, [], function (m) { return m.concat(items); });
+        ok += items.length;
+        render();
+      }
+    } finally { onWait = null; }
+    if (!ok) throw new Error(T[l].cant + bad.join(', '));
     if (bad.length) st.textContent = T[l].cant + bad.join(', ');
-    if (!items.length) throw new Error(T[l].cant + bad.join(', '));
-    await Promise.all(sent);
-    st.textContent = T[l].saving;
-    data = await commit('Add ' + items.length + ' photo(s) to ' + k + ' (Day ' + day + ')', adds, [], function (m) { return m.concat(items); });
-    render();
-    return items.length;
+    return ok;
   }
   function remove(src) {
     var l = lang;
