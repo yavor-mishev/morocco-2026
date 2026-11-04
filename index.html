@@ -122,6 +122,44 @@ h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.15;
 .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 14px; }
 .legend span { display: inline-flex; align-items: center; gap: 7px; }
 .legend i { width: 9px; height: 9px; display: inline-block; }
+.legend i.bar { width: 4px; height: 13px; }
+
+/* ---------- diary: expandable "go deeper" blocks ---------- */
+.deep { margin-top: 14px; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); }
+.deep > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 10px; padding: 11px 14px; font: 500 .8rem/1.3 var(--f-mono); color: var(--zellige); }
+.deep > summary::-webkit-details-marker { display: none; }
+.deep > summary::before { content: "+"; flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--zellige); font-size: .95rem; line-height: 1; }
+.deep[open] > summary::before { content: "−"; background: var(--zellige); color: var(--paper); }
+.deep > summary:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; border-radius: 8px; }
+.deep .db { padding: 0 16px 14px; border-top: 1px solid var(--rule); }
+.deep h4 { font-family: var(--f-display); font-weight: 600; font-size: 1.15rem; line-height: 1.2; margin: 18px 0 6px; }
+.deep p, .deep li { font-size: .97rem; }
+.deep p { margin: 0 0 10px; max-width: 40em; }
+.deep ul, .deep ol { padding-left: 1.2em; margin: 0 0 10px; max-width: 40em; }
+.deep li { margin-bottom: 4px; }
+.deep dl { margin: 0 0 10px; }
+.deep dt { font-weight: 600; }
+.deep dd { margin: 0 0 8px; }
+.saw, .said { border-left: 3px solid; padding: 2px 0 2px 12px; }
+.saw { border-color: var(--saffron); }
+.said { border-color: var(--indigo); }
+.who { display: block; font: 500 .66rem var(--f-mono); text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-bottom: 1px; }
+.src { font: .72rem/1.5 var(--f-mono); color: var(--muted); margin-top: 12px !important; overflow-wrap: anywhere; }
+.src a { color: var(--muted); }
+.deep table.wx { margin: 4px 0 12px; }
+.tblwrap { overflow-x: auto; max-width: 100%; }
+.stop > div, .stop > figure { min-width: 0; }
+
+/* ---------- notes section ---------- */
+.notes { padding-block: 44px 20px; }
+.notes > h2 { font-size: 1.9rem; margin-bottom: 6px; }
+.notes > p { max-width: 46em; color: var(--muted); }
+.notes .note { border-top: 1px solid var(--rule); padding-block: 22px; max-width: 46em; scroll-margin-top: 60px; }
+.notes .note > h3 { font-size: 1.5rem; margin-bottom: 8px; }
+.notes .note > p { margin: 0 0 12px; }
+.notes .note h4 { font-family: var(--f-display); font-weight: 600; font-size: 1.15rem; line-height: 1.2; margin: 18px 0 6px; }
+.notes .note ul, .notes .note ol { padding-left: 1.2em; margin: 0 0 12px; }
+.notes .note li { margin-bottom: 4px; }
 
 /* ---------- timeline ---------- */
 .timeline { padding-block: 44px 20px; }
@@ -385,6 +423,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
     <li><a href="#day-6"><b>6</b> Thu 5 · Coast</a></li>
     <li><a href="#day-7"><b>7</b> Fri 6 · Marrakech</a></li>
     <li><a href="#day-8"><b>8</b> Sat 7 · Home</a></li>
+    <li><a href="#notes">Notes</a></li>
     <li><a href="#history">History</a></li>
     <li><a href="#practical">Practical</a></li>
     <li><button type="button" class="langbtn" data-set="bg">БГ</button></li>
@@ -396,6 +435,9 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
     <span><i style="background:var(--saffron);transform:rotate(45deg)"></i>Interesting fact</span>
     <span><i style="background:var(--indigo);transform:rotate(45deg)"></i>History</span>
     <span><i style="background:var(--zellige);border-radius:50%"></i>Tip for the day</span>
+    <span><i class="bar" style="background:var(--saffron)"></i>What I saw</span>
+    <span><i class="bar" style="background:var(--indigo)"></i>What our guide told us</span>
+    <span>⊕ Tap “Go deeper” for the full story</span>
   </div>
 
   <!-- ================= DAY 1 ================= -->
@@ -419,6 +461,27 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
           <li>The High Atlas runs about 800 km across Morocco. Jbel Toubkal (4,167 m), the highest peak in North Africa, is roughly 50 km west of the pass.</li>
           <li class="tip">It can be 5–10 °C at the top even when Marrakech is warm. Keep a jacket in the car, and take motion-sickness tablets if you need them; there are a lot of hairpins.</li>
         </ul>
+        <details class="deep">
+          <summary>Go deeper · The Amazigh and the Tuareg</summary>
+          <div class="db">
+            <h4>Imazighen, the people of the mountains we drove through</h4>
+            <p>The villages on the Tichka road are Amazigh. The Amazigh (plural <i>Imazighen</i>, usually translated as "free people") are the indigenous peoples of North Africa, living here for thousands of years before the Arabs arrived. Outsiders called them "Berbers", from the Greek and Latin word for foreigners. Many people now prefer "Amazigh".</p>
+            <p>There isn't one Amazigh language but a family of related ones. In Morocco the three big ones are Tarifit in the Rif, Central Atlas Tamazight in the Middle Atlas, and Tashelhit in the High Atlas and the south-west. Since 2011 Tamazight has been an official language of Morocco alongside Arabic. That's why road signs carry a third script, Tifinagh: the <span lang="ber">ⵍⵎⵖⵔⵉⴱ</span> at the top of this page is "Morocco" written in it.</p>
+            <h4>How Islam and Arabic arrived</h4>
+            <p>Arab armies of the Umayyad caliphate pushed west from Egypt from the 640s onwards. It took them more than half a century to reach and hold the Atlantic, and the conquest involved fierce resistance as well as alliances. The Amazigh leader Kusayla defeated and killed the Arab general Uqba ibn Nafi in 683. In the Aurès mountains, in today's Algeria, a woman remembered as <b>al-Kahina</b> ("the prophetess"; her Amazigh name is often given as Dihya) led the resistance in the 690s. Almost everything we know about her comes from Arab chroniclers writing centuries later, so the details of her life, her religion and her death are uncertain and wrapped in legend. She remains a powerful symbol of Amazigh identity.</p>
+            <p>Conversion was gradual. Within a generation many Amazigh had become Muslims and fought in Muslim armies: the 711 invasion of Spain was led by Tariq ibn Ziyad, usually described as Amazigh himself, with a mostly Amazigh army. In 739–743 Muslim Amazigh rose up against the caliphate's governors over unequal treatment. Arabic spread much more slowly than Islam, over many centuries and especially in the cities and plains, while the mountains stayed largely Amazigh-speaking.</p>
+            <p>Being Amazigh and being Arab aren't opposites. Most Moroccans have mixed ancestry, many families speak both Darija (Moroccan Arabic) and Tamazight, and Darija itself is full of Amazigh words. Two of Morocco's greatest medieval dynasties were Amazigh: the <b>Almoravids</b>, from Saharan Sanhaja tribes, who founded Marrakech, and the <b>Almohads</b>, whose movement began among the Masmuda of the High Atlas. The Marinids, who built the madrasas of Fes (Day 5), were Amazigh as well, from the Zenata.</p>
+            <h4>The Tuareg, the "Blue People" of the Sahara</h4>
+            <p>The Tuareg are a distinct Saharan people within the wider Amazigh world. They speak Tamasheq (and closely related varieties) and kept the Tifinagh script in everyday use when it had vanished elsewhere. Their homelands lie mainly in Niger, Mali, southern Algeria and Libya, with smaller communities in Burkina Faso.</p>
+            <ul>
+              <li><b>Way of life:</b> historically nomadic herders of camels, goats and sheep, and the masters of the trans-Saharan caravans that carried salt, grain, dates and other goods between North and West Africa.</li>
+              <li><b>The tagelmust:</b> Tuareg <i>men</i>, not women, traditionally wear a long veil and turban, the <i>tagelmust</i>. Cloth dyed with indigo can rub off on the skin and give it a bluish tint, which is where the nickname "Blue People" comes from.</li>
+              <li><b>Culture:</b> a rich tradition of poetry and music, such as the <i>imzad</i>, a one-string fiddle played by women and listed by UNESCO as intangible heritage; the "desert blues" of bands like Tinariwen; and fine silver and leather work, like the Agadez cross pendant.</li>
+            </ul>
+            <p>Not every desert dweller is Tuareg. The families we met around Merzouga (Day 3) are Amazigh and Arab nomads and villagers of the Moroccan Sahara. The blue robes worn by many camel guides are a style, not a sign of Tuareg identity.</p>
+            <p class="src">Sources: <a href="https://ich.unesco.org/en/RL/practices-and-knowledge-linked-to-the-imzad-of-the-tuareg-communities-of-algeria-mali-and-niger-00866">UNESCO: the Imzad of the Tuareg</a> · <a href="https://www.britannica.com/topic/Berber">Britannica: Amazigh (Berber)</a> · <a href="https://www.britannica.com/topic/Tuareg">Britannica: Tuareg</a></p>
+          </div>
+        </details>
       </div>
     </article>
 
@@ -434,6 +497,31 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
           <li>The building at the top of the hill is the <i>agadir</i>, the communal granary, which villagers retreated to under attack. The climb takes about 15 minutes and gives the best view.</li>
           <li class="tip">You'll cross the river on stepping stones or a footbridge. Shops inside sell paintings made with saffron, tea and indigo that change colour when heated over a flame.</li>
         </ul>
+        <details class="deep">
+          <summary>Go deeper · Ksar, kasbah or riad? And how the ksar was built</summary>
+          <div class="db">
+            <h4>Three words you'll hear all week</h4>
+            <dl>
+              <dt>Ksar <span lang="ar">قصر</span> (plural <i>ksour</i>)</dt>
+              <dd>A fortified village: many families' houses, lanes, a mosque and usually a communal granary inside one wall. Aït Benhaddou is a ksar.</dd>
+              <dt>Kasbah <span lang="ar">قصبة</span></dt>
+              <dd>A fortified residence or complex, usually the seat of one powerful family or local ruler, with corner towers. Kasbah Taourirt in Ouarzazate (tonight) and Kasbah Amridil in Skoura (tomorrow) are kasbahs. The word is also used for a city's citadel, as in the Kasbah of the Udayas in Rabat (Day 6).</dd>
+              <dt>Riad <span lang="ar">رياض</span></dt>
+              <dd>A traditional town house that looks inward, built around an interior courtyard garden (<i>riyad</i> means gardens). Strictly, a house with a paved courtyard and no garden is a <i>dar</i>, but today almost every courtyard guesthouse calls itself a riad.</dd>
+            </dl>
+            <h4>On the caravan road</h4>
+            <p>The ksar sits in the valley of the Ounila river, on one of the old routes linking the Sahara with Marrakech via the Telouet area. Caravans carrying salt, dates, gold and other goods passed through, and a fortified village where water, food and shelter could be defended was valuable. In autumn the Ounila is often little more than a trickle in a wide gravel bed, but it can flood after storms in the mountains.</p>
+            <h4>Built of earth, straw and wood</h4>
+            <ul>
+              <li><b>Rammed earth (<i>pisé</i>):</b> damp earth is packed in layers into a wooden mould and pounded hard. It forms the thick lower walls.</li>
+              <li><b>Mud brick (adobe):</b> sun-dried bricks of earth mixed with chopped straw, used for the upper storeys and for the decorative patterns near the tops of the towers.</li>
+              <li><b>Wood and reeds:</b> beams of poplar, palm or tamarisk carry the floors and roofs, covered with reeds or palm fronds and a thick layer of earth.</li>
+            </ul>
+            <p>UNESCO inscribed the "Ksar of Ait-Ben-Haddou" in 1987 as a striking example of southern Moroccan earthen architecture. It notes that the buildings themselves are probably not older than the 17th century, although the site and its techniques are much older. More on earthen building is in Day 2's Kasbah Amridil notes.</p>
+            <p>The film list above mixes productions shot in the ksar itself with ones that only used it for a few scenes. Many famous "Ouarzazate films" were actually made at the studios or elsewhere in the region, not here (see Ouarzazate below).</p>
+            <p class="src">Sources: <a href="https://whc.unesco.org/en/list/444">UNESCO: Ksar of Ait-Ben-Haddou</a></p>
+          </div>
+        </details>
       </div>
     </article>
 
@@ -445,8 +533,50 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
         <p>The name is usually explained as Amazigh for "without noise". The French built the modern town in the 1920s as a garrison, around the older Kasbah Taourirt, a Glaoui family palace whose maze of rooms you can see from the road.</p>
         <ul class="facts">
           <li>Atlas Studios (opened 1983) is one of the largest film studios in the world by area. Its lots still hold sets from <i>Gladiator</i>, <i>Kundun</i> and <i>Asterix &amp; Obelix: Mission Cleopatra</i>.</li>
-          <li>Just outside town is Noor Ouarzazate, one of the largest concentrated solar power complexes on Earth (about 580 MW). Thousands of curved mirrors are visible from the air.</li>
+          <li>Just outside town is Noor Ouarzazate, one of the largest concentrated solar power complexes on Earth: three mirror-based plants and one photovoltaic plant, about 580 MW in total. Its fields of curved mirrors are clearly visible from the air.</li>
         </ul>
+        <details class="deep">
+          <summary>Go deeper · Why Ouarzazate is the "Hollywood of Africa"</summary>
+          <div class="db">
+            <p>Film-makers have come here since the 1950s and 60s (parts of <i>Lawrence of Arabia</i> were shot in Morocco). They come for the reliable light, very varied scenery within a short drive (desert, mountains, palm groves, earthen villages that can stand in for ancient Egypt, the Holy Land or Tibet), lower costs and local crews and extras who have worked on dozens of shoots. Locals jokingly call the town "Ouallywood".</p>
+            <p>It helps to keep three kinds of location apart:</p>
+            <ul>
+              <li><b>The studios</b> on the edge of town. Atlas Studios opened in 1983, and there are other studios nearby, such as CLA. Sets built on their lots include the Tibetan monastery for <i>Kundun</i> and the Egyptian temple for <i>Asterix &amp; Obelix: Mission Cleopatra</i>.</li>
+              <li><b>The town itself</b>, with Kasbah Taourirt and its streets.</li>
+              <li><b>The wider region</b>, including Aït Benhaddou about 30 km away, the desert and the gorges. <i>Gladiator</i>, for example, used Aït Benhaddou and the region as well as studio sets.</li>
+            </ul>
+            <p>So not every film "from Ouarzazate" was shot at Aït Benhaddou, and not every scene in a given film was shot in Morocco.</p>
+          </div>
+        </details>
+        <details class="deep">
+          <summary>Go deeper · Noor Ouarzazate, a power station made of mirrors</summary>
+          <div class="db">
+            <p><i>Noor</i> (<span lang="ar">نور</span>) means "light" in Arabic. The complex lies about 10 km north-east of Ouarzazate, off the road towards Skoura, and covers roughly 3,000 hectares. It was developed by Masen, the Moroccan Agency for Sustainable Energy, with the Saudi company ACWA Power and with financing from the World Bank, the African Development Bank, the European Investment Bank and Germany's KfW, among others. The four plants came online between 2016 and 2018.</p>
+            <div class="tblwrap"><table class="wx">
+              <thead><tr><th>Plant</th><th>Technology</th><th style="text-align:right">Capacity</th><th>Molten-salt storage</th></tr></thead>
+              <tbody>
+                <tr><td>Noor I</td><td>Parabolic trough (CSP)</td><td class="n">160 MW</td><td>Yes, about 3 h</td></tr>
+                <tr><td>Noor II</td><td>Parabolic trough (CSP)</td><td class="n">200 MW</td><td>Yes, about 7 h</td></tr>
+                <tr><td>Noor III</td><td>Solar tower (CSP)</td><td class="n">150 MW</td><td>Yes, about 7.5 h</td></tr>
+                <tr><td>Noor IV</td><td>Photovoltaic (PV)</td><td class="n">~70 MW*</td><td>No</td></tr>
+                <tr><td><b>Total</b></td><td></td><td class="n"><b>~580 MW</b></td><td></td></tr>
+              </tbody>
+            </table></div>
+            <p class="src" style="margin-top:0!important">* Often rounded to 70 MW; Masen-era reports give 72 MW. Storage hours differ slightly between sources.</p>
+            <h4>Two ways to turn sunlight into electricity</h4>
+            <p><b>Photovoltaic (PV)</b> panels turn light directly into electricity in semiconductor cells, the same idea as rooftop panels. <b>Concentrated solar power (CSP)</b> uses mirrors to focus sunlight into heat, makes steam and drives a turbine like a conventional power station. The big advantage of CSP is that heat is much easier and cheaper to store than electricity.</p>
+            <h4>Noor I and II: parabolic troughs</h4>
+            <p>Long rows of curved mirrors turn to follow the sun and focus it onto a black receiver tube along their focal line. A synthetic <b>thermal oil</b> flowing through the tubes is heated to almost 400 °C. That oil boils water to drive the turbine. When there's surplus heat, the oil passes through <b>heat exchangers</b> that warm a <b>molten salt</b> (a mixture of sodium and potassium nitrates), which is pumped from a "cold" tank into a "hot" tank. After sunset the process runs in reverse: the hot salt gives its heat back to make steam.</p>
+            <h4>Noor III: the tower</h4>
+            <p>Thousands of flat, sun-tracking mirrors (heliostats) surround a tower about 250 m tall. They all aim at a receiver at the top, where the <b>molten salt itself</b> is heated directly, to well over 500 °C, without any oil. The hot salt is stored and used to make steam whenever electricity is needed. When the mirror field is focused, the receiver glows a blinding white and can be seen from far across the plain, like a second sun on a stick.</p>
+            <h4>Noor IV: plain photovoltaics</h4>
+            <p>Noor IV is a field of PV panels. It produces only while the sun shines and has no molten-salt storage.</p>
+            <h4>Why storage matters</h4>
+            <p>Morocco's electricity demand peaks in the evening, after sunset. Stored heat lets Noor I–III keep generating for several hours into the night or through passing cloud, which PV alone can't do without batteries.</p>
+            <p><b>Capacity is not production.</b> The 580 MW is the maximum output at any one moment. What matters over a year is energy (MWh or GWh), which depends on sunshine, storage and breakdowns. At planning stage the three CSP plants together were expected to produce roughly 1.5 billion kWh a year. Real output has varied: Noor III, for example, was out of service for long periods after problems with its salt tank. There's a comparison with Bulgaria's Kozloduy in the <a href="#n-compare">notes at the end</a>.</p>
+            <p class="src">Sources: <a href="https://en.wikipedia.org/wiki/Ouarzazate_Solar_Power_Station">Ouarzazate Solar Power Station (overview with references)</a> · <a href="https://www.powermag.com/moroccan-molten-salt-tower-project-clears-reliability-test/">POWER Magazine on Noor III</a> · <a href="https://www.masen.ma/">Masen</a></p>
+          </div>
+        </details>
       </div>
     </article>
   </section>
@@ -469,8 +599,73 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
         <p>Skoura is a palm grove of about 25 km² irrigated by <i>khettaras</i>, underground channels that bring water from the mountains without losing it to evaporation. Inside it stand dozens of kasbahs. A kasbah, unlike a ksar, is the fortified home of a single powerful family.</p>
         <p>Amridil belongs to the same family that built it more than 300 years ago, and they still run it as a museum. Look for the olive press, the old kitchen tools and the decorated ceilings of palm and tamarisk wood.</p>
         <ul class="facts">
-          <li>Amridil was printed on the old 50-dirham banknote. Ask your guide; some shops still have one to show.</li>
+          <li>Amridil was printed on an older 50-dirham banknote (the late-1980s series), not on the current 50-dirham note. Ask your guide; some shops still have one to show.</li>
         </ul>
+        <details class="deep">
+          <summary>Go deeper · Our visit to Kasbah Amridil, room by room</summary>
+          <div class="db">
+            <p class="saw"><span class="who">What I saw</span>On Sunday morning we had a guided walk through Amridil, beside the Oued El Hajaj at the edge of the Skoura palm grove. These are my notes from the visit, with background added.</p>
+
+            <h4>The bread oven</h4>
+            <p class="saw"><span class="who">What I saw</span>A large traditional bread oven, with a separate place where the wood was burned. Inside were stones, and the loaves were laid and baked directly on them once they were hot. Nearby were smaller ovens for everyday cooking.</p>
+            <p>In Morocco bread (<i>khobz</i>, a round, fairly flat loaf) comes with almost every meal and is used instead of cutlery to scoop up tagine and salads. Many Moroccans treat bread as a blessing: it shouldn't be thrown away, and a piece found on the ground is often picked up and set somewhere clean. In towns and villages, families traditionally made the dough at home, marked their loaves, and sent them on a wooden board to the neighbourhood's communal oven, the <i>ferran</i> (<span lang="ar">فرّان</span>). The baker charged a small fee or kept a loaf. You can still see ferrans working in the old medinas, including in Fes.</p>
+
+            <h4>How the kasbah was built</h4>
+            <p class="saw"><span class="who">What I saw</span>Our guide showed us the wooden moulds used to build the walls and explained how the earth was packed into them.</p>
+            <ul>
+              <li><b>Rammed earth (<i>pisé</i>):</b> two parallel wooden boards held apart by cross-pieces form a box. Damp earth, often with gravel, is poured in a layer at a time and pounded with a wooden rammer. When the box is full the mould is moved along or up and the next block is made. The rows of small holes you see in many kasbah walls are left by the cross-pieces.</li>
+              <li><b>Mud and straw:</b> mud bricks and plasters are mixed with chopped straw. As wet earth dries it shrinks, and the fibres hold it together and spread the stress, so you get many tiny cracks instead of a few big ones. Straw also makes the material lighter.</li>
+              <li><b>Thick walls against the heat:</b> massive earth walls absorb heat slowly during the day and release it at night. Inside it stays cooler in summer afternoons and warmer on cold desert nights. Small windows, shaded inner courtyards and roof terraces for sleeping in summer all serve the same climate.</li>
+              <li><b>The weak point is water.</b> Earth walls must be re-plastered regularly. An abandoned kasbah can melt back into the ground within a few decades, which is why so many in the valley are ruins.</li>
+            </ul>
+
+            <h4>The olive press</h4>
+            <p class="saw"><span class="who">What I saw</span>The family's traditional olive press.</p>
+            <p>In a traditional mill, olives are crushed into a paste under a heavy stone wheel, often turned by an animal. The paste is spread on woven mats that are stacked and squeezed under a press. The liquid that runs out separates into oil and watery juice.</p>
+            <ul>
+              <li><b>Ripeness changes the oil.</b> Olives go from green, through purple, to black. Early, green olives give less oil, but it's richer in polyphenols: grassy, bitter and peppery, and it keeps longer. Ripe, black olives give more oil that is milder, softer and more buttery. Table olives follow the same logic: green olives are picked unripe, black ones ripe (or darkened during curing).</li>
+              <li><b>What's left over:</b> the solid residue of skins, pulp and stone fragments is called <b>olive pomace</b>. A lower-grade "olive-pomace oil" can be extracted from it industrially. Dried pomace is also widely burned as fuel, including for heating hammams and bakery ovens, and used for animal feed or compost. The bitter wastewater from pressing is a pollution problem if it's simply dumped.</li>
+            </ul>
+            <p><b>Savon beldi</b>, Moroccan "black soap", is a separate product. It's a soft, dark paste made by saponifying olive oil and crushed olives with potash, which is why it's a gel rather than a hard bar. In the hammam you spread it on, let it work in the steam for a few minutes, then scrub with a <b>kessa</b>, a rough exfoliating glove that rolls off dead skin. Some soap is made from lower-grade oils, but it would be wrong to say the pomace from a press like this "becomes soap".</p>
+
+            <h4>The family mosque</h4>
+            <p class="saw"><span class="who">What I saw</span>A small mosque, a prayer room inside the kasbah for the family and its household.</p>
+            <p class="said"><span class="who">Our guide told us</span>Men and women of the same family could pray together in this one small mosque. The five windows facing east stand for the five pillars of Islam.</p>
+            <p>Islam doesn't require separate mosques for men and women. In congregational prayer men usually stand in the front rows and women behind them, in a separate section or in a gallery, but the arrangement depends on local custom and the size of the building. The link between the five windows and the five pillars is our guide's interpretation of this particular room. It isn't a religious or architectural rule, and the number of windows in a mosque isn't prescribed.</p>
+            <p>The direction of prayer, the <b>qibla</b>, points towards the Kaaba in Mecca. A niche in the qibla wall, the <b>mihrab</b>, shows the direction and helps carry the voice of the person leading prayer. From Skoura the shortest route to Mecca points almost due east, a few degrees south of east (about 92°). Many older Moroccan mosques are turned further towards the south-east, following traditional ways of finding the direction.</p>
+            <p>The <b>five pillars of Islam</b>:</p>
+            <ol>
+              <li><b>Shahada</b>: the declaration of faith, that there is no god but God and Muhammad is his messenger.</li>
+              <li><b>Salat</b>: prayer, five times a day.</li>
+              <li><b>Zakat</b>: giving a set share of one's wealth to those in need.</li>
+              <li><b>Sawm</b>: fasting from dawn to sunset during Ramadan.</li>
+              <li><b>Hajj</b>: the pilgrimage to Mecca, once in a lifetime for those able to make it.</li>
+            </ol>
+
+            <h4>The guest room</h4>
+            <p class="saw"><span class="who">What I saw</span>A room set aside for visitors.</p>
+            <p>Hospitality (<i>diyafa</i>) is a point of honour in Moroccan culture: a guest is offered mint tea at the very least, and ideally a meal. In traditional houses the guest room is often placed so that visitors can be received with ceremony without entering the family's private quarters.</p>
+
+            <h4>Uneven stairs and low doorways</h4>
+            <p class="saw"><span class="who">What I saw</span>The steps were all different heights and many doorways were so low you have to duck.</p>
+            <p class="said"><span class="who">Our guide told us</span>This was deliberate. An attacker who didn't know the house would stumble on the irregular stairs, especially in the dark, and would have to bend down to get through a doorway, which made him easy to stop.</p>
+            <p>That's a plausible explanation for some features, but not the only one. Earthen houses grew organically over generations and were built by hand without standard measurements. Small openings also keep rooms cool and private, use less of the scarce timber needed for lintels, and weaken a load-bearing earth wall less than a wide opening. Not every uneven staircase is a trap.</p>
+
+            <h4>Straight towers and tapering towers</h4>
+            <p class="said"><span class="who">Our guide told us</span>He pointed out the difference between towers with straight vertical walls and towers that narrow towards the top.</p>
+            <p>A wall that slopes inward as it rises is called a <b>battered</b> wall, and a tower built this way is a <b>tapered</b> tower. A wide base spreads the weight over more ground, lowers the centre of gravity and puts the thickest, strongest earth where the load is greatest, while less mass sits high up where earth walls are weakest. Tapering is very common in the earthen architecture of southern Morocco, but tower shapes vary from building to building and don't form a strict classification.</p>
+
+            <h4>Skoura oasis</h4>
+            <p>Skoura lies about 40 km east of Ouarzazate, where the road heads towards the Dades valley. Its palm grove is farmed in layers: date palms on top, fruit trees such as olive, fig, pomegranate and almond below them, and cereals, alfalfa and vegetables on the ground in their shade. Every layer depends on water.</p>
+            <p>The water comes from seasonal rivers flowing down from the High Atlas, from wells, and from <b>khettaras</b>. A khettara is an underground tunnel with a very gentle slope that taps groundwater at the foot of the mountains and carries it by gravity to the fields. Lines of vertical shafts, used to dig and maintain it, mark its route like a row of craters. Because the water runs underground it loses very little to evaporation. Water is shared out by time slots under inherited rights. Many khettaras have dried up as the water table has fallen, partly because of motor pumps.</p>
+            <p class="said"><span class="who">Our guide told us</span>Around 6,000 people have left the area over the past couple of years because of the worsening water shortage.</p>
+            <p>I couldn't find official figures to check that number. The background is well documented, though. Morocco had seven consecutive drought years up to 2025, groundwater has been pumped faster than it is replenished in many basins, and irrigated agriculture uses most of the country's water. Even after the heavy rains of early 2026, when the national average reservoir level passed 70%, the Draa-Oued Noun basin, which includes Ouarzazate and Skoura, remained among the lowest at under 40%. People leave oases for many reasons (jobs, schools, the cities), but water is clearly one of the main ones. More in the <a href="#n-water">water notes</a> at the end.</p>
+
+            <h4>Oued El Hajaj</h4>
+            <p>The riverbed beside the kasbah is the <b>Oued El Hajaj</b>. <i>Oued</i> (from Arabic <i>wādī</i>) can mean a river, a watercourse or the valley it runs in, and in North Africa it usually means one that flows only part of the year. The same word is hidden in Spanish river names like Guadalquivir, from <i>al-wādī al-kabīr</i>, "the great river". It's a different river from the Ounila at Aït Benhaddou on Day 1.</p>
+            <p class="src">Sources: <a href="https://en.wikipedia.org/wiki/Kasbah_Amridil">Kasbah Amridil (overview, banknote)</a> · <a href="https://www.moroccoworldnews.com/2026/01/274780/minister-moroccos-recent-rain-ends-seven-years-of-drought/">Morocco World News: seven years of drought</a> · <a href="https://en.hespress.com/140342-morocco-dam-reserves-at-74-3-double-last-years-volume.html">Hespress: dam levels by basin, 2026</a></p>
+          </div>
+        </details>
       </div>
     </article>
 
@@ -661,11 +856,28 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div>
         <h3>Chouara Tannery <span class="ar">دار الدباغ شوارة</span></h3>
         <div class="label sub">In use since around the 11th century</div>
-        <p>The honeycomb of stone vats is worked the medieval way. Hides are first soaked in white vats of quicklime, salt, cow urine and pigeon droppings, whose ammonia softens the leather. Then they go into the coloured vats to be dyed by hand, often with men standing waist-deep.</p>
+        <p>The honeycomb of stone vats is worked the medieval way. Hides are first soaked in white vats of quicklime to loosen the hair, then softened in a bath containing pigeon droppings, whose ammonia makes the leather supple. Then they go into the coloured vats to be dyed by hand, often with men standing waist-deep.</p>
         <ul class="facts">
           <li>Traditional dyes: poppy for red, indigo for blue, henna for orange, saffron or pomegranate for yellow, and mint for green.</li>
           <li class="tip">You view it from the terraces of the leather shops around it. They'll hand you a sprig of mint to hold under your nose. Morning light is best. Bargaining starts at about a third of the first price.</li>
         </ul>
+        <details class="deep">
+          <summary>Go deeper · How a hide becomes leather</summary>
+          <div class="db">
+            <p>The process has several separate stages, and different vats are used for each. Recipes and timings vary from workshop to workshop.</p>
+            <ol>
+              <li><b>Preparation:</b> raw goat, sheep, cow or camel hides are salted to stop them rotting, then soaked and washed.</li>
+              <li><b>Removing hair:</b> the hides go into the white vats of <b>quicklime</b> and water. The alkaline lime loosens hair and fat, which are then scraped off by hand.</li>
+              <li><b>Softening:</b> next comes a bath containing <b>pigeon droppings</b>. As they break down they release ammonia and enzymes, which neutralise leftover lime and loosen the protein fibres, making the leather supple. This is why the tanneries smell the way they do.</li>
+              <li><b>Tanning:</b> traditionally done with plant tannins, which turn rawhide into leather that won't rot.</li>
+              <li><b>Dyeing:</b> the hides are worked by hand, and often by foot, in the coloured vats.</li>
+              <li><b>Drying:</b> the leather is spread out on the rooftops and slopes around the tannery to dry in the sun, then trimmed and finished.</li>
+            </ol>
+            <p class="said"><span class="who">Our guide told us</span>The hides stay in the vats for about a week and are turned every day.</p>
+            <p>Real times depend on the stage, the type of hide and the season. Some steps take hours and the whole process can take weeks.</p>
+            <p><b>Dye colours</b> traditionally came from plants and minerals: red from poppy and other plant pigments, yellow from saffron or pomegranate skins, blue from indigo, orange and brown from henna and other plant materials such as bark and cedar wood, and green from mint. Recipes vary by workshop, and synthetic dyes are now also widely used.</p>
+          </div>
+        </details>
       </div>
     </article>
 
@@ -674,11 +886,22 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div>
         <h3>Al-Qarawiyyin <span class="ar">جامعة القرويين</span></h3>
         <div class="label sub">Founded 859</div>
-        <p>Founded by Fatima al-Fihri, the daughter of a wealthy merchant from Kairouan, Al-Qarawiyyin is recognised by UNESCO and Guinness as the oldest continuously operating university in the world. Its library, one of the oldest in the world, holds a 9th-century Quran and manuscripts by Ibn Khaldun.</p>
+        <p>Founded by Fatima al-Fihri, the daughter of a wealthy merchant from Kairouan, Al-Qarawiyyin is listed by Guinness World Records as the oldest existing, continually operating educational institution in the world, and is often called the oldest university. Its library, one of the oldest in the world, holds a 9th-century Quran and manuscripts by Ibn Khaldun.</p>
         <ul class="facts">
-          <li class="hist">Scholars who studied or taught here include the philosopher Ibn Rushd (Averroes), the historian Ibn Khaldun and the Jewish thinker Maimonides. Legend also links it to Pope Sylvester II, who is said to have helped bring Arabic numerals to Europe.</li>
+          <li class="hist">Many great scholars are linked with it. The historian Ibn Khaldun lived and worked in Fes. The Jewish philosopher Maimonides lived in Fes around 1160–1165; later tradition says he studied at al-Qarawiyyin, but there is no direct evidence. Legend also links Ibn Rushd (Averroes) and Pope Sylvester II, who is said to have helped bring Arabic numerals to Europe, to the institution.</li>
           <li class="tip">Non-Muslims can't enter the mosque, but you can look into the courtyard through the open doors.</li>
         </ul>
+        <details class="deep">
+          <summary>Go deeper · Fatima al-Fihri and what "university" means here</summary>
+          <div class="db">
+            <p>Fatima al-Fihri's family came from <b>Kairouan</b>, in today's Tunisia. The name al-Qarawiyyin means "of the people of Kairouan", after the quarter of Fes where migrants from that city settled. According to tradition she spent her inheritance building a mosque there in <b>859</b>. Our knowledge of her comes mostly from later sources, so details of her life are uncertain.</p>
+            <p>Teaching circles formed around the mosque, as they did at other great mosques, and over the centuries it became one of the leading centres of learning in the Islamic world. Subjects included the Quran and Islamic theology, jurisprudence (<i>fiqh</i>), Arabic grammar and rhetoric, mathematics, astronomy, medicine and philosophy.</p>
+            <p>It's worth being careful with the word <b>"university"</b>. A medieval centre of learning had no faculties, enrolment or degrees in the modern sense. A teacher personally certified a student with a licence (<i>ijaza</i>) to teach a particular text. Al-Qarawiyyin was formally made a state university in 1963.</p>
+            <p class="said"><span class="who">Our guide told us</span>Today only theology is taught there, and only Muslims can study there.</p>
+            <p>The modern University of al-Qarawiyyin specialises in Islamic and Arabic studies: Islamic law, theology and the Arabic language. Some of its faculties are in other cities. I couldn't find a reliable source on a formal rule about students' religion. That's a separate question from the visible rule that non-Muslims may not enter the mosque and its prayer spaces, which applies to most mosques in Morocco.</p>
+            <p class="src">Sources: <a href="https://www.guinnessworldrecords.com/world-records/oldest-university">Guinness World Records</a> · <a href="https://whc.unesco.org/en/list/170">UNESCO: Medina of Fez</a></p>
+          </div>
+        </details>
       </div>
     </article>
 
@@ -692,15 +915,103 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
           <li>Bou Inania (1350–55) is one of the few religious buildings in Morocco open to non-Muslims. Opposite it are the remains of a 14th-century water clock with 13 bronze bowls. Nobody fully knows how it worked.</li>
           <li>Zellige is cut by hand from glazed tiles into hundreds of small shapes, then assembled face-down like a puzzle. A master learns several hundred shapes by heart.</li>
         </ul>
+        <details class="deep">
+          <summary>Go deeper · The two Marinid madrasas</summary>
+          <div class="db">
+            <p>Madrasas were colleges for higher religious education, mainly in Islamic law. They gave students free lodging, and the sultans who founded them gained prestige and trained the judges and officials their state needed.</p>
+            <ul>
+              <li><b>Al-Attarine</b> (1323–1325), built by the Marinid sultan Abu Said Uthman II next to the spice and perfume market (<i>attarin</i> means perfumers), a few steps from al-Qarawiyyin. It's small and considered one of the most refined.</li>
+              <li><b>Bou Inania</b> (1350–1355), built by Sultan Abu Inan Faris. It's larger and unusual in also serving as a Friday mosque, with its own minaret.</li>
+            </ul>
+            <p>Both follow the same plan: a courtyard with a fountain or basin for ablutions, a prayer hall, and small bare student rooms on the upper floor, all looking onto the courtyard. The decoration follows the three layers: <b>zellige</b> mosaic tilework below, <b>carved gypsum stucco</b> in the middle, and <b>carved cedar</b> above, with bands of Arabic calligraphy running through them. The style is Moroccan, with strong links to al-Andalus: it was built in the same decades as the Nasrid palaces of the Alhambra in Granada, and craftsmen and ideas moved across the strait in both directions.</p>
+          </div>
+        </details>
       </div>
     </article>
 
     <article class="stop" data-stop="royalfes">
-      <figure><img src="img/royalfes.jpg" alt="Golden brass doors of the Royal Palace in Fes" loading="lazy"><figcaption>Dar al-Makhzen, Fes</figcaption></figure>
+      <figure><img src="img/royalfes.jpg" alt="Golden metal doors of the Royal Palace in Fes" loading="lazy"><figcaption>Dar al-Makhzen, Fes</figcaption></figure>
       <div>
         <h3>Royal Palace gates <span class="ar">دار المخزن</span></h3>
         <div class="label sub">Fes el-Jdid</div>
-        <p>The palace itself is closed to visitors, but its seven gilded brass doors, framed by zellige and carved cedar, are one of the best photo spots in Fes. Fes el-Jdid ("New Fes") was built by the Marinids in 1276. Next to it is the Mellah, the old Jewish quarter, recognisable by its wooden balconies facing the street.</p>
+        <p>The palace itself is closed to visitors, but its seven gilded metal doors, framed by zellige and carved cedar, are one of the best photo spots in Fes. Fes el-Jdid ("New Fes") was built by the Marinids in 1276. Next to it is the Mellah, the old Jewish quarter, recognisable by its wooden balconies facing the street.</p>
+        <details class="deep">
+          <summary>Go deeper · Dar al-Makhzen and the date on the gate</summary>
+          <div class="db">
+            <p><i>Dar al-Makhzen</i> means "house of the Makhzen", the traditional name for the Moroccan royal government. A royal palace has stood here since the Marinids founded Fes el-Jdid in 1276 as their new royal city beside the old medina. Later dynasties, especially the Alaouites, rebuilt and enlarged it many times. Today the grounds cover a vast area of courtyards, gardens and pavilions. It is still a royal residence, so the interior is not open to ordinary visitors.</p>
+            <p class="saw"><span class="who">What I saw</span>The date <b>1968</b> engraved on one of the gates.</p>
+            <p>That fits what is known about the façade: the monumental entrance on the square, with its seven doors, was rebuilt in the second half of the 20th century under King Hassan II. So 1968 most likely marks the making or renovation of the gate, not the age of the palace, which is many centuries older.</p>
+            <p>The doors are a showcase of traditional Moroccan craft: polished, gold-coloured metal panels with geometric patterns and heavy knockers, framed by zellige tilework, carved stucco and carved cedar under a green-tiled roof. You'll hear various explanations of what the seven doors symbolise, but I couldn't find a reliable source for any of them.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>The Mellah <span class="ar">الملاح</span></h3>
+        <div class="label sub">The Jewish quarter of Fes el-Jdid</div>
+        <p>Next to the palace walls is the Mellah, the first of Morocco's Jewish quarters, created in the 15th century when the Jews of Fes were moved here, close to the sultan's protection. The name is usually linked to the Arabic word for salt (<i>milh</i>); why is disputed. From the streets you can spot it by the houses' wooden and iron balconies opening onto the street, unlike Muslim houses, which face inward.</p>
+        <details class="deep">
+          <summary>Go deeper · Jews in Morocco, 2,000 years of history</summary>
+          <div class="db">
+            <p>Jewish communities lived in North Africa long before Islam, at least from Roman times, and some lived among the Amazigh in the Atlas and the oases. Historians often distinguish two strands:</p>
+            <ul>
+              <li><b>Toshavim</b> ("residents"): the older, local Moroccan Jewish communities, many Arabic- or Amazigh-speaking.</li>
+              <li><b>Megorashim</b> ("the expelled"): Sephardic Jews who arrived after the expulsions from Spain (1492) and Portugal (1496–97), bringing Spanish-Jewish traditions and the Haketia language. Over time the two groups mixed, and Sephardic customs became widespread.</li>
+            </ul>
+            <p><b>Sephardic</b> comes from <i>Sefarad</i>, the Hebrew name for Iberia, and refers to Jews whose traditions developed in Spain and Portugal. <b>Ashkenazi</b> Jews developed their traditions in central and eastern Europe, with Yiddish as their everyday language. So not all Moroccan Jews were Sephardic in origin.</p>
+            <p>The mellah was both protection and segregation: close to the palace and its guards, but also a separate quarter with restrictions. Over centuries, mellahs were set up in many Moroccan cities on the Fes model.</p>
+            <p>In the late 1940s around 250,000–270,000 Jews lived in Morocco, the largest Jewish community in the Muslim world. Emigration came in waves rather than all at once: a first wave to Israel after 1948, a large one in the late 1950s and early 1960s, and another after 1967, when many went to France and Canada (especially French-speaking Montreal) as well as to Israel and the United States. Today a few thousand Jews live in Morocco, mostly in Casablanca. The 2011 constitution names the Hebraic heritage as one of the components of Moroccan identity.</p>
+            <p class="src">Sources: <a href="https://worldjewishcongress.org/en/about/communities/MA">World Jewish Congress: Morocco</a> · <a href="https://en.wikipedia.org/wiki/Migration_of_Moroccan_Jews_to_Israel">Migration of Moroccan Jews (overview with references)</a></p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Funduqs and Funduq al-Najjarin <span class="ar">فندق النجارين</span></h3>
+        <div class="label sub">A merchants' inn of 1711, now a museum of wood</div>
+        <p>A <i>funduq</i> (or <i>fondouk</i>) is the city version of the caravanserai. Merchants arriving with a caravan would sleep in the rooms on the upper floors, store their goods and stable their animals on the ground floor, and do business in the central courtyard. Fes once had a great many funduqs; several are still used as workshops and stores.</p>
+        <p>Funduq al-Najjarin ("of the carpenters"), built in 1711 next to the tiled Nejjarine fountain, is one of the finest. Since the late 1990s it has housed the Museum of Wooden Arts and Crafts, with carved cedar doors, ceilings and tools, and a rooftop café with a view over the medina.</p>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>The metalworkers <span class="ar">النحّاسين</span></h3>
+        <div class="label sub">Brass, copper and the sound of hammers</div>
+        <p class="saw"><span class="who">What I saw</span>We visited a metalworking workshop where craftsmen shape and decorate trays, lamps and vessels by hand.</p>
+        <ul>
+          <li><b>Brass</b> is an alloy of copper and zinc: gold-coloured and easy to work. <b>Bronze</b> is copper and tin: harder and darker. From the outside the two can look very similar, so without testing you can't tell which alloy a particular door or object is made of.</li>
+          <li><b>Hammering</b> (raising) shapes a flat sheet into a bowl or tray by thousands of blows over a stake.</li>
+          <li><b>Engraving</b> cuts lines into the metal and removes a sliver of it.</li>
+          <li><b>Chasing</b> works from the front with blunt punches, pushing the metal into patterns without removing any.</li>
+          <li><b>Repoussé</b> works from the back, pushing the design out into relief; it's usually combined with chasing.</li>
+        </ul>
+        <p>The pierced lanterns that throw star patterns on walls are made by punching or cutting holes through the sheet. Metalwork, like zellige, stucco and carved wood, is one of the crafts the medina of Fes is still famous for, passed down in workshops from master to apprentice.</p>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Weavers and the textile souk</h3>
+        <div class="label sub">Scarves, curtains, pillow covers</div>
+        <p class="saw"><span class="who">What I saw</span>A weaving workshop and the textile souks, with scarves, curtains and pillow covers being made and sold.</p>
+        <p>On a traditional wooden handloom the long <b>warp</b> threads are stretched lengthwise. The weaver lifts alternate warp threads with foot pedals and passes the <b>weft</b> thread across between them with a shuttle, then beats it tight. Patterns come from the order in which warp threads are lifted and the colours of the weft.</p>
+        <p class="said"><span class="who">Our guide told us</span>Some of the fabrics are made from fibres of the agave plant.</p>
+        <p>This is sold as <b>sabra</b> (Arabic for cactus/aloe), "cactus silk" or "vegetable silk". It's a plant fibre with a silky shine, not silk from silkworms. Traditionally it was extracted from agave leaves (agave is a succulent, not strictly a cactus). Today much of what is sold as sabra is in fact viscose, a fibre made industrially from plant cellulose, so the exact composition of any given scarf can vary.</p>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Fried sardines <span class="ar">سردين</span></h3>
+        <div class="label sub">Something I tasted</div>
+        <p class="saw"><span class="who">What I tasted</span>I tried fried sardines.</p>
+        <p>Sardines are the backbone of Morocco's fishing industry. The Atlantic coast, from Safi and Agadir south to Laâyoune and Dakhla, has some of the richest sardine grounds in the world, and Morocco is one of the world's largest producers and exporters of sardines, much of them canned. For Moroccans they're everyday, affordable food: grilled at the port, in tagines, as meatballs, or fried.</p>
+        <p>A classic is to coat sardines in <b>chermoula</b>, the Moroccan marinade of chopped coriander and parsley, garlic, cumin, paprika, lemon juice and olive oil. Often two butterflied sardines are pressed together with chermoula between them, dusted with flour and fried until crisp.</p>
       </div>
     </article>
   </section>
@@ -843,6 +1154,94 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
 <div class="band" aria-hidden="true"><svg><rect width="100%" height="100%" fill="url(#z)"/></svg></div>
 
 <div class="wrap">
+  <section class="notes" id="notes">
+    <div class="label">Notes from the road</div>
+    <h2>Water, sun and uranium</h2>
+    <p>Questions that came up during the trip, from the dry khettaras of Skoura to the mirrors of Noor, and a few that led back home to Bulgaria.</p>
+
+    <article class="note" id="n-water">
+      <h3>Morocco's water problem and desalination</h3>
+      <p>Morocco is one of the most water-stressed countries in the region. It went through <b>seven consecutive drought years</b> up to 2025, when reservoirs fell to historic lows. The heavy rains of early 2026 refilled many dams to over 70% on average, but the southern basins, including the Draa around Ouarzazate and Skoura, recovered much less, and one wet winter doesn't undo years of depletion.</p>
+      <ul>
+        <li><b>Reservoirs and groundwater</b> are the two main sources. Large dams store winter floods, while wells, boreholes and khettaras tap aquifers. In many regions groundwater has been pumped faster than rain can replace it, and water tables have dropped by metres or tens of metres.</li>
+        <li><b>Agriculture</b>, especially irrigated export crops, uses the large majority of the country's water. Thirsty crops grown in arid areas, such as watermelons around Zagora, have become a symbol of the problem.</li>
+        <li><b>Climate:</b> higher temperatures increase evaporation and crop demand, while rainfall has become more irregular.</li>
+      </ul>
+      <h4>Turning to the sea</h4>
+      <p>The government's answer has been a rapid build-out of seawater desalination along the Atlantic and Mediterranean coasts:</p>
+      <ul>
+        <li><b>Agadir (Chtouka)</b>: in operation since 2022, about 275,000 m³ a day shared between drinking water for Greater Agadir and irrigation for the Chtouka plain, with an expansion towards 400,000 m³ a day.</li>
+        <li><b>Jorf Lasfar and Safi</b>: run by the phosphate company OCP, originally for its own fertiliser plants and increasingly also supplying nearby towns and southern Casablanca.</li>
+        <li><b>Laâyoune</b> has relied on desalinated water for decades, and <b>Dakhla</b> has a large wind-powered plant for drinking water and irrigation.</li>
+        <li><b>Casablanca</b>: the biggest project, planned at 300 million m³ a year at full build-out, with a first phase of about 200 million m³ a year. It is under construction. In July 2026 the water minister said it should start operating in February 2027, so it is not yet producing water.</li>
+      </ul>
+      <h4>How reverse osmosis works</h4>
+      <ol>
+        <li>Seawater is drawn in and pre-filtered to remove sand, algae and particles.</li>
+        <li>High-pressure pumps push it against special semi-permeable membranes.</li>
+        <li>Water molecules pass through; most dissolved salts and other substances are held back and leave as a concentrated <b>brine</b>.</li>
+        <li>The fresh water is too pure to drink as it is, so it's re-mineralised and its acidity adjusted before it enters the network.</li>
+        <li>The brine is returned to the sea through diffusers, under controlled conditions, so that it mixes quickly.</li>
+      </ol>
+      <p><b>Benefits:</b> a supply that doesn't depend on rain. <b>Challenges:</b> it uses a lot of energy (typically 3–4 kWh per m³), so its cost and carbon footprint depend on the power source; brine has to be managed to protect marine life; and it needs pipelines and pumping stations to get the water where it's needed.</p>
+      <p>That last point matters for places like Skoura. A plant on the coast doesn't automatically help an oasis 400 km inland, on the far side of the High Atlas. Pumping water that far and that high is expensive. Desalination mainly secures the coastal cities, which can relieve pressure on dams and rivers, but inland oases still depend on local groundwater and careful use.</p>
+      <p class="src">Sources: <a href="https://www.aquatechtrade.com/news/desalination/water-security-morocco-national-water-plan-agadir-plant-upgrade">Aquatech: Agadir plant upgrade</a> · <a href="https://en.hespress.com/104718-ocp-green-water-expands-desalination-efforts-to-supply-casablanca-south.html">Hespress: OCP desalination</a> · <a href="https://en.le360.ma/society/morocco-says-casablanca-desalination-plant-to-begin-operating-in-february-2027_VOR5BMALOVGVFKGCUQNMWTTIPA/">Le360: Casablanca plant timeline</a> · <a href="https://en.hespress.com/140342-morocco-dam-reserves-at-74-3-double-last-years-volume.html">Hespress: dam levels 2026</a></p>
+    </article>
+
+    <article class="note" id="n-nuclear">
+      <h3>Morocco and nuclear energy</h3>
+      <p>Morocco has almost no oil, gas or coal of its own and imports the large majority of its energy. It has invested heavily in solar (Noor) and wind, with the goal of renewables making up more than half of its installed power capacity by 2030. Sun and wind vary, though, so nuclear power keeps coming up as a possible source of steady, low-carbon electricity, and potentially of energy for large-scale desalination.</p>
+      <p><b>What exists today:</b> Morocco has <b>no nuclear power plant</b>. Its only reactor is a small <b>research reactor</b>, a 2 MW TRIGA Mark II at the <b>Maâmora Nuclear Studies Centre</b> near Rabat, run by the national centre CNESTEN since 2007. A research reactor produces neutrons for science, medical and industrial isotopes, materials testing and training. It doesn't generate electricity. A commercial power reactor is roughly a thousand times more powerful and is built to drive turbines.</p>
+      <p><b>The plans:</b> nuclear power has been studied since the 1980s. Morocco has built up a regulator and a legal framework, works closely with the IAEA and has signed cooperation agreements with several countries, and there's growing interest in small modular reactors. As of 2026, however, these remain studies and long-term options: no decision to build a nuclear power plant has been taken and no project has been approved.</p>
+      <p class="src">Sources: <a href="https://www.iaea.org/sites/default/files/21/07/national_report_of_morocco_for_the_8th_review_meeting.pdf">Morocco's national report to the IAEA</a> · <a href="https://en.hespress.com/107428-107428.html">Hespress: nuclear plans still on hold</a></p>
+    </article>
+
+    <article class="note" id="n-phosphate">
+      <h3>Uranium hidden in phosphate rock</h3>
+      <p>Morocco (including Western Sahara) holds around 70% of the world's known phosphate reserves, mined around Khouribga, Benguerir and Boucraa. Phosphorus is one of the three main plant nutrients (with nitrogen and potassium), and no crop can grow without it, so phosphate fertiliser is essential for world food production.</p>
+      <p>Phosphate rock is mostly the mineral <b>apatite</b>, a calcium phosphate with the general formula Ca<sub>5</sub>(PO<sub>4</sub>)<sub>3</sub>(F,OH,Cl). As these sediments formed on ancient seabeds, uranium dissolved in the water was taken up into the crystal lattice, where uranium ions can take the place of calcium ions of similar size. As a result, phosphate rock typically contains <b>tens to a few hundred parts per million</b> of uranium. For Moroccan deposits figures of about 50–200 ppm are quoted, and the amount varies a lot between deposits.</p>
+      <p>Most fertiliser production starts by dissolving the rock in sulphuric acid to make <b>phosphoric acid</b>. A large share of the uranium goes into solution with it. It can then be recovered by <b>solvent extraction</b>, where an organic liquid that selectively binds uranium is mixed with the acid and then separated, or by <b>ion exchange</b> on special resins. Several countries did this commercially in the 1980s and 90s, and Morocco planned pilot recovery at its phosphoric-acid plants in that period, but it was abandoned as too expensive.</p>
+      <p>Even recovered uranium is a long way from being fuel. The concentrate ("yellowcake") must be <b>converted</b> to uranium hexafluoride, <b>enriched</b> (for most reactor types), and then made into fuel pellets and assemblies at a <b>fuel fabrication</b> plant. Morocco has none of these facilities.</p>
+      <p>A large resource isn't the same as an economic one. Whether recovery pays depends on uranium prices, process costs and the fertiliser plants' own economics. I found no evidence that Morocco currently produces significant commercial quantities of uranium from phosphate, though the idea is regularly discussed.</p>
+      <p class="src">Sources: <a href="https://world-nuclear.org/information-library/nuclear-fuel-cycle/uranium-resources/uranium-from-phosphates">World Nuclear Association: Uranium from phosphates</a> · <a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-phosphate.pdf">USGS: Phosphate rock (reserves)</a></p>
+    </article>
+
+    <article class="note" id="n-seawater">
+      <h3>Uranium in seawater</h3>
+      <p>Seawater contains about <b>3.3 micrograms of uranium per litre</b>, roughly 3 milligrams in a cubic metre. Spread over the volume of the oceans, that adds up to an estimated <b>4.5 billion tonnes</b>, hundreds of times more than all known uranium deposits on land.</p>
+      <p>The problem is the concentration. To collect one kilogram you would have to process hundreds of millions of litres of water. Researchers in Japan, the US, China and elsewhere have therefore developed passive <b>adsorbents</b> rather than pumping and treating water. The best known are polymer fibres or braids grafted with <b>amidoxime</b> groups, which bind uranyl ions strongly. The fibres are moored in the sea for weeks, then hauled in and washed with acid or another solution to strip off the uranium, which can then be purified. In US tests published in 2016, the best materials captured about 3–4 grams of uranium per kilogram of fibre after 56 days in natural seawater.</p>
+      <p>The challenges are large: the very low concentration; <b>competing ions</b> such as vanadium, which also stick to the fibres; <b>biofouling</b> by algae and other organisms; storms and currents; and the cost and energy of making, deploying, recovering and regenerating huge quantities of fibre. So far this is laboratory and pilot-scale research, not a commercial source of uranium.</p>
+      <p class="src">Sources: <a href="https://www.osti.gov/biblio/1265762">Gill et al., Ind. Eng. Chem. Res. 2016 (US DOE / OSTI)</a> · <a href="https://www.epj-n.org/articles/epjn/full_html/2016/01/epjn150059/epjn150059.html">CEA: Extraction of uranium from seawater, a few facts (EPJ N, 2016)</a></p>
+    </article>
+
+    <article class="note" id="n-bulgaria">
+      <h3>Meanwhile, back home: Bulgaria's uranium mines</h3>
+      <p>Bulgaria was a uranium producer for half a century. Mining began on a small scale in the late 1930s at Goten near <b>Buhovo</b>, just outside Sofia. After the Second World War, production was greatly expanded from 1946 by a joint Soviet-Bulgarian company, and later by the state enterprise Redki Metali. The ore and concentrate went to the Soviet Union.</p>
+      <p>Over the following decades dozens of deposits were worked, among them Buhovo and <b>Eleshnitsa</b> near Razlog, with processing plants at both. Later, more and more uranium was produced by in-situ leaching, pumping acid solutions underground. Studies put total historical output at roughly <b>16,000 tonnes of uranium</b>.</p>
+      <p>In 1992 the government decided to close the uranium industry (the decree usually cited is Council of Ministers Decree No. 163 of 20 August 1992), and production was wound down over the next couple of years. The reasons were a mix of economics (low world prices after the Cold War and the loss of the Soviet market), environmental damage (contaminated water, waste rock and tailings) and concern for the health of miners and nearby residents. Remediation of the former mines and plants began in the late 1990s under a 1998 decree, and water, soil and radiation are still monitored at the old sites.</p>
+      <p>Bulgarian uranium never fed Bulgarian reactors directly. The country had no conversion, enrichment or fuel fabrication plants, so <b>Kozloduy has always used imported fuel</b>, historically from the Soviet Union and Russia, and more recently also from Westinghouse.</p>
+      <p class="src">Sources: <a href="https://journals.ru.lv/index.php/ETR/article/view/8002">Uranium mines in Bulgaria: the state 30 years after closure (Environment. Technology. Resources, 2024)</a> · <a href="https://wise-uranium.org/uddbg.html">WISE Uranium Project: Bulgaria</a> · <a href="https://world-nuclear-news.org/articles/first-batch-of-westinghouse-fuel-loaded-at-bulgari">WNN: first Westinghouse fuel at Kozloduy (2024)</a></p>
+    </article>
+
+    <article class="note" id="n-compare">
+      <h3>Kozloduy and Noor Ouarzazate, side by side</h3>
+      <div class="tblwrap"><table class="wx">
+        <thead><tr><th></th><th>Kozloduy NPP (Bulgaria)</th><th>Noor Ouarzazate (Morocco)</th></tr></thead>
+        <tbody>
+          <tr><td>Technology</td><td>2 pressurised-water reactors (VVER-1000), units 5 and 6</td><td>3 CSP plants (troughs, tower) + 1 PV plant</td></tr>
+          <tr><td>Installed capacity</td><td class="n">~2,000 MW</td><td class="n">~580 MW</td></tr>
+          <tr><td>Annual output</td><td>16.2 TWh in 2023 (actual, plant's annual report)</td><td>~1.5 TWh a year expected for Noor I–III at planning stage (not actual output)</td></tr>
+          <tr><td>Works at night?</td><td>Yes, around the clock</td><td>Noor I–III for several hours on stored heat; Noor IV no</td></tr>
+          <tr><td>Fuel</td><td>Imported enriched uranium</td><td>Sunlight</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Capacity (MW)</b> is the maximum power at a given moment. <b>Production (MWh, TWh)</b> is how much energy is delivered over a year. The ratio between actual production and the theoretical maximum is the <b>capacity factor</b>. Kozloduy's two reactors ran at over 90% in 2023. A solar plant can only produce while the sun shines, plus a few hours from storage, so its capacity factor is far lower: the CSP plants' planning figures correspond to roughly a third.</p>
+      <p>That's why comparing MW alone is misleading. Kozloduy has about 3.5 times Noor's capacity but produces roughly ten times as much electricity in a year. The figures above aren't from the same year or the same kind of source (actual output versus expected), so treat the ratio as an order of magnitude, not a precise number.</p>
+      <p>Each has its own trade-offs. Nuclear gives steady output but needs fuel, long construction and long-term waste management. Solar needs no fuel and fits Morocco's sunshine, but needs storage and backup. Noor's molten-salt tanks make it one of the solar plants best able to deliver power after dark. Noor IV, as a PV plant without storage, can't.</p>
+      <p class="src">Sources: <a href="https://kznpp.org/upload/35233/Kozloduy_NPP_AR_2023.pdf?inline=1">Kozloduy NPP Annual Report 2023</a> · <a href="https://pris.iaea.org/PRIS/CountryStatistics/CountryDetails.aspx?current=BG">IAEA PRIS: Bulgaria</a> · <a href="https://en.wikipedia.org/wiki/Ouarzazate_Solar_Power_Station">Ouarzazate Solar Power Station</a></p>
+    </article>
+  </section>
+
   <section class="timeline" id="history">
     <div class="label">Context</div>
     <h2>1,200 years of dynasties, in the order you'll meet them</h2>
@@ -1034,6 +1433,7 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
     <li><a href="#bg-day-6"><b>6</b> Чет 5 · Брегът</a></li>
     <li><a href="#bg-day-7"><b>7</b> Пет 6 · Маракеш</a></li>
     <li><a href="#bg-day-8"><b>8</b> Съб 7 · Вкъщи</a></li>
+    <li><a href="#bg-notes">Бележки</a></li>
     <li><a href="#bg-history">История</a></li>
     <li><a href="#bg-practical">Практично</a></li>
     <li><button type="button" class="langbtn" data-set="en">EN</button></li>
@@ -1045,6 +1445,9 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
     <span><i style="background:var(--saffron);transform:rotate(45deg)"></i>Интересен факт</span>
     <span><i style="background:var(--indigo);transform:rotate(45deg)"></i>История</span>
     <span><i style="background:var(--zellige);border-radius:50%"></i>Съвет за деня</span>
+    <span><i class="bar" style="background:var(--saffron)"></i>Какво видях</span>
+    <span><i class="bar" style="background:var(--indigo)"></i>Какво ни каза гидът</span>
+    <span>⊕ „Прочети повече“ разгръща цялата история</span>
   </div>
 
   <!-- ================= ДЕН 1 ================= -->
@@ -1068,6 +1471,27 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
           <li>Висок Атлас се простира на около 800 км през Мароко. Джебел Тубкал (4167 м), най-високият връх в Северна Африка, е на около 50 км западно от прохода.</li>
           <li class="tip">Горе може да е 5–10 °C, дори когато в Маракеш е топло. Дръж яке в колата и вземи хапчета против прилошаване, ако ти трябват; завоите са много.</li>
         </ul>
+        <details class="deep">
+          <summary>Прочети повече · Амазиги и туареги</summary>
+          <div class="db">
+            <h4>Имазиген – хората от планините, през които минахме</h4>
+            <p>Селата по пътя през Тишка са амазигски. Амазигите (мн.ч. <i>имазиген</i>, обикновено превеждано като „свободни хора“) са коренното население на Северна Африка и живеят тук хилядолетия преди идването на арабите. Чужденците са ги наричали „бербери“, от гръцката и латинската дума за чужденци. Днес мнозина предпочитат „амазиги“.</p>
+            <p>Няма един амазигски език, а семейство от сродни езици. В Мароко трите големи са тарифит в Риф, централноатласки тамазигт в Среден Атлас и ташелхит във Висок Атлас и на югозапад. От 2011 г. тамазигт е официален език на Мароко наред с арабския. Затова табелите имат и трета писменост, тифинаг: <span lang="ber">ⵍⵎⵖⵔⵉⴱ</span> в горната част на страницата е „Мароко“, изписано с нея.</p>
+            <h4>Как идват ислямът и арабският</h4>
+            <p>Арабските армии на Омаядския халифат настъпват на запад от Египет от 640-те години. Отнема им повече от половин век да стигнат до Атлантика и да го задържат, а завоеванието минава както през ожесточена съпротива, така и през съюзи. Амазигският водач Кусайла разбива и убива арабския пълководец Укба ибн Нафи през 683 г. В планината Орес, в днешен Алжир, жена, запомнена като <b>ал-Кахина</b> („пророчицата“; амазигското ѝ име често се дава като Дихя), води съпротивата през 690-те. Почти всичко за нея знаем от арабски хронисти, писали векове по-късно, затова подробностите за живота, вярата и смъртта ѝ са несигурни и обвити в легенди. Тя остава силен символ на амазигската идентичност.</p>
+            <p>Покръстването в исляма е постепенно. За едно поколение много амазиги вече са мюсюлмани и се бият в мюсюлманските армии: нахлуването в Испания през 711 г. е водено от Тарик ибн Зияд, когото обикновено описват като амазиг, с армия от предимно амазиги. През 739–743 г. амазиги мюсюлмани въстават срещу управителите на халифата заради неравното отношение. Арабският език се разпространява много по-бавно от исляма, в продължение на векове и най-вече в градовете и равнините, докато планините остават предимно амазигоезични.</p>
+            <p>Да си амазиг и да си арабин не са противоположности. Повечето мароканци имат смесен произход, много семейства говорят и дарижа (марокански арабски), и тамазигт, а самата дарижа е пълна с амазигски думи. Две от най-великите средновековни династии на Мароко са амазигски: <b>Алморавидите</b>, от сахарските племена санхаджа, които основават Маракеш, и <b>Алмохадите</b>, чието движение започва сред масмуда във Висок Атлас. Меринидите, построили медресетата във Фес (ден 5), също са амазиги, от зената.</p>
+            <h4>Туарегите – „сините хора“ на Сахара</h4>
+            <p>Туарегите са отделен сахарски народ в рамките на по-широкия амазигски свят. Говорят тамашек (и близкородствени говори) и са запазили писмеността тифинаг в ежедневна употреба, когато другаде тя е изчезнала. Родните им земи са главно в Нигер, Мали, Южен Алжир и Либия, с по-малки общности в Буркина Фасо.</p>
+            <ul>
+              <li><b>Начин на живот:</b> исторически номади, гледащи камили, кози и овце, и господари на транссахарските кервани, които пренасяли сол, зърно, фурми и други стоки между Северна и Западна Африка.</li>
+              <li><b>Тагелмуст:</b> традиционно <i>мъжете</i> туареги, а не жените, носят дълго було и тюрбан – <i>тагелмуст</i>. Плат, боядисан с индиго, може да оцвети кожата синкаво, оттам и прякорът „сините хора“.</li>
+              <li><b>Култура:</b> богата традиция на поезия и музика, като <i>имзад</i> – цигулка с една струна, на която свирят жените и която е в списъка на ЮНЕСКО за нематериално наследство; „пустинният блус“ на групи като Tinariwen; и фина изработка от сребро и кожа, като медальона „кръстът от Агадес“.</li>
+            </ul>
+            <p>Не всеки жител на пустинята е туарег. Семействата, които срещнахме около Мерзуга (ден 3), са амазиги и араби – номади и селяни от мароканската Сахара. Сините роби на много водачи на камили са стил, а не знак за туарегска идентичност.</p>
+            <p class="src">Източници: <a href="https://ich.unesco.org/en/RL/practices-and-knowledge-linked-to-the-imzad-of-the-tuareg-communities-of-algeria-mali-and-niger-00866">ЮНЕСКО: Имзад на туарегите</a> · <a href="https://www.britannica.com/topic/Berber">Britannica: Amazigh (Berber)</a> · <a href="https://www.britannica.com/topic/Tuareg">Britannica: Tuareg</a></p>
+          </div>
+        </details>
       </div>
     </article>
 
@@ -1083,6 +1507,31 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
           <li>Сградата на върха на хълма е <i>агадир</i>, общият хамбар, където селяните са се укривали при нападение. Изкачването е около 15 минути и гледката оттам е най-добрата.</li>
           <li class="tip">Реката се пресича по камъни или по пешеходен мост. Магазинчетата вътре продават картини, рисувани с шафран, чай и индиго, които сменят цвета си, когато ги затоплят над пламък.</li>
         </ul>
+        <details class="deep">
+          <summary>Прочети повече · Ксар, касба или риад? И как е построено селото</summary>
+          <div class="db">
+            <h4>Три думи, които ще чуваш цяла седмица</h4>
+            <dl>
+              <dt>Ксар <span lang="ar">قصر</span> (мн.ч. <i>ксур</i>)</dt>
+              <dd>Укрепено село: къщите на много семейства, улички, джамия и обикновено общ хамбар зад една стена. Айт Бен Хаду е ксар.</dd>
+              <dt>Касба <span lang="ar">قصبة</span></dt>
+              <dd>Укрепена резиденция или комплекс, обикновено седалище на един могъщ род или местен владетел, с ъглови кули. Касба Таурирт в Уарзазат (тази вечер) и Касба Амридил в Скура (утре) са касби. Думата се използва и за цитаделата на град, като Касбата Удая в Рабат (ден 6).</dd>
+              <dt>Риад <span lang="ar">رياض</span></dt>
+              <dd>Традиционна градска къща, обърната навътре, около вътрешен двор с градина (<i>рияд</i> означава „градини“). Строго погледнато, къща с павиран двор без градина е <i>дар</i>, но днес почти всяка къща за гости с двор се нарича риад.</dd>
+            </dl>
+            <h4>На керванския път</h4>
+            <p>Селото е в долината на река Унила, на един от старите пътища между Сахара и Маракеш през района на Телует. Оттук минавали кервани със сол, фурми, злато и други стоки, а укрепено село, където водата, храната и подслонът можели да се защитят, било ценно. През есента Унила често е само поточе в широко чакълесто корито, но след бури в планината може да придойде.</p>
+            <h4>Построено от пръст, слама и дърво</h4>
+            <ul>
+              <li><b>Набита пръст (<i>пизе</i>):</b> влажна пръст се трамбова на пластове в дървен кофраж и се набива здраво. От нея са дебелите долни стени.</li>
+              <li><b>Кирпич:</b> изсушени на слънце тухли от пръст с нарязана слама, за горните етажи и за декоративните мотиви по върховете на кулите.</li>
+              <li><b>Дърво и тръстика:</b> греди от топола, палма или тамарикс носят подовете и покривите, покрити с тръстика или палмови листа и дебел слой пръст.</li>
+            </ul>
+            <p>ЮНЕСКО вписва „Ксар Айт Бен Хаду“ през 1987 г. като ярък пример за глинената архитектура на Южно Мароко. Организацията отбелязва, че самите сгради вероятно не са по-стари от XVII век, макар мястото и техниките да са много по-древни. Още за строителството с пръст – в бележките за Касба Амридил (ден 2).</p>
+            <p>Списъкът с филми по-горе смесва продукции, снимани в самото село, с такива, които са използвали само няколко сцени оттук. Много известни „филми от Уарзазат“ всъщност са правени в студията или другаде в района (виж Уарзазат по-долу).</p>
+            <p class="src">Източници: <a href="https://whc.unesco.org/en/list/444">ЮНЕСКО: Ksar of Ait-Ben-Haddou</a></p>
+          </div>
+        </details>
       </div>
     </article>
 
@@ -1094,8 +1543,50 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
         <p>Името обикновено се обяснява като амазигското „без шум“. Французите изграждат модерния град през 1920-те като гарнизон, около по-старата Касба Таурирт, дворец на рода Глауи, чийто лабиринт от стаи се вижда от пътя.</p>
         <ul class="facts">
           <li>Atlas Studios (открити 1983 г.) са едно от най-големите филмови студия в света по площ. На терена им още стоят декори от „Гладиатор“, „Кундун“ и „Астерикс и Обеликс: Мисия Клеопатра“.</li>
-          <li>Точно извън града е Noor Ouarzazate, един от най-големите комплекси за концентрирана слънчева енергия в света (около 580 MW). Хилядите извити огледала се виждат от самолета.</li>
+          <li>Точно извън града е Noor Ouarzazate, един от най-големите комплекси за концентрирана слънчева енергия в света: три централи с огледала и една фотоволтаична, общо около 580 MW. Полетата с извити огледала се виждат ясно от самолета.</li>
         </ul>
+        <details class="deep">
+          <summary>Прочети повече · Защо Уарзазат е „Холивуд на Африка“</summary>
+          <div class="db">
+            <p>Кинаджии идват тук от 1950-те и 60-те години (части от „Лорънс Арабски“ са снимани в Мароко). Привличат ги надеждната светлина, много разнообразните пейзажи на кратко разстояние (пустиня, планини, палмови горички, глинени села, които могат да изиграят Древен Египет, Светите земи или Тибет), по-ниските разходи и местните екипи и статисти, работили по десетки снимачни площадки. Местните на шега наричат града „Уалиуд“.</p>
+            <p>Полезно е да се разграничат три вида локации:</p>
+            <ul>
+              <li><b>Студията</b> в края на града. Atlas Studios са открити през 1983 г., а наблизо има и други, като CLA. На терените им са строени декори като тибетския манастир за „Кундун“ и египетския храм за „Астерикс и Обеликс: Мисия Клеопатра“.</li>
+              <li><b>Самият град</b>, с Касба Таурирт и улиците си.</li>
+              <li><b>Целият район</b>, включително Айт Бен Хаду на около 30 км, пустинята и ждрелата. „Гладиатор“, например, използва Айт Бен Хаду и района, както и студийни декори.</li>
+            </ul>
+            <p>Така че не всеки филм „от Уарзазат“ е сниман в Айт Бен Хаду, нито всяка сцена от даден филм е снимана в Мароко.</p>
+          </div>
+        </details>
+        <details class="deep">
+          <summary>Прочети повече · Noor Ouarzazate – електроцентрала от огледала</summary>
+          <div class="db">
+            <p><i>Нур</i> (<span lang="ar">نور</span>) означава „светлина“ на арабски. Комплексът е на около 10 км североизточно от Уарзазат, встрани от пътя към Скура, и заема около 3000 хектара. Изграден е от Masen, Мароканската агенция за устойчива енергия, със саудитската компания ACWA Power и с финансиране от Световната банка, Африканската банка за развитие, Европейската инвестиционна банка и германската KfW, наред с други. Четирите централи влизат в експлоатация между 2016 и 2018 г.</p>
+            <div class="tblwrap"><table class="wx">
+              <thead><tr><th>Централа</th><th>Технология</th><th style="text-align:right">Мощност</th><th>Съхранение в стопена сол</th></tr></thead>
+              <tbody>
+                <tr><td>Noor I</td><td>Параболични корита (CSP)</td><td class="n">160 MW</td><td>Да, около 3 ч</td></tr>
+                <tr><td>Noor II</td><td>Параболични корита (CSP)</td><td class="n">200 MW</td><td>Да, около 7 ч</td></tr>
+                <tr><td>Noor III</td><td>Слънчева кула (CSP)</td><td class="n">150 MW</td><td>Да, около 7,5 ч</td></tr>
+                <tr><td>Noor IV</td><td>Фотоволтаици (PV)</td><td class="n">~70 MW*</td><td>Не</td></tr>
+                <tr><td><b>Общо</b></td><td></td><td class="n"><b>~580 MW</b></td><td></td></tr>
+              </tbody>
+            </table></div>
+            <p class="src" style="margin-top:0!important">* Често закръгляно до 70 MW; по данни от времето на Masen са 72 MW. Часовете съхранение се различават леко между източниците.</p>
+            <h4>Два начина слънчевата светлина да стане електричество</h4>
+            <p><b>Фотоволтаичните (PV)</b> панели превръщат светлината директно в ток в полупроводникови клетки, като панелите по покривите. <b>Концентрираната слънчева енергия (CSP)</b> използва огледала, за да фокусира слънцето в топлина, прави пара и върти турбина като обикновена електроцентрала. Голямото предимство на CSP е, че топлината се съхранява много по-лесно и евтино от електричеството.</p>
+            <h4>Noor I и II: параболични корита</h4>
+            <p>Дълги редове извити огледала следват слънцето и го фокусират върху черна приемна тръба по фокусната им линия. Синтетично <b>термомасло</b>, което тече в тръбите, се нагрява до близо 400 °C и кипва вода за турбината. Когато има излишна топлина, маслото минава през <b>топлообменници</b>, които затоплят <b>стопена сол</b> (смес от натриев и калиев нитрат), изпомпвана от „студен“ в „горещ“ резервоар. След залез процесът тече обратно: горещата сол връща топлината си, за да се прави пара.</p>
+            <h4>Noor III: кулата</h4>
+            <p>Хиляди плоски огледала, следящи слънцето (хелиостати), обграждат кула, висока около 250 м. Всички са насочени към приемник на върха, където се нагрява <b>самата стопена сол</b>, директно и без масло, до доста над 500 °C. Горещата сол се съхранява и се използва за пара, когато е нужен ток. Когато огледалното поле е фокусирано, приемникът свети ослепително бяло и се вижда отдалеч в равнината, като второ слънце на прът.</p>
+            <h4>Noor IV: обикновени фотоволтаици</h4>
+            <p>Noor IV е поле от фотоволтаични панели. Произвежда само докато грее слънце и няма съхранение в стопена сол.</p>
+            <h4>Защо съхранението е важно</h4>
+            <p>Пикът на потребление на ток в Мароко е вечер, след залез. Съхранената топлина позволява на Noor I–III да работят още няколко часа през нощта или при минаващи облаци, нещо, което фотоволтаиците сами не могат без батерии.</p>
+            <p><b>Мощност не е производство.</b> 580 MW е максималната мощност в даден момент. За година има значение енергията (MWh или GWh), която зависи от слънцето, съхранението и авариите. При планирането трите CSP централи заедно е трябвало да произвеждат около 1,5 млрд. kWh годишно. Реалното производство варира: Noor III, например, дълго не работи след проблеми с резервоара за сол. Сравнение с АЕЦ „Козлодуй“ има в <a href="#bg-n-compare">бележките накрая</a>.</p>
+            <p class="src">Източници: <a href="https://en.wikipedia.org/wiki/Ouarzazate_Solar_Power_Station">Ouarzazate Solar Power Station (обзор с източници)</a> · <a href="https://www.powermag.com/moroccan-molten-salt-tower-project-clears-reliability-test/">POWER Magazine за Noor III</a> · <a href="https://www.masen.ma/">Masen</a></p>
+          </div>
+        </details>
       </div>
     </article>
   </section>
@@ -1118,8 +1609,73 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
         <p>Скура е палмова горичка от около 25 км², напоявана чрез <i>кетари</i>, подземни канали, които докарват вода от планината, без тя да се изпарява. В нея има десетки касби. За разлика от ксара, касбата е укрепеният дом на един влиятелен род.</p>
         <p>Амридил и днес принадлежи на рода, който я е построил преди повече от 300 години, и той я поддържа като музей. Обърни внимание на маслобойната, старите кухненски съдове и украсените тавани от палмово и тамариксово дърво.</p>
         <ul class="facts">
-          <li>Амридил е изобразена на старата банкнота от 50 дирхама. Попитай гида; в някои магазини още имат такава да ти покажат.</li>
+          <li>Амридил е изобразена на по-стара банкнота от 50 дирхама (от серията от края на 80-те), а не на сегашната. Попитай гида; в някои магазини още имат такава да ти покажат.</li>
         </ul>
+        <details class="deep">
+          <summary>Прочети повече · Посещението ни в Касба Амридил, стая по стая</summary>
+          <div class="db">
+            <p class="saw"><span class="who">Какво видях</span>В неделя сутринта ни разведоха с гид из Амридил, до Уед ел-Хаджадж, в края на палмовата горичка на Скура. Това са бележките ми от посещението, с добавен контекст.</p>
+
+            <h4>Фурната за хляб</h4>
+            <p class="saw"><span class="who">Какво видях</span>Голяма традиционна фурна за хляб с отделно място, където са се горели дървата. Вътре имаше камъни и хлябовете са се слагали и пекли направо върху тях, след като се нагорещят. Наблизо имаше по-малки фурни за ежедневно готвене.</p>
+            <p>В Мароко хлябът (<i>хобз</i>, кръгъл, доста плосък самун) присъства почти на всяко ядене и замества приборите – с него се гребе от таджина и салатите. Много мароканци смятат хляба за благословия: не бива да се изхвърля, а парче, намерено на земята, често се вдига и оставя на чисто място. В градовете и селата семействата традиционно замесвали тестото у дома, маркирали хлябовете си и ги пращали на дървена дъска до общата фурна на квартала – <i>ферран</i> (<span lang="ar">فرّان</span>). Хлебарят взимал малка такса или задържал един хляб. Феррани още работят в старите медини, включително във Фес.</p>
+
+            <h4>Как е построена касбата</h4>
+            <p class="saw"><span class="who">Какво видях</span>Гидът ни показа дървените калъпи, с които са строени стените, и обясни как пръстта се е набивала в тях.</p>
+            <ul>
+              <li><b>Набита пръст (<i>пизе</i>):</b> две успоредни дъски, разделени с напречници, образуват кутия. Влажна пръст, често с чакъл, се изсипва на пластове и се набива с дървен трамбовчик. Когато кутията се напълни, калъпът се мести настрани или нагоре и се прави следващият блок. Редовете малки дупки, които виждаш по стените на много касби, са оставени от напречниците.</li>
+              <li><b>Кал и слама:</b> към кирпича и мазилките се добавя нарязана слама. Влажната пръст се свива, докато съхне, а влакната я държат и разпределят напрежението, така че вместо няколко големи пукнатини се получават много мънички. Сламата освен това олекотява материала.</li>
+              <li><b>Дебели стени срещу жегата:</b> масивните стени от пръст поемат топлината бавно през деня и я отдават през нощта. Вътре е по-прохладно в летните следобеди и по-топло в студените пустинни нощи. Малките прозорци, сенчестите вътрешни дворове и покривните тераси за спане през лятото служат на същия климат.</li>
+              <li><b>Слабото място е водата.</b> Глинените стени трябва редовно да се измазват отново. Изоставена касба може да се стопи обратно в земята за няколко десетилетия, затова толкова много в долината са руини.</li>
+            </ul>
+
+            <h4>Маслобойната</h4>
+            <p class="saw"><span class="who">Какво видях</span>Традиционната маслобойна на рода.</p>
+            <p>В традиционната маслобойна маслините се смачкват на каша под тежко каменно колело, често въртяно от животно. Кашата се разстила върху плетени рогозки, които се нареждат една върху друга и се притискат под преса. Изтеклата течност се разделя на масло и воднист сок.</p>
+            <ul>
+              <li><b>Зрелостта променя маслото.</b> Маслините минават от зелени през лилави до черни. Ранните зелени маслини дават по-малко масло, но то е по-богато на полифеноли: тревисто, горчиво и пикантно, и се запазва по-дълго. Зрелите черни маслини дават повече масло, по-меко, кадифено и маслено на вкус. Същата логика важи и за трапезните маслини: зелените се берат неузрели, черните – зрели (или потъмнели при обработката).</li>
+              <li><b>Какво остава:</b> твърдият остатък от кожици, пулп и парченца костилки се нарича <b>маслинена кюспе</b> (помас). От нея промишлено може да се извлече по-нискокачествено „масло от маслинени остатъци“. Изсушената кюспе масово се гори и като гориво, включително за отопление на хамами и пекарни, и се използва за фураж или компост. Горчивата вода от пресоването е замърсител, ако просто се изхвърли.</li>
+            </ul>
+            <p><b>Савон белди</b>, мароканският „черен сапун“, е отделен продукт. Това е мека тъмна паста, получена чрез осапунване на маслинено масло и смачкани маслини с поташ, затова е гел, а не твърдо парче. В хамама се намазва, оставя се няколко минути да подейства в парата и после се търка с <b>кеса</b> – грапава ръкавица, която сваля мъртвата кожа на рулца. Някои сапуни се правят от по-нискокачествени масла, но би било грешно да се каже, че кюспето от маслобойна като тази „става на сапун“.</p>
+
+            <h4>Семейната джамия</h4>
+            <p class="saw"><span class="who">Какво видях</span>Малка джамия – молитвена стая в касбата за рода и домочадието му.</p>
+            <p class="said"><span class="who">Какво ни каза гидът</span>Мъжете и жените от едно семейство са можели да се молят заедно в тази малка джамия. Петте прозореца на изток символизират петте стълба на исляма.</p>
+            <p>Ислямът не изисква отделни джамии за мъже и жени. При общата молитва мъжете обикновено стоят на предните редове, а жените зад тях, в отделна част или на галерия, но подредбата зависи от местния обичай и размера на сградата. Връзката между петте прозореца и петте стълба е тълкуване на нашия гид за тази конкретна стая. Не е религиозно или архитектурно правило, а броят на прозорците в джамия не е предписан.</p>
+            <p>Посоката на молитвата, <b>кибла</b>, сочи към Кааба в Мека. Ниша в стената на киблата, <b>михраб</b>, показва посоката и помага гласът на водещия молитвата да се разнася. От Скура най-краткият път до Мека сочи почти точно на изток, няколко градуса на юг от изток (около 92°). Много по-стари марокански джамии са обърнати по-силно на югоизток, по традиционни методи за определяне на посоката.</p>
+            <p><b>Петте стълба на исляма</b>:</p>
+            <ol>
+              <li><b>Шахада</b>: изповядването на вярата – че няма друг бог освен Бог и Мохамед е неговият пратеник.</li>
+              <li><b>Салят</b>: молитвата, пет пъти на ден.</li>
+              <li><b>Закят</b>: даряването на определен дял от имуществото за нуждаещите се.</li>
+              <li><b>Саум</b>: постът от зори до залез през месец Рамадан.</li>
+              <li><b>Хадж</b>: поклонението в Мека, веднъж в живота за всеки, който може.</li>
+            </ol>
+
+            <h4>Стаята за гости</h4>
+            <p class="saw"><span class="who">Какво видях</span>Стая, отделена за посетители.</p>
+            <p>Гостоприемството (<i>дияфа</i>) е въпрос на чест в мароканската култура: на госта се предлага поне чай с мента, а в идеалния случай – ядене. В традиционните къщи стаята за гости често е разположена така, че посетителите да се приемат тържествено, без да влизат в личните покои на семейството.</p>
+
+            <h4>Неравни стъпала и ниски врати</h4>
+            <p class="saw"><span class="who">Какво видях</span>Стъпалата бяха с различна височина, а много от вратите бяха толкова ниски, че трябва да се наведеш.</p>
+            <p class="said"><span class="who">Какво ни каза гидът</span>Това е било нарочно. Нападател, който не познава къщата, би се препънал по неравните стълби, особено в тъмното, и би трябвало да се наведе, за да мине през вратата, което го прави лесен за спиране.</p>
+            <p>Това е правдоподобно обяснение за някои особености, но не единственото. Глинените къщи растат органично през поколенията и се строят на ръка без стандартни мерки. Малките отвори освен това пазят стаите хладни и уединени, изискват по-малко от оскъдния дървен материал за трегери над вратите и отслабват носещата глинена стена по-малко от широкия отвор. Не всяко неравно стълбище е капан.</p>
+
+            <h4>Прави и стесняващи се кули</h4>
+            <p class="said"><span class="who">Какво ни каза гидът</span>Показа ни разликата между кули с прави вертикални стени и кули, които се стесняват към върха.</p>
+            <p>Стена, която се накланя навътре с височината, се нарича <b>наклонена (скосена) стена</b>, а кула, построена така, е <b>стесняваща се кула</b>. Широката основа разпределя тежестта върху повече земя, сваля центъра на тежестта и слага най-дебелата и здрава пръст там, където натоварването е най-голямо, а горе, където глинените стени са най-слаби, остава по-малко маса. Стесняването е много разпространено в глинената архитектура на Южно Мароко, но формите на кулите варират от сграда до сграда и не образуват строга класификация.</p>
+
+            <h4>Оазисът Скура</h4>
+            <p>Скура е на около 40 км източно от Уарзазат, където пътят завива към долината Дадес. Палмовата горичка се обработва на етажи: отгоре фурмени палми, под тях овошки като маслини, смокини, нарове и бадеми, а на земята в сянката им – зърнени култури, люцерна и зеленчуци. Всеки етаж зависи от водата.</p>
+            <p>Водата идва от сезонни реки, слизащи от Висок Атлас, от кладенци и от <b>кетари</b>. Кетарата е подземен тунел с много лек наклон, който хваща подпочвената вода в подножието на планината и я отвежда гравитачно до нивите. Редици вертикални шахти, през които е изкопан и се поддържа, бележат трасето му като низ от кратери. Тъй като водата тече под земята, губи много малко от изпарение. Тя се разпределя на часове по наследени права. Много кетари са пресъхнали заради спадащото подпочвено ниво, отчасти заради моторните помпи.</p>
+            <p class="said"><span class="who">Какво ни каза гидът</span>През последните няколко години около 6000 души са напуснали района заради задълбочаващия се недостиг на вода.</p>
+            <p>Не намерих официални данни, с които да проверя тази цифра. Фонът обаче е добре документиран. Мароко преживя седем поредни сухи години до 2025 г., подпочвените води в много басейни се изпомпват по-бързо, отколкото се възстановяват, а напояваното земеделие използва по-голямата част от водата в страната. Дори след обилните дъждове в началото на 2026 г., когато средното ниво на язовирите в страната надхвърли 70%, басейнът Драа-Уед Нун, който включва Уарзазат и Скура, остана сред най-ниските – под 40%. Хората напускат оазисите по много причини (работа, училища, градовете), но водата очевидно е една от главните. Повече – в <a href="#bg-n-water">бележките за водата</a> накрая.</p>
+
+            <h4>Уед ел-Хаджадж</h4>
+            <p>Коритото до касбата е на <b>Уед ел-Хаджадж</b>. <i>Уед</i> (от арабското <i>уади</i>) може да означава река, воден поток или долината, в която тече, а в Северна Африка обикновено означава поток, който тече само част от годината. Същата дума се крие в испански имена на реки като Гуадалкивир, от <i>ал-уади ал-кабир</i> – „голямата река“. Това е друга река, не Унила при Айт Бен Хаду от ден 1.</p>
+            <p class="src">Източници: <a href="https://en.wikipedia.org/wiki/Kasbah_Amridil">Kasbah Amridil (обзор, банкнотата)</a> · <a href="https://www.moroccoworldnews.com/2026/01/274780/minister-moroccos-recent-rain-ends-seven-years-of-drought/">Morocco World News: седем години суша</a> · <a href="https://en.hespress.com/140342-morocco-dam-reserves-at-74-3-double-last-years-volume.html">Hespress: нива на язовирите по басейни, 2026</a></p>
+          </div>
+        </details>
       </div>
     </article>
 
@@ -1310,11 +1866,28 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div>
         <h3>Кожарната Шуара <span class="ar">دار الدباغ شوارة</span></h3>
         <div class="label sub">Работи от около XI век</div>
-        <p>Пчелната пита от каменни вани работи по средновековния начин. Кожите първо се киснат в белите вани с негасена вар, сол, кравешка урина и гълъбов тор, чийто амоняк омекотява кожата. После отиват в цветните вани и се боядисват на ръка, често от мъже, нагазили до кръста.</p>
+        <p>Пчелната пита от каменни вани работи по средновековния начин. Кожите първо се киснат в белите вани с негасена вар, за да се разхлабят космите, после се омекотяват в баня с гълъбов тор, чийто амоняк прави кожата мека. После отиват в цветните вани и се боядисват на ръка, често от мъже, нагазили до кръста.</p>
         <ul class="facts">
           <li>Традиционни бои: мак за червено, индиго за синьо, къна за оранжево, шафран или нар за жълто и мента за зелено.</li>
           <li class="tip">Гледа се от терасите на магазините за кожа около нея. Ще ти дадат стрък мента да държиш под носа си. Сутрешната светлина е най-добра. Пазарлъкът започва от около една трета от първата цена.</li>
         </ul>
+        <details class="deep">
+          <summary>Прочети повече · Как кожата става обработена кожа</summary>
+          <div class="db">
+            <p>Процесът има няколко отделни етапа и за всеки се използват различни басейни. Рецептите и сроковете се различават от работилница до работилница.</p>
+            <ol>
+              <li><b>Подготовка:</b> суровите кожи от кози, овце, крави или камили се осоляват, за да не изгният, после се накисват и измиват.</li>
+              <li><b>Махане на космите:</b> кожите отиват в белите басейни с <b>негасена вар</b> и вода. Алкалната вар разхлабва космите и мазнината, които после се изстъргват на ръка.</li>
+              <li><b>Омекотяване:</b> следва баня, в която има <b>гълъбов тор</b>. Докато се разгражда, той отделя амоняк и ензими, които неутрализират остатъците от вар и разхлабват белтъчните влакна, така че кожата става мека. Затова в кожарните мирише така.</li>
+              <li><b>Дъбене:</b> традиционно с растителни танини, които превръщат суровата кожа в обработена кожа, която не гние.</li>
+              <li><b>Боядисване:</b> кожите се обработват на ръка, а често и с крака, в цветните басейни.</li>
+              <li><b>Сушене:</b> кожата се разстила по покривите и склоновете около кожарната да съхне на слънце, после се подрязва и довършва.</li>
+            </ol>
+            <p class="said"><span class="who">Какво ни каза гидът</span>Кожите стоят в басейните около седмица и се обръщат всеки ден.</p>
+            <p>Реалните срокове зависят от етапа, вида кожа и сезона. Някои стъпки отнемат часове, а целият процес може да продължи седмици.</p>
+            <p><b>Боите</b> традиционно са от растения и минерали: червено от мак и други растителни пигменти, жълто от шафран или кори от нар, синьо от индиго, оранжево и кафяво от къна и други растителни материали като кора и кедрово дърво, и зелено от мента. Рецептите се различават, а днес масово се използват и синтетични бои.</p>
+          </div>
+        </details>
       </div>
     </article>
 
@@ -1323,11 +1896,22 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
       <div>
         <h3>Ал-Карауийн <span class="ar">جامعة القرويين</span></h3>
         <div class="label sub">Основан 859 г.</div>
-        <p>Основан от Фатима ал-Фихри, дъщеря на богат търговец от Кайруан, Ал-Карауийн е признат от ЮНЕСКО и Гинес за най-стария непрекъснато действащ университет в света. Библиотеката му, една от най-старите в света, пази Коран от IX век и ръкописи на Ибн Халдун.</p>
+        <p>Основан от Фатима ал-Фихри, дъщеря на богат търговец от Кайруан, Ал-Карауийн е вписан в Рекордите на Гинес като най-старата съществуваща и непрекъснато действаща образователна институция в света и често е наричан най-старият университет. Библиотеката му, една от най-старите в света, пази Коран от IX век и ръкописи на Ибн Халдун.</p>
         <ul class="facts">
-          <li class="hist">Сред учените, учили или преподавали тук, са философът Ибн Рушд (Авероес), историкът Ибн Халдун и еврейският мислител Маймонид. Легенда го свързва и с папа Силвестър II, за когото се казва, че е помогнал арабските цифри да стигнат до Европа.</li>
+          <li class="hist">С него се свързват много велики учени. Историкът Ибн Халдун живее и работи във Фес. Еврейският философ Маймонид живее във Фес около 1160–1165 г.; по-късно предание твърди, че е учил в Ал-Карауийн, но преки доказателства няма. Легенди свързват с институцията и Ибн Рушд (Авероес), и папа Силвестър II, за когото се казва, че е помогнал арабските цифри да стигнат до Европа.</li>
           <li class="tip">Немюсюлмани не могат да влизат в джамията, но през отворените врати може да се надникне в двора.</li>
         </ul>
+        <details class="deep">
+          <summary>Прочети повече · Фатима ал-Фихри и какво означава „университет“ тук</summary>
+          <div class="db">
+            <p>Родът на Фатима ал-Фихри идва от <b>Кайруан</b>, в днешен Тунис. Името Ал-Карауийн означава „на хората от Кайруан“, по квартала на Фес, където се заселили преселниците от този град. Според преданието тя дарява наследството си, за да построи там джамия през <b>859 г.</b> Знанията ни за нея идват главно от по-късни източници, затова подробностите за живота ѝ са несигурни.</p>
+            <p>Около джамията се образуват кръжоци за обучение, както и при други велики джамии, и с вековете тя става един от водещите центрове на знанието в ислямския свят. Изучавали са се Коранът и ислямското богословие, правото (<i>фикх</i>), арабската граматика и реторика, математика, астрономия, медицина и философия.</p>
+            <p>С думата <b>„университет“</b> трябва да се внимава. Средновековният център на знанието не е имал факултети, записване или дипломи в днешния смисъл. Преподавателят лично удостоверявал ученика с разрешение (<i>иджаза</i>) да преподава даден текст. Ал-Карауийн официално става държавен университет през 1963 г.</p>
+            <p class="said"><span class="who">Какво ни каза гидът</span>Днес там се преподава само богословие и могат да учат само мюсюлмани.</p>
+            <p>Съвременният университет Ал-Карауийн е специализиран в ислямски и арабски науки: ислямско право, богословие и арабски език. Някои от факултетите му са в други градове. Не намерих надежден източник за официално правило относно религията на студентите. Това е отделен въпрос от видимото правило, че немюсюлмани не влизат в джамията и молитвените ѝ помещения, което важи за повечето джамии в Мароко.</p>
+            <p class="src">Източници: <a href="https://www.guinnessworldrecords.com/world-records/oldest-university">Рекордите на Гинес</a> · <a href="https://whc.unesco.org/en/list/170">ЮНЕСКО: Медината на Фес</a></p>
+          </div>
+        </details>
       </div>
     </article>
 
@@ -1341,15 +1925,103 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
           <li>Бу Инания (1350–55) е една от малкото религиозни сгради в Мароко, отворени за немюсюлмани. Срещу нея са останките от воден часовник от XIV век с 13 бронзови купи. Никой не знае със сигурност как е работил.</li>
           <li>Зелижът се реже на ръка от глазирани плочки на стотици малки форми, които после се нареждат с лицето надолу като пъзел. Майсторът знае наизуст няколкостотин форми.</li>
         </ul>
+        <details class="deep">
+          <summary>Прочети повече · Двете меринидски медресета</summary>
+          <div class="db">
+            <p>Медресетата са били колежи за висше религиозно образование, главно по ислямско право. Давали са на студентите безплатен подслон, а султаните, които ги основавали, печелели престиж и обучавали съдиите и чиновниците, нужни на държавата им.</p>
+            <ul>
+              <li><b>Ал-Атарин</b> (1323–1325), построено от меринидския султан Абу Саид Осман II до пазара за подправки и парфюми (<i>атарин</i> означава „парфюмеристи“), на няколко крачки от Ал-Карауийн. Малко е и се смята за едно от най-изтънчените.</li>
+              <li><b>Бу Инания</b> (1350–1355), построено от султан Абу Инан Фарис. По-голямо е и необичайно с това, че служи и като петъчна джамия, със собствено минаре.</li>
+            </ul>
+            <p>Двете следват един и същ план: двор с фонтан или басейн за ритуално измиване, молитвена зала и малки голи студентски стаи на горния етаж, всички с изглед към двора. Украсата следва трите пласта: мозайка <b>зелиж</b> долу, <b>резбован гипс</b> в средата и <b>резбован кедър</b> горе, с ивици арабска калиграфия през тях. Стилът е марокански, със силни връзки с Ал-Андалус: строен е в същите десетилетия като насридските дворци на Алхамбра в Гранада, а майстори и идеи са минавали през протока и в двете посоки.</p>
+          </div>
+        </details>
       </div>
     </article>
 
     <article class="stop" data-stop="royalfes">
-      <figure><img src="img/royalfes.jpg" alt="Позлатените месингови врати на Кралския дворец във Фес" loading="lazy"><figcaption>Дар ал-Махзен, Фес</figcaption></figure>
+      <figure><img src="img/royalfes.jpg" alt="Позлатените метални врати на Кралския дворец във Фес" loading="lazy"><figcaption>Дар ал-Махзен, Фес</figcaption></figure>
       <div>
         <h3>Портите на Кралския дворец <span class="ar">دار المخزن</span></h3>
         <div class="label sub">Фес ел-Джедид</div>
-        <p>Самият дворец е затворен за посетители, но седемте му позлатени месингови врати, обрамчени със зелиж и резбован кедър, са едно от най-хубавите места за снимки във Фес. Фес ел-Джедид („Новият Фес“) е построен от Меринидите през 1276 г. До него е Мелах, старият еврейски квартал, който се познава по дървените балкони към улицата.</p>
+        <p>Самият дворец е затворен за посетители, но седемте му позлатени метални врати, обрамчени със зелиж и резбован кедър, са едно от най-хубавите места за снимки във Фес. Фес ел-Джедид („Новият Фес“) е построен от Меринидите през 1276 г. До него е Мелах, старият еврейски квартал, който се познава по дървените балкони към улицата.</p>
+        <details class="deep">
+          <summary>Прочети повече · Дар ал-Махзен и датата на портата</summary>
+          <div class="db">
+            <p><i>Дар ал-Махзен</i> означава „домът на Махзена“ – традиционното име на мароканската кралска власт. Кралски дворец има тук, откакто Меринидите основават Фес ел-Джедид през 1276 г. като свой нов кралски град до старата медина. По-късните династии, особено Алауитите, многократно го преустройват и разширяват. Днес територията му е огромна, с дворове, градини и павилиони. Той все още е кралска резиденция, затова вътрешността не е отворена за обикновени посетители.</p>
+            <p class="saw"><span class="who">Какво видях</span>Датата <b>1968</b>, гравирана на една от портите.</p>
+            <p>Това съвпада с известното за фасадата: монументалният вход към площада със седемте врати е преустроен през втората половина на XX век при крал Хасан II. Така че 1968 най-вероятно отбелязва изработката или обновяването на портата, а не възрастта на двореца, който е много векове по-стар.</p>
+            <p>Вратите са витрина на традиционните марокански занаяти: полирани метални пана със златист цвят, геометрични мотиви и тежки чукала, обрамчени със зелиж, резбован гипс и резбован кедър под покрив от зелени керемиди. Ще чуеш различни обяснения какво символизират седемте врати, но не намерих надежден източник за нито едно от тях.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Мелах <span class="ar">الملاح</span></h3>
+        <div class="label sub">Еврейският квартал на Фес ел-Джедид</div>
+        <p>До стените на двореца е Мелах – първият еврейски квартал в Мароко, създаден през XV век, когато евреите от Фес са преместени тук, близо до закрилата на султана. Името обикновено се свързва с арабската дума за сол (<i>милх</i>); защо – е спорно. От улицата се познава по дървените и железните балкони на къщите, отворени към улицата, за разлика от мюсюлманските къщи, които гледат навътре.</p>
+        <details class="deep">
+          <summary>Прочети повече · Евреите в Мароко – 2000 години история</summary>
+          <div class="db">
+            <p>Еврейски общности живеят в Северна Африка много преди исляма, поне от римско време, а някои живеят сред амазигите в Атлас и в оазисите. Историците често разграничават две линии:</p>
+            <ul>
+              <li><b>Тошавим</b> („местните“): по-старите местни марокански еврейски общности, много от тях говорещи арабски или амазигски.</li>
+              <li><b>Мегорашим</b> („прогонените“): сефарадски евреи, пристигнали след прогонването от Испания (1492) и Португалия (1496–97), които донасят испано-еврейските традиции и езика хакетия. С времето двете групи се смесват, а сефарадските обичаи се разпространяват широко.</li>
+            </ul>
+            <p><b>Сефарадски</b> идва от <i>Сефарад</i>, еврейското име на Иберия, и обозначава евреи, чиито традиции се развиват в Испания и Португалия. <b>Ашкеназките</b> евреи развиват традициите си в Централна и Източна Европа, с идиш като ежедневен език. Така че не всички марокански евреи са сефарадски по произход.</p>
+            <p>Мелахът е едновременно закрила и сегрегация: близо до двореца и стражата му, но и отделен квартал с ограничения. С вековете мелахи по модела на Фес се появяват в много марокански градове.</p>
+            <p>В края на 40-те години в Мароко живеят около 250 000–270 000 евреи – най-голямата еврейска общност в мюсюлманския свят. Изселването става на вълни, а не наведнъж: първа вълна към Израел след 1948 г., голяма вълна в края на 50-те и началото на 60-те, и още една след 1967 г., когато мнозина заминават за Франция и Канада (особено френскоговорящия Монреал), както и за Израел и САЩ. Днес в Мароко живеят няколко хиляди евреи, повечето в Казабланка. Конституцията от 2011 г. назовава еврейското наследство като един от компонентите на мароканската идентичност.</p>
+            <p class="src">Източници: <a href="https://worldjewishcongress.org/en/about/communities/MA">Световен еврейски конгрес: Мароко</a> · <a href="https://en.wikipedia.org/wiki/Migration_of_Moroccan_Jews_to_Israel">Изселването на мароканските евреи (обзор с източници)</a></p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Фундуците и Фундук ан-Наджарин <span class="ar">فندق النجارين</span></h3>
+        <div class="label sub">Търговски хан от 1711 г., днес музей на дървото</div>
+        <p><i>Фундук</i> (или <i>фондук</i>) е градската версия на кервансарая. Търговците, пристигнали с керван, спели в стаите на горните етажи, държали стоката и животните си на приземния етаж и търгували в централния двор. Някога във Фес е имало много фундуци; някои още се използват като работилници и складове.</p>
+        <p>Фундук ан-Наджарин („на дърводелците“), построен през 1711 г. до облицования с плочки фонтан Наджарин, е един от най-красивите. От края на 90-те в него се помещава Музеят на изкуствата и занаятите от дърво, с резбовани кедрови врати, тавани и инструменти, и кафене на покрива с изглед към медината.</p>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Майсторите на метал <span class="ar">النحّاسين</span></h3>
+        <div class="label sub">Месинг, мед и звукът на чуковете</div>
+        <p class="saw"><span class="who">Какво видях</span>Посетихме работилница за метал, където майстори оформят и украсяват на ръка подноси, лампи и съдове.</p>
+        <ul>
+          <li><b>Месингът</b> е сплав на мед и цинк: златист и лесен за обработка. <b>Бронзът</b> е мед и калай: по-твърд и по-тъмен. Отвън двете сплави може да изглеждат много сходно, затова без изследване не можеш да кажеш от коя е направена дадена врата или вещ.</li>
+          <li><b>Коването</b> оформя плосък лист в купа или поднос с хиляди удари върху наковалня.</li>
+          <li><b>Гравирането</b> врязва линии в метала и отнема тънка ивица от него.</li>
+          <li><b>Чеканенето</b> работи отпред с тъпи поансони, като избутва метала в шарки, без да отнема нищо.</li>
+          <li><b>Репусето</b> работи отзад и избутва рисунката навън в релеф; обикновено се съчетава с чеканене.</li>
+        </ul>
+        <p>Перфорираните фенери, които хвърлят звезди по стените, се правят, като листът се пробива или изрязва. Металообработването, както зелижът, гипсът и резбованото дърво, е един от занаятите, с които медината на Фес още е известна, предавани в работилниците от майстор на чирак.</p>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Тъкачите и текстилният пазар</h3>
+        <div class="label sub">Шалове, завеси, калъфки за възглавници</div>
+        <p class="saw"><span class="who">Какво видях</span>Тъкачна работилница и текстилните сукове, където се правят и продават шалове, завеси и калъфки за възглавници.</p>
+        <p>На традиционния дървен ръчен стан дългите нишки на <b>основата</b> са опънати по дължина. Тъкачът вдига редуващи се нишки на основата с педали и прекарва нишката на <b>вътъка</b> напречно между тях със совалка, после я набива плътно. Шарките идват от реда, в който се вдигат нишките на основата, и от цветовете на вътъка.</p>
+        <p class="said"><span class="who">Какво ни каза гидът</span>Някои от платовете са от влакна на агаве.</p>
+        <p>Това се продава като <b>сабра</b> (на арабски „кактус/алое“), „кактусова коприна“ или „растителна коприна“. Това е растително влакно с копринен блясък, а не коприна от копринени буби. Традиционно се е извличало от листата на агаве (агавето е сукулент, не съвсем кактус). Днес голяма част от продаваното като сабра всъщност е вискоза – влакно, произведено промишлено от растителна целулоза, така че точният състав на даден шал може да е различен.</p>
+      </div>
+    </article>
+
+    <article class="stop textonly">
+      <div>
+        <h3>Пържени сардини <span class="ar">سردين</span></h3>
+        <div class="label sub">Нещо, което опитах</div>
+        <p class="saw"><span class="who">Какво опитах</span>Опитах пържени сардини.</p>
+        <p>Сардините са гръбнакът на мароканския риболов. Атлантическото крайбрежие, от Сафи и Агадир на юг до Лааюн и Дахла, има едни от най-богатите сардинени зони в света, а Мароко е сред най-големите производители и износители на сардини в света, голяма част от тях консервирани. За мароканците те са ежедневна и достъпна храна: на скара на пристанището, в таджин, като кюфтенца или пържени.</p>
+        <p>Класика е сардините да се покрият с <b>шермула</b> – мароканската марината от нарязан кориандър и магданоз, чесън, кимион, червен пипер, лимонов сок и зехтин. Често две разтворени сардини се слепват с шермула между тях, оваляват се в брашно и се пържат до хрупкавост.</p>
       </div>
     </article>
   </section>
@@ -1492,6 +2164,94 @@ footer h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--ink); }
 <div class="band" aria-hidden="true"><svg><rect width="100%" height="100%" fill="url(#z)"/></svg></div>
 
 <div class="wrap">
+  <section class="notes" id="bg-notes">
+    <div class="label">Бележки от пътя</div>
+    <h2>Вода, слънце и уран</h2>
+    <p>Въпроси, които възникнаха по време на пътуването, от пресъхналите кетари на Скура до огледалата на Нур, и няколко, които ни върнаха у дома, в България.</p>
+
+    <article class="note" id="bg-n-water">
+      <h3>Водният проблем на Мароко и обезсоляването</h3>
+      <p>Мароко е една от най-засегнатите от воден стрес страни в региона. Тя преживя <b>седем поредни сухи години</b> до 2025 г., когато язовирите паднаха до исторически минимуми. Обилните дъждове в началото на 2026 г. напълниха много язовири средно над 70%, но южните басейни, включително Драа около Уарзазат и Скура, се възстановиха много по-слабо, а една влажна зима не заличава годините на изчерпване.</p>
+      <ul>
+        <li><b>Язовирите и подпочвените води</b> са двата главни източника. Големите язовири задържат зимните прииждания, а кладенците, сондажите и кетарите черпят от водоносните пластове. В много райони подпочвената вода се изпомпва по-бързо, отколкото дъждът я възстановява, и нивото ѝ е спаднало с метри или десетки метри.</li>
+        <li><b>Земеделието</b>, особено напояваните експортни култури, използва голямата част от водата в страната. Жадни култури в сухи райони, като дините около Загора, станаха символ на проблема.</li>
+        <li><b>Климатът:</b> по-високите температури увеличават изпарението и нуждите на културите, а валежите стават по-неравномерни.</li>
+      </ul>
+      <h4>Обръщане към морето</h4>
+      <p>Отговорът на държавата е бързото изграждане на инсталации за обезсоляване на морска вода по Атлантическото и Средиземноморското крайбрежие:</p>
+      <ul>
+        <li><b>Агадир (Шука)</b>: работи от 2022 г., около 275 000 м³ на ден, разделени между питейна вода за Голям Агадир и напояване на равнината Шука, с разширение към 400 000 м³ на ден.</li>
+        <li><b>Жорф Ласфар и Сафи</b>: управлявани от фосфатната компания OCP, първоначално за собствените ѝ торови заводи, а все повече и за близките градове и южната част на Казабланка.</li>
+        <li><b>Лааюн</b> разчита на обезсолена вода от десетилетия, а <b>Дахла</b> има голяма инсталация, захранвана с вятърна енергия, за питейна вода и напояване.</li>
+        <li><b>Казабланка</b>: най-големият проект, планиран за 300 млн. м³ годишно при пълно изграждане, с първа фаза от около 200 млн. м³ годишно. В строеж е. През юли 2026 г. министърът на водите заяви, че трябва да започне работа през февруари 2027 г., така че все още не произвежда вода.</li>
+      </ul>
+      <h4>Как работи обратната осмоза</h4>
+      <ol>
+        <li>Морската вода се засмуква и предварително филтрира, за да се махнат пясък, водорасли и частици.</li>
+        <li>Помпи под високо налягане я притискат към специални полупропускливи мембрани.</li>
+        <li>Водните молекули минават; повечето разтворени соли и други вещества се задържат и излизат като концентрирана <b>саламура</b>.</li>
+        <li>Прясната вода е твърде чиста, за да се пие така, затова се минерализира отново и киселинността ѝ се коригира, преди да влезе в мрежата.</li>
+        <li>Саламурата се връща в морето през дифузьори, при контролирани условия, за да се смеси бързо.</li>
+      </ol>
+      <p><b>Ползи:</b> източник, който не зависи от дъжда. <b>Предизвикателства:</b> изразходва много енергия (обикновено 3–4 kWh на м³), така че цената и въглеродният отпечатък зависят от източника на ток; саламурата трябва да се управлява, за да се пази морският живот; и са нужни тръбопроводи и помпени станции, за да стигне водата там, където трябва.</p>
+      <p>Последното е важно за места като Скура. Инсталация на брега не помага автоматично на оазис на 400 км навътре, от другата страна на Висок Атлас. Изпомпването на вода толкова далеч и толкова високо е скъпо. Обезсоляването осигурява главно крайбрежните градове, което може да облекчи натиска върху язовирите и реките, но вътрешните оазиси продължават да зависят от местните подпочвени води и пестеливото им използване.</p>
+      <p class="src">Източници: <a href="https://www.aquatechtrade.com/news/desalination/water-security-morocco-national-water-plan-agadir-plant-upgrade">Aquatech: разширението в Агадир</a> · <a href="https://en.hespress.com/104718-ocp-green-water-expands-desalination-efforts-to-supply-casablanca-south.html">Hespress: обезсоляването на OCP</a> · <a href="https://en.le360.ma/society/morocco-says-casablanca-desalination-plant-to-begin-operating-in-february-2027_VOR5BMALOVGVFKGCUQNMWTTIPA/">Le360: срокът за Казабланка</a> · <a href="https://en.hespress.com/140342-morocco-dam-reserves-at-74-3-double-last-years-volume.html">Hespress: язовирите през 2026</a></p>
+    </article>
+
+    <article class="note" id="bg-n-nuclear">
+      <h3>Мароко и ядрената енергия</h3>
+      <p>Мароко почти няма собствен петрол, газ или въглища и внася голямата част от енергията си. Страната инвестира сериозно в слънчева (Нур) и вятърна енергия, с цел възобновяемите източници да са над половината от инсталираната мощност до 2030 г. Слънцето и вятърът обаче са променливи, затова ядрената енергия периодично се обсъжда като възможен източник на стабилен нисковъглероден ток и евентуално на енергия за мащабно обезсоляване.</p>
+      <p><b>Какво има днес:</b> Мароко <b>няма атомна електроцентрала</b>. Единственият ѝ реактор е малък <b>изследователски реактор</b>, 2 MW TRIGA Mark II в <b>Центъра за ядрени изследвания Маамора</b> край Рабат, управляван от националния център CNESTEN от 2007 г. Изследователският реактор произвежда неутрони за наука, медицински и промишлени изотопи, изпитване на материали и обучение. Той не произвежда електричество. Енергиен реактор е грубо хиляда пъти по-мощен и е построен да върти турбини.</p>
+      <p><b>Плановете:</b> ядрената енергетика се проучва от 80-те години. Мароко е изградила регулатор и правна рамка, работи тясно с МААЕ и е подписала споразумения за сътрудничество с няколко държави, а интересът към малките модулни реактори расте. Към 2026 г. обаче това остават проучвания и дългосрочни възможности: не е взето решение за изграждане на атомна централа и няма одобрен проект.</p>
+      <p class="src">Източници: <a href="https://www.iaea.org/sites/default/files/21/07/national_report_of_morocco_for_the_8th_review_meeting.pdf">Национален доклад на Мароко до МААЕ</a> · <a href="https://en.hespress.com/107428-107428.html">Hespress: ядрените планове са замразени</a></p>
+    </article>
+
+    <article class="note" id="bg-n-phosphate">
+      <h3>Уранът, скрит във фосфатите</h3>
+      <p>Мароко (заедно със Западна Сахара) държи около 70% от известните световни запаси на фосфати, добивани около Хурибга, Бенгерир и Букраа. Фосфорът е едно от трите основни хранителни вещества за растенията (заедно с азота и калия) и без него не расте нито една култура, затова фосфатните торове са жизненоважни за световното производство на храна.</p>
+      <p>Фосфатната скала е главно минералът <b>апатит</b> – калциев фосфат с обща формула Ca<sub>5</sub>(PO<sub>4</sub>)<sub>3</sub>(F,OH,Cl). Докато тези седименти се образуват по древното морско дъно, разтвореният във водата уран се включва в кристалната решетка, където урановите йони могат да заемат мястото на калциеви йони с подобен размер. В резултат фосфатната скала обикновено съдържа <b>от десетки до няколкостотин части на милион</b> уран. За мароканските находища се посочват около 50–200 ppm, като количеството силно варира между находищата.</p>
+      <p>Производството на торове обикновено започва с разтваряне на скалата в сярна киселина до <b>фосфорна киселина</b>. Голяма част от урана преминава в разтвора заедно с нея. После може да се извлече чрез <b>екстракция с разтворители</b>, при която органична течност, свързваща избирателно урана, се смесва с киселината и после се отделя, или чрез <b>йонен обмен</b> върху специални смоли. Няколко държави го правят промишлено през 80-те и 90-те, а Мароко планира пилотно извличане в заводите си за фосфорна киселина по това време, но се отказва като твърде скъпо.</p>
+      <p>Дори извлеченият уран е далеч от гориво. Концентратът („жълт кейк“) трябва да се <b>конвертира</b> в уранов хексафлуорид, да се <b>обогати</b> (за повечето типове реактори) и после да се превърне в таблетки и касети в завод за <b>производство на гориво</b>. Мароко няма нито едно от тези съоръжения.</p>
+      <p>Голям ресурс не означава икономически изгоден ресурс. Дали извличането се изплаща, зависи от цената на урана, разходите по процеса и икономиката на самите торови заводи. Не намерих доказателства, че Мароко днес произвежда значими търговски количества уран от фосфати, макар идеята редовно да се обсъжда.</p>
+      <p class="src">Източници: <a href="https://world-nuclear.org/information-library/nuclear-fuel-cycle/uranium-resources/uranium-from-phosphates">World Nuclear Association: уран от фосфати</a> · <a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-phosphate.pdf">USGS: фосфатни запаси</a></p>
+    </article>
+
+    <article class="note" id="bg-n-seawater">
+      <h3>Уран в морската вода</h3>
+      <p>Морската вода съдържа около <b>3,3 микрограма уран на литър</b>, грубо 3 милиграма в кубичен метър. Разпределено в обема на океаните, това прави около <b>4,5 милиарда тона</b> – стотици пъти повече от всички известни находища на сушата.</p>
+      <p>Проблемът е концентрацията. За да събереш един килограм, ще трябва да обработиш стотици милиони литри вода. Затова изследователи в Япония, САЩ, Китай и другаде разработват пасивни <b>адсорбенти</b>, вместо да изпомпват и пречистват вода. Най-известните са полимерни влакна или плитки с присадени <b>амидоксимни</b> групи, които силно свързват уранилови йони. Влакната се закотвят в морето за седмици, после се изтеглят и се промиват с киселина или друг разтвор, за да се отдели уранът, който след това може да се пречисти. В американски изпитания, публикувани през 2016 г., най-добрите материали улавят около 3–4 грама уран на килограм влакно след 56 дни в естествена морска вода.</p>
+      <p>Предизвикателствата са големи: много ниската концентрация; <b>конкурентните йони</b> като ванадий, които също полепват по влакната; <b>обрастването</b> с водорасли и други организми; бурите и теченията; и цената и енергията за производство, разполагане, прибиране и регенериране на огромни количества влакна. Засега това са лабораторни и пилотни изследвания, а не търговски източник на уран.</p>
+      <p class="src">Източници: <a href="https://www.osti.gov/biblio/1265762">Gill et al., Ind. Eng. Chem. Res. 2016 (US DOE / OSTI)</a> · <a href="https://www.epj-n.org/articles/epjn/full_html/2016/01/epjn150059/epjn150059.html">CEA: Extraction of uranium from seawater, a few facts (EPJ N, 2016)</a></p>
+    </article>
+
+    <article class="note" id="bg-n-bulgaria">
+      <h3>А междувременно у дома: урановите мини на България</h3>
+      <p>България е производител на уран в продължение на половин век. Добивът започва в малък мащаб в края на 30-те години в Готен край <b>Бухово</b>, точно до София. След Втората световна война производството е силно разширено от 1946 г. от съвместно съветско-българско дружество, а по-късно от държавното предприятие „Редки метали“. Рудата и концентратът отиват в Съветския съюз.</p>
+      <p>През следващите десетилетия се разработват десетки находища, сред тях Бухово и <b>Елешница</b> край Разлог, с преработвателни заводи и на двете места. По-късно все повече уран се добива чрез подземно излужване – изпомпване на киселинни разтвори под земята. Изследванията оценяват общия исторически добив на около <b>16 000 тона уран</b>.</p>
+      <p>През 1992 г. правителството решава да закрие урановата промишленост (обикновено се цитира Постановление № 163 на Министерския съвет от 20 август 1992 г.), а производството е прекратено през следващите две години. Причините са смесица от икономика (ниските световни цени след Студената война и загубата на съветския пазар), екологични щети (замърсена вода, отпадъчна скала и хвостохранилища) и загриженост за здравето на миньорите и живеещите наблизо. Рекултивацията на бившите мини и заводи започва в края на 90-те с постановление от 1998 г., а водата, почвата и радиацията на старите обекти се следят и днес.</p>
+      <p>Българският уран никога не е зареждал пряко български реактори. Страната няма заводи за конверсия, обогатяване или производство на гориво, затова <b>„Козлодуй“ винаги е работил с внос на гориво</b> – исторически от Съветския съюз и Русия, а напоследък и от Westinghouse.</p>
+      <p class="src">Източници: <a href="https://journals.ru.lv/index.php/ETR/article/view/8002">Урановите мини в България 30 години след закриването им (Environment. Technology. Resources, 2024)</a> · <a href="https://wise-uranium.org/uddbg.html">WISE Uranium Project: България</a> · <a href="https://world-nuclear-news.org/articles/first-batch-of-westinghouse-fuel-loaded-at-bulgari">WNN: първото гориво на Westinghouse в „Козлодуй“ (2024)</a></p>
+    </article>
+
+    <article class="note" id="bg-n-compare">
+      <h3>„Козлодуй“ и Noor Ouarzazate един до друг</h3>
+      <div class="tblwrap"><table class="wx">
+        <thead><tr><th></th><th>АЕЦ „Козлодуй“ (България)</th><th>Noor Ouarzazate (Мароко)</th></tr></thead>
+        <tbody>
+          <tr><td>Технология</td><td>2 реактора с вода под налягане (ВВЕР-1000), блокове 5 и 6</td><td>3 CSP централи (корита, кула) + 1 фотоволтаична</td></tr>
+          <tr><td>Инсталирана мощност</td><td class="n">~2000 MW</td><td class="n">~580 MW</td></tr>
+          <tr><td>Годишно производство</td><td>16,2 TWh през 2023 г. (реално, по годишния отчет на централата)</td><td>~1,5 TWh годишно, очаквани за Noor I–III при планирането (не реално производство)</td></tr>
+          <tr><td>Работи ли нощем?</td><td>Да, денонощно</td><td>Noor I–III няколко часа от съхранена топлина; Noor IV – не</td></tr>
+          <tr><td>Гориво</td><td>Внесен обогатен уран</td><td>Слънчева светлина</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Мощността (MW)</b> е максималната мощност в даден момент. <b>Производството (MWh, TWh)</b> е колко енергия се доставя за година. Съотношението между реалното производство и теоретичния максимум е <b>коефициентът на използване</b>. Двата реактора на „Козлодуй“ работят с над 90% през 2023 г. Слънчевата централа произвежда само докато грее слънце, плюс няколко часа от съхранението, затова коефициентът ѝ е много по-нисък: планираните стойности на CSP централите отговарят на около една трета.</p>
+      <p>Затова сравнението само по MW е подвеждащо. „Козлодуй“ има около 3,5 пъти мощността на Нур, но произвежда приблизително десет пъти повече ток за година. Данните по-горе не са от една и съща година, нито от един и същ вид източник (реално срещу очаквано производство), така че съотношението е порядък, а не точно число.</p>
+      <p>Всяка технология има своите компромиси. Ядрената дава стабилно производство, но изисква гориво, дълго строителство и дългосрочно управление на отпадъците. Слънчевата няма нужда от гориво и пасва на слънцето в Мароко, но изисква съхранение и резерв. Резервоарите със стопена сол правят Нур една от слънчевите централи, които най-добре могат да дават ток след мръкване. Noor IV, като фотоволтаична централа без съхранение, не може.</p>
+      <p class="src">Източници: <a href="https://kznpp.org/upload/35233/Kozloduy_NPP_AR_2023.pdf?inline=1">Годишен отчет на АЕЦ „Козлодуй“ за 2023 г.</a> · <a href="https://pris.iaea.org/PRIS/CountryStatistics/CountryDetails.aspx?current=BG">IAEA PRIS: България</a> · <a href="https://en.wikipedia.org/wiki/Ouarzazate_Solar_Power_Station">Ouarzazate Solar Power Station</a></p>
+    </article>
+  </section>
+
   <section class="timeline" id="bg-history">
     <div class="label">Контекст</div>
     <h2>1200 години династии, в реда, в който ще ги срещнеш</h2>
