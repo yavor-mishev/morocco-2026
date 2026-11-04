@@ -120,7 +120,19 @@
     art.insertBefore(fig, art.firstChild);
     var track = fig.querySelector('.car-track'), dots = fig.querySelectorAll('.car-dots i'), cap = fig.querySelector('figcaption');
     function at() { return Math.round(track.scrollLeft / Math.max(1, track.clientWidth)); }
-    function fit() { var i = Math.min(ps.length - 1, Math.max(0, at())); track.style.height = track.children[i].querySelector('img').offsetHeight + 'px'; }
+    // Size every photo from its known width/height, so nothing depends on the image having loaded yet.
+    var hs = [];
+    function layout() {
+      var W = track.clientWidth, maxH = Math.min(window.innerHeight * 0.75, 760);
+      if (!W) return;
+      hs = ps.map(function (p, i) {
+        var h = Math.min(W * p.h / p.w, maxH), w = h * p.w / p.h, im = track.children[i].querySelector('img');
+        im.style.width = Math.round(w) + 'px'; im.style.height = Math.round(h) + 'px';
+        return Math.round(h);
+      });
+      fit();
+    }
+    function fit() { if (!hs.length) return; var i = Math.min(ps.length - 1, Math.max(0, at())); track.style.height = hs[i] + 'px'; }
     function draw() {
       var i = Math.min(ps.length - 1, Math.max(0, at())), im = track.children[i].querySelector('img');
       fit();
@@ -135,7 +147,10 @@
         track.scrollTo({ left: n * track.clientWidth, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
       });
     });
-    if (window.ResizeObserver) new ResizeObserver(function () { fit(); }).observe(fig);
+    var lastW = 0;
+    if (window.ResizeObserver) new ResizeObserver(function () { if (track.clientWidth !== lastW) { lastW = track.clientWidth; layout(); } }).observe(track);
+    else window.addEventListener('resize', layout);
+    layout();
     draw();
   }
 
