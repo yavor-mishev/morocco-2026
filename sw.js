@@ -1,5 +1,5 @@
 // Offline support: precache the booklet, cache fonts and viewed map tiles as you go.
-var V = 'morocco-v12';
+var V = 'morocco-v13';
 var LOCAL = [
 "./",
 "index.html",
@@ -94,6 +94,8 @@ self.addEventListener('fetch', function (e) {
   }
 
   if (url.origin !== self.location.origin) return;
+  // Videos: let the browser stream them directly (range requests), never cache.
+  if (req.headers.has('range') || /\.(mp4|mov|m4v)$/i.test(url.pathname)) return;
 
   // Same origin: always try the network first (revalidated), fall back to the saved copy offline.
   e.respondWith(caches.open(V).then(function (c) {
