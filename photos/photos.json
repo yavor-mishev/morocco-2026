@@ -823,5 +823,137 @@
   "taken": "2026:11:01 15:04:10",
   "en": "",
   "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261101164857-day1.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261101164857-day1.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:01 16:48:57",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261101165028-ip3c.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261101165028-ip3c.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:01 16:50:28",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102092006-kgo2.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102092006-kgo2.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 09:20:06",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102092003-kmpd.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102092003-kmpd.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 09:20:03",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102092013-7jz9.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102092013-7jz9.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 09:20:13",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102092013-krzc.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102092013-krzc.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 09:20:13",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102092012-6i6o.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102092012-6i6o.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 1600,
+  "h": 900,
+  "taken": "2026:11:02 09:20:12",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102093841-51lt.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102093841-51lt.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 09:38:41",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102093841-knsu.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102093841-knsu.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 09:38:41",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102091959-po18.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102091959-po18.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 09:19:59",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102091955-gi3c.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102091955-gi3c.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 09:19:55",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-chebbi-20261102092005-eofd.jpg",
+  "thumb": "photos/thumb/s-chebbi-20261102092005-eofd.jpg",
+  "day": 2,
+  "stop": "chebbi",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:11:02 09:20:05",
+  "en": "",
+  "bg": ""
  }
 ]
