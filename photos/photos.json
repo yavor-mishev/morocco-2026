@@ -1,1 +1,46 @@
-[]
+[
+ {
+  "src": "photos/full/s-restaurant-20261104232747-9li3.jpg",
+  "thumb": "photos/thumb/s-restaurant-20261104232747-9li3.jpg",
+  "day": 1,
+  "stop": "restaurant",
+  "w": 2000,
+  "h": 1125,
+  "taken": "2026:11:04 23:27:47",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-restaurant-20261104232757-csbz.jpg",
+  "thumb": "photos/thumb/s-restaurant-20261104232757-csbz.jpg",
+  "day": 1,
+  "stop": "restaurant",
+  "w": 1125,
+  "h": 2000,
+  "taken": "2026:11:04 23:27:57",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-restaurant-20261104232759-y8qb.jpg",
+  "thumb": "photos/thumb/s-restaurant-20261104232759-y8qb.jpg",
+  "day": 1,
+  "stop": "restaurant",
+  "w": 1125,
+  "h": 2000,
+  "taken": "2026:11:04 23:27:59",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-restaurant-20261104232805-mnzk.jpg",
+  "thumb": "photos/thumb/s-restaurant-20261104232805-mnzk.jpg",
+  "day": 1,
+  "stop": "restaurant",
+  "w": 1125,
+  "h": 2000,
+  "taken": "2026:11:04 23:28:05",
+  "en": "",
+  "bg": ""
+ }
+]
