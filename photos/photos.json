@@ -394,5 +394,93 @@
   "taken": "2026:10:31 15:59:07",
   "en": "",
   "bg": ""
+ },
+ {
+  "src": "photos/full/s-oasis-20261031172419-mj4o.jpg",
+  "thumb": "photos/thumb/s-oasis-20261031172419-mj4o.jpg",
+  "day": 1,
+  "stop": "oasis",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:10:31 17:24:19",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-oasis-20261031172448-2u54.jpg",
+  "thumb": "photos/thumb/s-oasis-20261031172448-2u54.jpg",
+  "day": 1,
+  "stop": "oasis",
+  "w": 1600,
+  "h": 1200,
+  "taken": "2026:10:31 17:24:48",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-oasis-20261031172502-pchz.jpg",
+  "thumb": "photos/thumb/s-oasis-20261031172502-pchz.jpg",
+  "day": 1,
+  "stop": "oasis",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:10:31 17:25:02",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-oasis-20261031172449-tvyf.jpg",
+  "thumb": "photos/thumb/s-oasis-20261031172449-tvyf.jpg",
+  "day": 1,
+  "stop": "oasis",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:10:31 17:24:49",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-oasis-20261031172528-aau6.jpg",
+  "thumb": "photos/thumb/s-oasis-20261031172528-aau6.jpg",
+  "day": 1,
+  "stop": "oasis",
+  "w": 1600,
+  "h": 900,
+  "taken": "2026:10:31 17:25:28",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-oasis-20261031172836-vnxq.jpg",
+  "thumb": "photos/thumb/s-oasis-20261031172836-vnxq.jpg",
+  "day": 1,
+  "stop": "oasis",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:10:31 17:28:36",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-oasis-20261031172844-gg80.jpg",
+  "thumb": "photos/thumb/s-oasis-20261031172844-gg80.jpg",
+  "day": 1,
+  "stop": "oasis",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:10:31 17:28:44",
+  "en": "",
+  "bg": ""
+ },
+ {
+  "src": "photos/full/s-oasis-20261031173005-p4av.jpg",
+  "thumb": "photos/thumb/s-oasis-20261031173005-p4av.jpg",
+  "day": 1,
+  "stop": "oasis",
+  "w": 900,
+  "h": 1600,
+  "taken": "2026:10:31 17:30:05",
+  "en": "",
+  "bg": ""
  }
 ]
